@@ -1,3 +1,0 @@
-Quantum Algorithm repositories:
-    [Zoo](http://quantumalgorithmzoo.org/)
-    [QC UK Repository] (http://github.com/mcoggins96/Quantum-Computing-UK-Repository)
