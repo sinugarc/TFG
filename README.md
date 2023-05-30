@@ -11,7 +11,7 @@ Lista de acciones por hacer:
 - [ ] Comprobar la regla IV de BV e implementarla si fuera necesario
 - [ ] TFG redacción: Resumen/Abstract (Cambiar las Keywords a 3)
 - [ ] TFG redacción: Introducción
-- [x] TFG redacción: Preliminares: Matematicas-Fisica 
+- [x] TFG redacción: Preliminares: Matematicas-Fisica (Comprobado por Adrian)
 - [ ] TFG redacción: Preliminares: Quiskit-PropMetamorficas
 - [ ] TFG redacción: Algoritmos cuánticos
 - [ ] TFG redacción: Propiedades Cuánticas
