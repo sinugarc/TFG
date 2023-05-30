@@ -12,7 +12,7 @@ Lista de acciones por hacer:
 - [ ] TFG redacción: Resumen/Abstract
 - [ ] TFG redacción: Introducción
 - [x] TFG redacción: Preliminares: Matematicas-Fisica (Comprobado por Adrian)
-- [ ] TFG redacción: Preliminares: Quiskit-PropMetamorficas
+- [ ] TFG redacción: Preliminares: Quiskit-PropMetamorficas (Hecho hasta puertas cuánticas)
 - [ ] TFG redacción: Algoritmos cuánticos
 - [ ] TFG redacción: Propiedades Cuánticas
 - [ ] TFG redacción: Conclusiones-Trabajo futuro
