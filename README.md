@@ -1,5 +1,3 @@
-<br>
-
 # Trabajo de Fin de Grado - Estudio de propiedades metamórficas para testing de programas cuánticos
 Este es el repositorio de trabajo de Sinhué García Gil
 
