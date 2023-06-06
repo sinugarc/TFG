@@ -120,7 +120,7 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
  Una vez ya tenemos este elemento básico, vamos a ver como podemos operar sobre él, y sobre varios qubits a la vez. Para ello vamos a usar las puertas cuánticas.
 
 
-\subsection{Puertas cuánticas}
+\subsection{Puertas y circuitos cuánticos}
 
  Partimos ahora del cuarto postulado, en particular el apartado 2 (link). Se podría ver que existe una correspondencia 1 a 1 entre el Hamiltoniano $H$, por ser hermitiano, y un operador unitario $U$. Estos operadores unitarios serán nuestras \textbf{puertas cuánticas} que vamos a usar junto a los qubits. Este postulado viene de la evolución \textbf{determinista} desde un puesto de vista dinámico, donde no se realiza ninguna observación sobre el sistema. La importancia de que estos operadores sean unitarios es que conservan la norma, por lo cual no rompen la condición de normalización de la definición de qubit. \newline
  
@@ -204,14 +204,35 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
  Esta medición viene totalmente determinada por el postulado 3, obtendrá uno de los elementos de la base donde proyectamos con una cierta probabilidad. Que interpretando la fórmula vista anteriormente, esta probabilidad va a ser el cuadrado de su amplitud. Es decir, si $|\varphi \rangle = a |0\rangle + b |1\rangle$ es el estado de un qubit antes de la medición, la probabilidad de que el resultado obtenido sea $|0\rangle$ es $|a|^{2}$ y para $|1\rangle$ será $|b|^{2}$. Lo que hay que tener en cuenta, es que una vez realizada una medición, hemos modificado el qubit y a partir de entonces $|\varphi\rangle = |0\rangle$ o $|\varphi\rangle = |1\rangle$. \newline Para almacenar esta información utilizaremos bits clásicos, por eso podremos observar como la medición se representa con la puerta anterior y la caída hacia el bit clásico donde se almacene.
  
  Con todas estas operaciones, nos ayuda a poner los qubits en los distintos estados queridos y permitir realizar nuestros programas obteniendo una medición final. Al fin y al cabo, un programa cuántico es una sucesión de operaciones (o puertas) aplicadas sobre los qubits del sistema.
+
+  Así que permítanme mostrarles un ejemplo que será utilizado posteriormente y explicado en el capitulo siguiente. Este ejemplo, es la implementación del algoritmo de Bernstein-Vazirani para una cadena s de longitud 4. Lo que debe hacer el algoritmo es descubrir esa cadena.
+
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{TFG/imagenes/BV_circuito.png}
+    \caption{Circuito, algoritmo BV para s de longitud 4} 
+ \end{figure}
+
+ Detallemos brevemente los elementos principales de este circuito:
+ \begin{itemize}
+     \item \textbf{Qubits}: Se representan en las primeras lineas, cada uno en una línea distinta. El circuito de la figura 2.1 se compone de 5 qubits. Entre ellos vemos un qubit llamado anc1, que es un qubit ancilla, auxiliar. Muchas veces este qubit extra almacenará el resultado de las operaciones, ya que nunca deberíamos modificar los datos originales. Se debe seguir el siguiente esquema: \newline
+     
+     \begin{center}$\Qcircuit @C=1em @R=.7em {\lstick{|x\rangle}&  \multigate{1}{U_{f}} &\qw & \rstick{|x\rangle}\\ \lstick{|y\rangle} &\ghost{U_{f}} & \qw & \rstick{|y \oplus f(x)\rangle}}$ \end{center}
+     
+     \item \textbf{Bits clásicos}: Se representan en la ultima fila, todos juntos. Podemos ver el número, en este caso 4, que nos indica el número de bits clásicos que tenemos.
+     \item \textbf{Puertas para un qubit}: Podemos observar puertas ya conocidas como Hadamar, Z o la medición que vemos como cae hacia el cable de bits clásicos indicando en que bit se registra la medición.
+     \item \textbf{Puerta $f_{s}$}: Como ya mencionamos anteriormente puede haber puertas que se apliquen a varios qubits, en este caso tenemos la puerta, o bloque, que replica la función del problema de Bernstein-Vazirani. Dentro de esta puerta tenemos puertas más pequeñas como las presentadas anteriormente en este mismo apartado. En particular, $f_{s}$ tiene puertas CNOT. En diversos algoritmos, se representa esta puerta como un bloque debido a que la podemos entender como un oráculo, del que no sabemos como funciona internamente.
+     \item \textbf{Barreras}: Nos sirven como apoyo para visualizar el algoritmo y poder separar en secciones.
+ \end{itemize}
+
+ Para producir este circuito se puede hacer de distintas maneras, ya sea programando en python con apoyo de qiskit o directamente en IBM es posible poner las cajas de los operadores en los qubits que nos interesan.
  
 \subsection{Simulaciones y ruido} 
- Una vez que ya hemos visto las puertas que podemos usar en un circuito cuántico, solo nos queda entender como se ejecutan estos programas cuánticos, aunque de alguna manera aún no sabemos ni que forma tienen, ni como se representan estos circuitos. Si que podemos entender el concepto de las distintas opciones. (qiskit, intro cuantica)\newline
-
- Para ejecutar estos programas vamos a tener dos posibilidad:
+ Una vez que ya hemos visto las puertas que podemos usar en un circuito cuántico, así como un ejemplo del mismo, veamos una introducción a las distintas opciones para la ejecución, utilizaremos las dos siguientes: (qiskit, intro cuantica)
+ 
  \begin{itemize}
      \item \textbf{Simulación}, en nuestro caso con los simuladores de IBM. Esta posibilidad nos va a ofrecer una simulación teórica de lo que ocurre en nuestro circuito. Será ejecutado a través de un simulador de IBM y nos va a permitir obtener resultados con seguridad y sin ningún problema asociado de errores o ruido.
-     \item \textbf{Ordenador cuántico}, utilizaremos los ordenadores de IBM. La tecnología para la creación de ordenadores cuánticos más fieles sigue avanzando. Esta intenta mitigar los errores que tiene cada operación, así como los errores relacionados con el ruido del entorno que influyen en el estado del sistema modificándolo. Cada ordenador tiene su propia estructura y sus estudios sobre los errores que se cometen en cada qubit, así como calibraciones. Se puede ver en la figura 2.1, los errores de cada qubit así como la estructura del ordenador. Qiskit analizará el circuito y lo adaptará a la arquitectura del sistema elegido para minimizar los errores.
+     \item \textbf{Ordenador cuántico}, utilizaremos los ordenadores de IBM. La tecnología para la creación de ordenadores cuánticos más fieles sigue avanzando. Esta intenta mitigar los errores que tiene cada operación, así como los errores relacionados con el ruido del entorno que influyen en el estado del sistema modificándolo. Cada ordenador tiene su propia estructura y sus estudios sobre los errores que se cometen en cada qubit, así como calibraciones. Se puede ver en la figura 2.2, los errores de cada qubit así como la estructura del ordenador. Qiskit analizará el circuito y lo adaptará a la arquitectura del sistema elegido para minimizar los errores.
  \end{itemize}
 
  Ambas opciones utilizan el mismo mecanismo, repiten el proceso tantas veces como les sea requerido y muestran la frecuencia acumulada de los resultados (mediciones) o directamente las probabilidades sobre el número total de ejecuciones.
@@ -225,7 +246,7 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
  
  \vspace{5pt}
  
- Veamos un ejemplo para entender la diferencia de resultados de utilizar un opción u otra. Para ello vamos a usar los resultados de una implementación del algoritmo de Bernstein-Vazirani que se presentará en el siguiente capítulo. Este algoritmo nos debería dar un resultado único, pero veamos lo que ocurre. \newline
+ Veamos un ejemplo para entender la diferencia de resultados de utilizar un opción u otra. Para ello vamos a usar los resultados del circuito presentado en la figura 2.1 del algoritmo de Bernstein-Vazirani que se presentará en el siguiente capítulo. Este algoritmo nos debería dar un resultado único, pero veamos lo que ocurre. \newline
 
  \begin{figure}[H]
     \centering
@@ -244,7 +265,7 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
  \end{figure}
 \vspace{5pt}
 
-Se puede observar en la figura 2.2 la diferencia entre la simulación teórica (a) y la ejecución con el sistema ibmq\_quito (b). Nuestra simulación nos ha dado únicamente el resultado querido, pero al ejecutarlo en sistema cuántico nos ha dado una variedad de resultados, aunque no todos los posibles. Si bien es cierto que el más probable, con suficiente diferencia, es idéntico al obtenido con la simulación. Cabe destacar de la figura 2.2.b que los de mayor probabilidad, una vez eliminada la solución, son aquellos en los cuales solo varía 1 dígito y por el contrario, el complementario binario no ha aparecido como resultado en todas las ejecuciones realizadas.
+Se puede observar en la figura 2.3 la diferencia entre la simulación teórica (a) y la ejecución con el sistema ibmq\_quito (b). Nuestra simulación nos ha dado únicamente el resultado querido, pero al ejecutarlo en sistema cuántico nos ha dado una variedad de resultados, aunque no todos los posibles. Si bien es cierto que el más probable, con suficiente diferencia, es idéntico al obtenido con la simulación. Cabe destacar de la figura 2.3.b que los de mayor probabilidad, una vez eliminada la solución, son aquellos en los cuales solo varía 1 dígito y por el contrario, el complementario binario no ha aparecido como resultado en todas las ejecuciones realizadas.
 
 \section{Propiedades Metamórficas / Testing metamórfico}
 
