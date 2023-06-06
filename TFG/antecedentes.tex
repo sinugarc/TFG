@@ -23,7 +23,7 @@ Por el Teorema de representación de Riesz, tenemos que $\mathscr{H}$ es anti-is
 
 Denotaremos como ket, $|v\rangle$, a un vector $v$ de $\mathscr{H}$. Análogamente, a toda transformación $w$ de $\mathscr{H}^{*}$, la denotaremos como bra, $\langle w|$. Esta notación es conocida como notación de Dirac y será utilizada en mecánica cuántica.
 
-\vspace{5pt}
+\newpage
 
 Veamos ahora distintas definiciones para operadores:
 \begin{itemize}
@@ -86,7 +86,7 @@ Por otra parte, en física cuántica, el estado y evolución de un sistema viene
         \begin{itemize}
             \item Primer apartado: Cada medida $\mathscr{A}$ esta descrita por un operador hermitiano A que actúa sobre $\mathscr{H}$, decimos que este operador es observable, debido a que sus autovectores forman una base de $\mathscr{H}$. El resultado de medir una cantidad $\mathscr{A}$ debe ser uno de los autovalores correspondientes al observable A.
             \vspace{10pt}
-            \item Segundo apartado: $Prob(\lambda_{i}) =  \dfrac{|| P_{|v_{i}\rangle} | \varphi (t) \rangle||^{2}}{||| \varphi (t) \rangle||^{2}} = \dfrac{| \langle  v_{i}  |  \varphi (t)  \rangle |^{2}}{||| \varphi (t) \rangle||^{2}}$
+            \item Segundo apartado: $Prob(\lambda_{i}) =  \dfrac{||\:P_{|v_{i}\rangle} | \varphi (t) \rangle\:||^{2}}{||\:| \varphi (t) \rangle\:||^{2}} = \dfrac{|\: \langle  v_{i}  |\: \varphi (t)  \rangle\:|^{2}}{||\:| \varphi (t) \rangle\:||^{2}}$
             \vspace{10pt}
             \item Tercer apartado: Si tras realizar una medición $\mathscr{A}$ del estado $|\varphi(t) \rangle$ da como resultado $a_{n}$, entonces el estado del sistema colapsa a la proyección normal de $|\varphi(t) \rangle$ en el subespacio de autovectores asociado a $a_{n}$,  $P_{|v_{n} \rangle} | \varphi (t) \rangle$.
         \end{itemize}
@@ -114,18 +114,19 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
  Si recordamos el postulado 1 de la mecánica cuántica (link), vamos a definir \textbf{qubit} como el sistema cuántico más simple, que va a ser nuestra base en la programación cuántica. Un \textbf{qubit} es un espacio bidimensional, donde vamos a suponer que tomamos la base ortonormal $|0 \rangle = \begin{bmatrix} 1\\0 \end{bmatrix}$ y $|1 \rangle = \begin{bmatrix} 0\\1 \end{bmatrix}$. De aquí podemos obtener la combinación lineal de cualquier vector de estado del qubit, aunque los vectores de estado deben de cumplir la condición de normalización, es decir, si $|\varphi \rangle = a |0\rangle + b |1\rangle = \begin{bmatrix} a\\b \end{bmatrix}$ con $a,b \in \mathbb{C}$, entonces $|a|^{2}+|b|^{2}=1$.\newline
 
 \vspace{5pt}
+
+ (Esfera de Bloch) \newline
+ 
  Una vez ya tenemos este elemento básico, vamos a ver como podemos operar sobre él, y sobre varios qubits a la vez. Para ello vamos a usar las puertas cuánticas.
 
 
 \subsection{Puertas cuánticas}
 
  Partimos ahora del cuarto postulado, en particular el apartado 2 (link). Se podría ver que existe una correspondencia 1 a 1 entre el Hamiltoniano $H$, por ser hermitiano, y un operador unitario $U$. Estos operadores unitarios serán nuestras \textbf{puertas cuánticas} que vamos a usar junto a los qubits. Este postulado viene de la evolución \textbf{determinista} desde un puesto de vista dinámico, donde no se realiza ninguna observación sobre el sistema. La importancia de que estos operadores sean unitarios es que conservan la norma, por lo cual no rompen la condición de normalización de la definición de qubit. \newline
-
- (Esfera de Bloch)
  
- En programación cuántica estos operadores unitarios pueden crearse directamente con una matriz, que cumpla las condiciones necesarias, aunque habitualmente utilizaremos puertas cuánticas (operadores) especificas que son las "utilizadas" en los ordenadores cuánticos reales.(Nielsen)
+ En programación cuántica estos operadores unitarios pueden crearse directamente con una matriz, que cumpla las condiciones necesarias, aunque habitualmente utilizaremos puertas cuánticas (operadores) especificas que son las "utilizadas" en los ordenadores cuánticos reales. (Martín) \newline
 
- Veamos cuales son las puertas cuánticas para un qubit:
+ Veamos cuales son las puertas cuánticas mas útiles para un qubit:(WikipediaEN, Nielsen)
 
  \begin{itemize}
     \item \textbf{Puerta identidad}: $I = \begin{bmatrix} 1 & 0\\0 & 1 \end{bmatrix}$.
@@ -146,16 +147,45 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
         \item $\boldsymbol Z$: La puerta $Z$ viene determinada por la matriz \begin{math} Z = \begin{bmatrix} 1 & 0\\0 & -1 \end{bmatrix}\end{math}.
     \end{itemize}
     
-    \item \textbf{Puerta de Hadamar}, $H$: Probablemente la puerta más interesante de todas, especialmente al aplicarla a distintos qubits simultaneamente, efecto que estudiaremos a continuación. Este operador viene determinado por $H = \dfrac{1}{\sqrt{2}} \begin{bmatrix} 1 & 1\\1 & -1 \end{bmatrix}$. \newline
-     
-    Nos permite poner el qubit en un estado especial
-     
-    \item \textbf{Puerta de fase}, $P(\theta)$:
- \end{itemize}
- 
- Pagine 173-177 (nielsen)
+    \item \textbf{Puerta de Hadamar}, $H$: Este operador viene determinado por $H = \dfrac{1}{\sqrt{2}} \begin{bmatrix} 1 & 1\\1 & -1 \end{bmatrix}$
+    Probablemente la puerta más interesante de todas, nos permite poner el qubit en un estado especial, es más, dichas transformaciones sobre la base tiene su propia notación:
 
-\vspace{20pt}
+    \begin{center}
+        
+    $|+\rangle = H|0\rangle = \dfrac{|0\rangle + |1\rangle}{\sqrt{2}} \quad \quad \quad |-\rangle = H |1\rangle = \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}$\end{center}
+
+    A su vez, al igual que las matrices de Pauli, la matriz de Hadamar realiza una rotación de $\pi$ radianes, pero esta vez sobre el eje $(\hat{x} + \hat{z}) / \sqrt{2}$.
+     
+    \item \textbf{Puerta de cambio de fase}, $P(\theta)$: Esta puerta nos va a permitir realizar rotaciones de un ángulo $\theta$ sobre el eje $\hat{z}$. Y está determinada por $P(\theta) = \begin{bmatrix}1 & 0\\0 & e^{i\theta} \end{bmatrix}$
+
+    Casos particulares de puertas importantes:
+    \begin{itemize}
+        \item $\theta = \pi \Rightarrow Z$
+        \item $\theta = \pi/2 \Rightarrow S$, también conocida como puerta de fase.
+        \item $\theta = \pi/4 \Rightarrow T$
+    \end{itemize}
+ \end{itemize}
+
+ Análogamente, se puede definir las matrices de rotación para los distintos ejes. Y en general, vamos a definir la puerta de rotación sobre un eje cualquiera $\Hat{n}$, esta puerta queda determinada por $R_{\Hat{n}}(\theta) = cos (\frac{\theta}{2})I - i sin(\frac{\theta}{2})(n_{x}X + n_{y}Y + n_{z}Z) $ \newline
+
+ La idea de introducir al lector con esta puerta de rotación, además de su utilidad, se debe a que nos va a permitir presentar el siguiente teorema, probablemente el único en todo el trabajo. Como se mencionó anteriormente, cualquier matriz unitaria 2 x 2, puede definir un operador sobre un qubit, veamos que relación con estas matrices. \newline
+ 
+ \textbf{Teorema, Descomposición Z-Y para un único qubit}(Nielsen,175): Sea $U$ un operador unitario sobre un qubit. Entonces, existen números reales $\alpha,\beta,\gamma$ y $\delta$ tal que:
+ \begin{center}
+     $U = e^{i\alpha} R_{z}(\beta)R_{y}(\gamma)R_{z}(\delta)$
+ \end{center}
+
+ Existe un resultado análogo para X-Y. Este teorema va a permitir descomponer cualquier operador unitario en estas rotaciones y así, los ordenadores cuánticos actuales, puedan procesar cualquier circuito independientemente de las diferencias entre puertas que componen el circuito cuántico y las puertas que dispone el ordenador. (Martín) \newline
+
+ Veamos ahora las puertas más importantes para más de un qubit, en particular nos vamos a fijar en 2 y 3 qubits.
+
+ \begin{itemize}
+     \item \textbf{CNOT}
+     \item \textbf{SWAP}
+     \item \textbf{Toffoli, CCNOT}
+ \end{itemize}
+
+ \vspace{20pt}
  Con estas operaciones nos ayuda a poner los qubits en los distintos estados queridos que nos permitirá realizar nuestros programas cuánticos. Al fin y al cabo, un programa cuántico es una sucesión de operaciones (o puertas) aplicadas sobre los qubits del sistema. \newline
 
 \subsection{Simulaciones}
