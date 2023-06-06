@@ -15,7 +15,7 @@
 %\usepackage{       braket} % Bra-Ket notation package
 %\usepackage{     mathrsfs} % Specialized Math fonts (Hamiltonian, etc.)
 %\usepackage{boxedminipage} % Boxed text can be produced
-%\usepackage{     setspace} % Controls line spacing via \begin{space}
+\usepackage{     setspace} % Controls line spacing via \begin{space}
 
 \usepackage{amsxtra}
 \usepackage{amssymb}
@@ -60,13 +60,15 @@
 
 \input{portada.tex}
     \pdfbookmark[0]{Portada}{PDFPortadaPage}
-
+    
+\begin{spacing}{1.2}
     \input{resumen.tex}
         \pdfbookmark[0]{Resumen}{PDFResumenPage}
 
     \input{abstract.tex}
        \pdfbookmark[0]{Abstract}{PDFAbstractPage}
 
+\end{spacing}
 \newpage
 \pagenumbering{roman}
 \setcounter{page}{1}
@@ -78,6 +80,7 @@
 \phantomsection
 \pagenumbering{arabic}
 \setcounter{page}{1}
+\begin{spacing}{1.2}
 \input{introduccion.tex}
 
 \input{antecedentes.tex}
@@ -89,4 +92,5 @@
 \bibliography{references}
 \addcontentsline{toc}{chapter}{Bibliography}
 
+\end{spacing}
 \end{document}

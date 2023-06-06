@@ -71,10 +71,8 @@ Para empezar, en mecánica clásica, un sistema de N partículas queda definido 
 \vspace{5pt}
 
 Por otra parte, en física cuántica, el estado y evolución de un sistema viene determinado por sus postulados que veremos a continuación (referencia a martín, wikipediaEN, Nielsen), así como una de las posibles interpretaciones que cada uno podría tener. Estos postulados nos ayudaran posteriormente a fijar la base de nuestros programas cuánticos.
+\vspace{10pt}
 
-\vspace{15pt}
-
-\newpage
 \textbf{Postulados cinemáticos o de representación:}
 \begin{itemize}
     \item \textbf{Primer postulado:} El estado en un sistema aislado, en un instante t, se corresponde con $| \varphi (t) \rangle$, en un espacio de Hilbert, $\mathscr{H}$.
@@ -103,7 +101,6 @@ Por otra parte, en física cuántica, el estado y evolución de un sistema viene
 
 Todos estos postulados van a ser clave en los distintos aspectos de la computación cuántica, desde la definición del sistema más simple como el \textit{qubit} hasta las probabilidades en las simulaciones (observaciones).
 
-\newpage
 
 \section{Programación cuántica, Qiskit}
  La programación cuántica se basa en la creación de un circuito o algoritmo cuántico, normalmente representado geométricamente, donde se realizan operaciones (operadores unitarios) sobre los distintos qubits, así como sus mediciones. (quantum for inf)\newline
@@ -131,14 +128,22 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
  Veamos cuales son las puertas cuánticas para un qubit:
 
  \begin{itemize}
-    \item \textbf{Matriz identidad}: $I = \begin{bmatrix} 1 & 0\\0 & 1 \end{bmatrix}$.
+    \item \textbf{Puerta identidad}: $I = \begin{bmatrix} 1 & 0\\0 & 1 \end{bmatrix}$.
     
-    \item \textbf{Matrices/puertas de Pauli}: Estas matrices son la más básicas y nos van a permitir realizar rotaciones de $\pi$ radianes dentro de las esfera de Bloch, cada una sobre el eje que indica su propio nombre.
+    \item \textbf{Puertas de Pauli}: Estas puertas son la más básicas y nos van a permitir realizar rotaciones de $\pi$ radianes dentro de las esfera de Bloch, cada una sobre el eje que indica su propio nombre.
     \begin{itemize}
-        \item $\boldsymbol X$: La puerta $X$ es un operador que viene determinado por la matriz \begin{math} X = \begin{bmatrix} 0 & 1\\1 & 0 \end{bmatrix}\end{math}. Esta puerta sería la análoga a la puerta NOT clásica. \newline
-        Esta p
-        \item $\boldsymbol Y$: La puerta $Y$ es un operador que viene determinado por la matriz \begin{math} Y = \begin{bmatrix} 0 & -i\\i & 0 \end{bmatrix}\end{math}.
-        \item $\boldsymbol Z$: La puerta $Z$ es un operador que viene determinado por la matriz \begin{math} Z = \begin{bmatrix} 1 & 0\\0 & -1 \end{bmatrix}\end{math}.
+        \item $\boldsymbol X$: La puerta $X$ es un operador que viene determinado por la matriz \begin{math} X = \begin{bmatrix} 0 & 1\\1 & 0 \end{bmatrix}\end{math}
+        
+        Esta puerta sería la análoga cuántica a la puerta NOT clásica y nos permite 
+        
+        \vspace{3pt}
+        $|0\rangle \rightarrow |1\rangle$, $|1\rangle \rightarrow |0\rangle$, por lo que dado $|\varphi \rangle = a |0\rangle + b |1\rangle \Rightarrow X|\varphi \rangle = b |0\rangle + a |1\rangle$
+        \vspace{3pt}
+        
+        \item $\boldsymbol Y$: La puerta $Y$ viene determinada por la matriz \begin{math} Y = \begin{bmatrix} 0 & -i\\i & 0 \end{bmatrix}\end{math}.
+        \vspace{3pt}
+        
+        \item $\boldsymbol Z$: La puerta $Z$ viene determinada por la matriz \begin{math} Z = \begin{bmatrix} 1 & 0\\0 & -1 \end{bmatrix}\end{math}.
     \end{itemize}
     
     \item \textbf{Puerta de Hadamar}, $H$: Probablemente la puerta más interesante de todas, especialmente al aplicarla a distintos qubits simultaneamente, efecto que estudiaremos a continuación. Este operador viene determinado por $H = \dfrac{1}{\sqrt{2}} \begin{bmatrix} 1 & 1\\1 & -1 \end{bmatrix}$. \newline
@@ -156,7 +161,7 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
 \subsection{Simulaciones}
 
 \subsection{Ruido}
-Probabilidades de simulación \n
+Probabilidades de simulación
 
 \section{Propiedades Metamórficas / Testing metamórfico}
 
@@ -167,13 +172,13 @@ La definición que aprendemos cuando empezamos a ver trigonometría es que el se
 Veamos ahora que es lo que consideramos formalmente una regla o propiedad metamórfica y como llegamos a los pasos de testing metamórfico: (Metamorfic testing paper)
 
 \begin{itemize}
-    \item \textbf{Relación metamórfica}, PM: Sea $f: X \rightarrow Y$ una función o algoritmo. Se considera que $\mathscr{R} \subseteq X^{n} \times Y^{n}$ es una \textbf{\textit{regla metamórfica}} si es una relación entre una secuencia de entrada $<x_{1},x_{2},...,x_{n}>$ con $n>1$ y sus salidas correspondientes $<f(x_{1}),f(x_{2}),...,f(x_{n})>$, la cual se puede deducir de forma lógica desde el algoritmo. Es decir, es una propiedad necesaria de f.
-    \item \textbf{Entrada original/seguimiento}: Sea $\mathscr{R}$ una relación metamórfica y sea $<x_{1},x_{2},...,x_{k}>$ la secuencia original con sus respectivos resultados. Denotaremos como \textbf{\textit{entrada original}}, source input, a $<x_{1},x_{2},...,x_{k}>$ los cuales son datos definidos o caracterizados, es decir, ya conocidos. A su vez, podemos generar $<x_{k+1},x_{k+2},...,x_{n}>$, los cuales están construidos en base a la entrada original e incluso a la salida de esta. A esta secuencia la llamaremos \textbf{\textit{entrada de seguimiento}}, o en inglés follow-up input.
-    \item \textbf{Grupo metamórfico de entrada}: Llamaremos \textbf{\textit{grupo metamórfico de entrada}} a la secuencia definida por la entrada original y la de seguimiento, es decir, $<x_{1},x_{2},...,x_{k},x_{k+1},...,x_{n}>$.
+    \item \textbf{Relación metamórfica}, PM: Sea $f: X \rightarrow Y$ una función o algoritmo. Se considera que $\mathscr{R} \subseteq X^{n} \times Y^{n}$ es una \textbf{\textit{regla metamórfica}} si es una relación entre una secuencia de entrada $\langle x_{1},x_{2},...,x_{n}\rangle$ con $n>1$ y sus salidas correspondientes $\langle f(x_{1}),f(x_{2}),...,f(x_{n})\rangle$, la cual se puede deducir de forma lógica desde el algoritmo. Es decir, es una propiedad necesaria de f.
+    \item \textbf{Entrada original/seguimiento}: Sea $\mathscr{R}$ una relación metamórfica y sea $\langle x_{1},x_{2},...,x_{k}\rangle$ la secuencia original con sus respectivos resultados. Denotaremos como \textbf{\textit{entrada original}}, source input, a   $\langle x_{1},x_{2},...,x_{k}\rangle$  los cuales son datos definidos o caracterizados, es decir, ya conocidos. A su vez, podemos generar $\langle x_{k+1},x_{k+2},...,x_{n}\rangle$, los cuales están construidos en base a la entrada original e incluso a la salida de esta. A esta secuencia la llamaremos \textbf{\textit{entrada de seguimiento}}, o en inglés follow-up input.
+    \item \textbf{Grupo metamórfico de entrada}: Llamaremos \textbf{\textit{grupo metamórfico de entrada}} a la secuencia definida por la entrada original y la de seguimiento, es decir, $\langle x_{1},x_{2},...,x_{k},x_{k+1},...,x_{n}\rangle$.
     \item \textbf{Testing metamórfico}, TM: Sea $f$ la función o algoritmo objetivo, $P$ una implementación de $f$ y $\mathscr{R}$ una regla metamórfica de $f$. Para realizar \textbf{\textit{testing metamórfico}} sobre $P$ seguiremos los siguiente pasos:
     \begin{itemize}
         \item Definimos $\mathscr{R}'$ reemplazando $f$ por $P$ en $\mathscr{H}$.
-        \item Dado una entrada original, generamos sus salidas según $P$ y a partir de aquí construimos los casos de seguimiento $<x_{k+1},...,x_{n}>$, entonces obtenemos $<P(x_{k+1}),...,P(x_{n})>$.
+        \item Dado una entrada original, generamos sus salidas según $P$, construimos a partir de estos, los casos de seguimiento $\langle x_{k+1},...,x_{n}\rangle$, y obtenemos $\langle P(x_{k+1}),...,P(x_{n})\rangle$.
         \item Estudiamos los resultados obtenidos respecto a $\mathscr{R}'$. Si no es satisfacible entonces diremos que $P$ no es correcto.
     \end{itemize}
 \end{itemize}
