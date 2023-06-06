@@ -1,0 +1,92 @@
+\documentclass[final, 12pt,oneside]{class_diss}
+
+\bibliographystyle{styles/plain}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{pdfpages}
+
+%\usepackage{     caption2} % Customize captions a bit more
+\usepackage{      amsmath} % American Mathematics Society standards
+%\usepackage{      wrapfig} % Wraps text around a figure or table
+\usepackage{     graphicx} % Extended graphics package.
+%\usepackage{     fancyhdr} % Efficiently handles headers and footers
+%\usepackage{       braket} % Bra-Ket notation package
+%\usepackage{     mathrsfs} % Specialized Math fonts (Hamiltonian, etc.)
+%\usepackage{boxedminipage} % Boxed text can be produced
+%\usepackage{     setspace} % Controls line spacing via \begin{space}
+
+\usepackage{amsxtra}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{latexsym}
+\usepackage{qcircuit}
+
+\usepackage[usenames]{color}
+
+\definecolor{  Pink}{rgb}{1.0, 0.5, 0.5}
+\definecolor{Maroon}{rgb}{0.8, 0.0, 0.0}
+
+\usepackage[sort&compress]{natbib}
+\bibpunct{}{}{,}{s}{}{}
+\usepackage{hypernat}
+
+\usepackage[pdftex, plainpages=false, pdfpagelabels]{hyperref}
+
+\hypersetup{
+    linktocpage=true,
+    colorlinks=true,
+    bookmarks=true,
+    citecolor=blue,
+    urlcolor=red,
+    linkcolor=Maroon,
+    citebordercolor={1 0 0},
+    urlbordercolor={1 0 0},
+    linkbordercolor={.7 .8 .8},
+    breaklinks=true,
+    pdfpagelabels=true,
+    }
+
+\topmargin      = -0.56in
+\textheight     =  8.60in
+\textwidth      =  6.46in
+\oddsidemargin  =  0.02in
+
+
+\begin{document}
+
+\setcounter{page}{-1}
+
+\input{portada.tex}
+    \pdfbookmark[0]{Portada}{PDFPortadaPage}
+
+    \input{resumen.tex}
+        \pdfbookmark[0]{Resumen}{PDFResumenPage}
+
+    \input{abstract.tex}
+       \pdfbookmark[0]{Abstract}{PDFAbstractPage}
+
+\newpage
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+\phantomsection
+\addcontentsline{toc}{chapter}{Índice}
+
+\tableofcontents
+\phantomsection
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\input{introduccion.tex}
+
+\input{antecedentes.tex}
+\input{algoritmos.tex}
+\input{pmetamorphic.tex}
+\input{conclusion.tex}
+
+\bibdata{references}
+\bibliography{references}
+\addcontentsline{toc}{chapter}{Bibliography}
+
+\end{document}

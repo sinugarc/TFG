@@ -1,0 +1,202 @@
+\cleardoublepage
+
+\chapter{Preliminares}
+\label{makereference}
+
+El principal objetivo de este apartado es exponer brevemente al lector las bases, tanto matemáticas como físicas, para poder entender y trabajar con propiedades metamórficas y en particular, su aplicación a la computación cuántica. Para ello, vamos a hacer un breve repaso a conceptos básicos de álgebra lineal en matemáticas, los postulados de la macánica cuántica y una iniciación a la computación cuántica y el testing metamórfico. 
+
+\vspace{5pt}
+Esta sección, que podría ser una simple continuación de la introducción, va a ser más extensa de lo que se podría esperar. Ya que para trabajar de forma cómoda, sobre el tema a tratar, necesitamos un salto en conocimientos que se han tenido que adquirir.
+
+\section{Introducción matemática}
+Para poder desarrollar y entender la mecánica cuántica, que presentaré a continuación, la programación cuántica y en particular, sus algoritmos, vamos a necesitar cierta base matemática y de notación. Quizás, las definiciones que siguen este párrafo pueden parecer aleatorias, aunque todo cobrará sentido conforme vayamos profundizando en la mecánica y programación cuántica.
+
+\vspace{5pt}
+
+Definimos un espacio de Hilbert, $\mathscr{H}$, como un $\mathbb{C}$-espacio vectorial dotado de un producto interno que es completo. En particular, como vamos a tratar solo $\mathbb{C}$-espacios vectoriales con producto interno finitos, este será completo.
+
+\vspace{5pt}
+
+Por el Teorema de representación de Riesz, tenemos que $\mathscr{H}$ es anti-isomorfo a $\mathscr{H}^{*}$, por ser $\mathbb{C}$ nuestro cuerpo base.
+
+\vspace{5pt}
+
+Denotaremos como ket, $|v\rangle$, a un vector $v$ de $\mathscr{H}$. Análogamente, a toda transformación $w$ de $\mathscr{H}^{*}$, la denotaremos como bra, $\langle w|$. Esta notación es conocida como notación de Dirac y será utilizada en mecánica cuántica.
+
+\vspace{5pt}
+
+Veamos ahora distintas definiciones para operadores:
+\begin{itemize}
+    \item Sea $\mathscr{A}:\mathscr{H} \rightarrow \mathscr{H}$ continuo, se denomina adjunto del operador lineal $\mathscr{A}$ al único operador   $\mathscr{A}^{*}:\mathscr{H} \rightarrow \mathscr{H}$ talque $<\mathscr{A}v,w>$ = $<v,\mathscr{A}^{*}w>$.
+    \item Se dice que $\mathscr{A}:\mathscr{H} \rightarrow \mathscr{H}$ es un operador autoadjunto si $\mathscr{A}$ = $\mathscr{A}^{*}$. Por lo cual los autovalores de $\mathscr{A}$ son reales.
+    \item Llamaremos matriz hermitiana a la matriz $A$ que determina el operador autoadjunto $\mathscr{A}$. De aquí obtenemos que $A^{*}$ es la traspuesta conjugada de $A$.
+    \item Se dice que $\mathscr{U}:\mathscr{H} \rightarrow \mathscr{H}$  continuo, es unitario si $<v,w>$ = $<\mathscr{U}v,\mathscr{U}w>$, que en particular es invertible.
+\end{itemize}
+
+\vspace{5pt}
+
+Para finalizar con esta sección vamos a ver una manera de combinar dos espacios vectoriales, en particular, dos espacios de Hilbert que nos permitirá unir dos sistemas cuánticos, esta operación es el producto tensorial.
+
+\vspace{5pt}
+
+Sean $\mathscr{H}$ y $\mathscr{H}'$ dos espacios de Hilbert, llamaremos producto tensorial de $\mathscr{H}$ y $\mathscr{H}'$ , $\mathscr{H} \otimes \mathscr{H}'$, al espacio que tiene como base a los $|i\rangle \otimes |j\rangle$ donde $|i\rangle$ y $|j\rangle$ pertenecen a una base ortonormal de $\mathscr{H}$ y $\mathscr{H}'$ respectivamente. (Nielsen)
+
+\vspace{5pt}
+Por definición el producto tensorial tiene la linealidad y asociatividad por la izquierda y por la derecha. Además los productor internos de $\mathscr{H}$ y $\mathscr{H}'$ inducen naturalmente un producto interno en $\mathscr{H} \otimes \mathscr{H}'$ por lo que hereda la estructura y con ellos las nociones de adjunto, unitario, normalidad y hermitianidad.
+
+\vspace{5pt}
+Para entender mejor este producto, ya que tiene gran importancia en la mecánica cuántica, veamos su representación matricial como el producto de Kronecker, donde si $A$ y $B$ son 2 matrices, entonces:
+
+\begin{equation*}
+A\otimes B = \begin{bmatrix}
+A_{11}B & A_{12}B & ... & A_{1n}B\\
+A_{21}B & A_{22}B & ... & A_{2n}B\\
+\vdots & \vdots & \ddots & \vdots\\
+A_{m1}B & A_{m2}B & ... & A_{mn}B
+\end{bmatrix}
+\end{equation*}
+
+\vspace{5pt}
+Aquí se puede observar el crecimiento exponencial de las dimensiones de la matriz con la que se trabaja al operar sobre sucesivas matrices o, como veremos a continuación, la unión de distintos sistemas cuánticos.
+
+\vspace{15pt}
+
+\section{Introducción cuántica}
+La base principal para el comienzo de la computación cuántica fue el desarrollo de la física cuántica. Para poder entender mejor que variaciones e implicaciones tiene, vamos a ver los postulados de la mecánica cuántica y sus diferencias con la mecánica Newtoniana. Aquí encontrará sentido la base matemática presentada en 2.1. (referencia?)
+
+\vspace{5pt}
+
+Para empezar, en mecánica clásica, un sistema de N partículas queda definido por un vector en un espacio $\mathbb{R}^{3N} \times \mathbb{R}^{3N}$ donde las primeras coordenadas definen la posición y las últimas la velocidad. La evolución de este sistema se rige por la segunda Ley de Newton que relaciona la fuerza con la aceleración y la masa.
+
+\vspace{5pt}
+
+Por otra parte, en física cuántica, el estado y evolución de un sistema viene determinado por sus postulados que veremos a continuación (referencia a martín, wikipediaEN, Nielsen), así como una de las posibles interpretaciones que cada uno podría tener. Estos postulados nos ayudaran posteriormente a fijar la base de nuestros programas cuánticos.
+
+\vspace{15pt}
+
+\newpage
+\textbf{Postulados cinemáticos o de representación:}
+\begin{itemize}
+    \item \textbf{Primer postulado:} El estado en un sistema aislado, en un instante t, se corresponde con $| \varphi (t) \rangle$, en un espacio de Hilbert, $\mathscr{H}$.
+    
+    \item \textbf{Segundo Postulado:} El espacio que representa un sistema compuesto es el producto tensorial del los espacios de cada componente del sistema. Es decir, si tuviéramos n componentes, el espacio total sería $|\varphi_{1}\rangle \otimes |\varphi_{2}\rangle \otimes \dotsi \otimes |\varphi_{n}\rangle = |\varphi_{1}\varphi_{2}\dotso \varphi_{n}\rangle$, de forma notacional.
+\end{itemize}
+
+\textbf{Postulados dinámicos:}
+\begin{itemize}
+    \item \textbf{Tercer postulado:} Evolución probabilística, tenemos observador.
+        \begin{itemize}
+            \item Primer apartado: Cada medida $\mathscr{A}$ esta descrita por un operador hermitiano A que actúa sobre $\mathscr{H}$, decimos que este operador es observable, debido a que sus autovectores forman una base de $\mathscr{H}$. El resultado de medir una cantidad $\mathscr{A}$ debe ser uno de los autovalores correspondientes al observable A.
+            \vspace{10pt}
+            \item Segundo apartado: $Prob(\lambda_{i}) =  \dfrac{|| P_{|v_{i}\rangle} | \varphi (t) \rangle||^{2}}{||| \varphi (t) \rangle||^{2}} = \dfrac{| \langle  v_{i}  |  \varphi (t)  \rangle |^{2}}{||| \varphi (t) \rangle||^{2}}$
+            \vspace{10pt}
+            \item Tercer apartado: Si tras realizar una medición $\mathscr{A}$ del estado $|\varphi(t) \rangle$ da como resultado $a_{n}$, entonces el estado del sistema colapsa a la proyección normal de $|\varphi(t) \rangle$ en el subespacio de autovectores asociado a $a_{n}$,  $P_{|v_{n} \rangle} | \varphi (t) \rangle$.
+        \end{itemize}
+        
+        \vspace{5pt}
+    \item \textbf{Cuarto postulado:} Evolución determinista.
+        \begin{itemize}
+            \item Primer apartado: La evolución de un vector $| \varphi (t) \rangle$ está determinado por la ecuación de Schrödinger, $\imath \hbar \dfrac{d|\varphi\rangle}{dt}=H |\varphi\rangle$. Donde H es el Hamiltoniano del sistema, que es un operador hermitiano. Además se entiende H(t) como un observable asociado a la energía total del sistema.
+            \item Segundo apartado: La evolución de un sistema aislado se describe por una transformación unitaria del estado inicial. $| \varphi (t) \rangle = U(t;t_{0})  | \varphi (t_{0}) \rangle$.
+        \end{itemize}
+\end{itemize}
+
+Todos estos postulados van a ser clave en los distintos aspectos de la computación cuántica, desde la definición del sistema más simple como el \textit{qubit} hasta las probabilidades en las simulaciones (observaciones).
+
+\newpage
+
+\section{Programación cuántica, Qiskit}
+ La programación cuántica se basa en la creación de un circuito o algoritmo cuántico, normalmente representado geométricamente, donde se realizan operaciones (operadores unitarios) sobre los distintos qubits, así como sus mediciones. (quantum for inf)\newline
+
+ Para realizar nuestros programas cuánticos y simulaciones nos vamos a apoyar en Qiskit, es un paquete de desarrollo libre creado por IBM para crear y manipular programas cuánticos así como realizara simulaciones(qiskit). Ya sean teóricas o conectando nuestros programas con los ordenadores cuánticos de IBM. Esto nos dará unos resultados más realistas donde podremos apreciar el ruido que hay actualmente en estos ordenadores. (ref apartado ruido) \newline
+ 
+ La programación en Qiskit se basa en el lenguaje Python, por lo cual usaremos este a la hora de programar. Además, para una mejor visualización directa de lo que representa el código utilizaré jupyter notebook. Existiría otra opción, que sería generar los circuitos directamente en la página de IBM de forma geométrica.(qiskit) \newline
+ 
+ Como mencionamos anteriormente los postulados cuánticos nos van a permitir sentar las bases de la computación cuántica, el primer ejemplo es el qubit. \newline
+ 
+ Si recordamos el postulado 1 de la mecánica cuántica (link), vamos a definir \textbf{qubit} como el sistema cuántico más simple, que va a ser nuestra base en la programación cuántica. Un \textbf{qubit} es un espacio bidimensional, donde vamos a suponer que tomamos la base ortonormal $|0 \rangle = \begin{bmatrix} 1\\0 \end{bmatrix}$ y $|1 \rangle = \begin{bmatrix} 0\\1 \end{bmatrix}$. De aquí podemos obtener la combinación lineal de cualquier vector de estado del qubit, aunque los vectores de estado deben de cumplir la condición de normalización, es decir, si $|\varphi \rangle = a |0\rangle + b |1\rangle = \begin{bmatrix} a\\b \end{bmatrix}$ con $a,b \in \mathbb{C}$, entonces $|a|^{2}+|b|^{2}=1$.\newline
+
+\vspace{5pt}
+ Una vez ya tenemos este elemento básico, vamos a ver como podemos operar sobre él, y sobre varios qubits a la vez. Para ello vamos a usar las puertas cuánticas.
+
+
+\subsection{Puertas cuánticas}
+
+ Partimos ahora del cuarto postulado, en particular el apartado 2 (link). Se podría ver que existe una correspondencia 1 a 1 entre el Hamiltoniano $H$, por ser hermitiano, y un operador unitario $U$. Estos operadores unitarios serán nuestras \textbf{puertas cuánticas} que vamos a usar junto a los qubits. Este postulado viene de la evolución \textbf{determinista} desde un puesto de vista dinámico, donde no se realiza ninguna observación sobre el sistema. La importancia de que estos operadores sean unitarios es que conservan la norma, por lo cual no rompen la condición de normalización de la definición de qubit. \newline
+
+ (Esfera de Bloch)
+ 
+ En programación cuántica estos operadores unitarios pueden crearse directamente con una matriz, que cumpla las condiciones necesarias, aunque habitualmente utilizaremos puertas cuánticas (operadores) especificas que son las "utilizadas" en los ordenadores cuánticos reales.(Nielsen)
+
+ Veamos cuales son las puertas cuánticas para un qubit:
+
+ \begin{itemize}
+    \item \textbf{Matriz identidad}: $I = \begin{bmatrix} 1 & 0\\0 & 1 \end{bmatrix}$.
+    
+    \item \textbf{Matrices/puertas de Pauli}: Estas matrices son la más básicas y nos van a permitir realizar rotaciones de $\pi$ radianes dentro de las esfera de Bloch, cada una sobre el eje que indica su propio nombre.
+    \begin{itemize}
+        \item $\boldsymbol X$: La puerta $X$ es un operador que viene determinado por la matriz \begin{math} X = \begin{bmatrix} 0 & 1\\1 & 0 \end{bmatrix}\end{math}. Esta puerta sería la análoga a la puerta NOT clásica. \newline
+        Esta p
+        \item $\boldsymbol Y$: La puerta $Y$ es un operador que viene determinado por la matriz \begin{math} Y = \begin{bmatrix} 0 & -i\\i & 0 \end{bmatrix}\end{math}.
+        \item $\boldsymbol Z$: La puerta $Z$ es un operador que viene determinado por la matriz \begin{math} Z = \begin{bmatrix} 1 & 0\\0 & -1 \end{bmatrix}\end{math}.
+    \end{itemize}
+    
+    \item \textbf{Puerta de Hadamar}, $H$: Probablemente la puerta más interesante de todas, especialmente al aplicarla a distintos qubits simultaneamente, efecto que estudiaremos a continuación. Este operador viene determinado por $H = \dfrac{1}{\sqrt{2}} \begin{bmatrix} 1 & 1\\1 & -1 \end{bmatrix}$. \newline
+     
+    Nos permite poner el qubit en un estado especial
+     
+    \item \textbf{Puerta de fase}, $P(\theta)$:
+ \end{itemize}
+ 
+ Pagine 173-177 (nielsen)
+
+\vspace{20pt}
+ Con estas operaciones nos ayuda a poner los qubits en los distintos estados queridos que nos permitirá realizar nuestros programas cuánticos. Al fin y al cabo, un programa cuántico es una sucesión de operaciones (o puertas) aplicadas sobre los qubits del sistema. \newline
+
+\subsection{Simulaciones}
+
+\subsection{Ruido}
+Probabilidades de simulación \n
+
+\section{Propiedades Metamórficas / Testing metamórfico}
+
+Informalmente entendemos como propiedad metamórfica aquella que podemos derivar de forma lógica de una definición o especificación. Empecemos con un ejemplo para ponernos en situación, nos vamos a fijar en la función seno, $f(x)=sin(x)$.\newline
+
+La definición que aprendemos cuando empezamos a ver trigonometría es que el seno es la proporción entre el cateto opuesto y la hipotenusa en un triángulo rectángulo. Teniendo esta imagen la cabeza es muy fácil darse cuenta que $sin(x)=sin(x + 2\pi)=sin(\pi-x)$. Estas son dos propiedades metamórficas de la función seno. \newline
+
+Veamos ahora que es lo que consideramos formalmente una regla o propiedad metamórfica y como llegamos a los pasos de testing metamórfico: (Metamorfic testing paper)
+
+\begin{itemize}
+    \item \textbf{Relación metamórfica}, PM: Sea $f: X \rightarrow Y$ una función o algoritmo. Se considera que $\mathscr{R} \subseteq X^{n} \times Y^{n}$ es una \textbf{\textit{regla metamórfica}} si es una relación entre una secuencia de entrada $<x_{1},x_{2},...,x_{n}>$ con $n>1$ y sus salidas correspondientes $<f(x_{1}),f(x_{2}),...,f(x_{n})>$, la cual se puede deducir de forma lógica desde el algoritmo. Es decir, es una propiedad necesaria de f.
+    \item \textbf{Entrada original/seguimiento}: Sea $\mathscr{R}$ una relación metamórfica y sea $<x_{1},x_{2},...,x_{k}>$ la secuencia original con sus respectivos resultados. Denotaremos como \textbf{\textit{entrada original}}, source input, a $<x_{1},x_{2},...,x_{k}>$ los cuales son datos definidos o caracterizados, es decir, ya conocidos. A su vez, podemos generar $<x_{k+1},x_{k+2},...,x_{n}>$, los cuales están construidos en base a la entrada original e incluso a la salida de esta. A esta secuencia la llamaremos \textbf{\textit{entrada de seguimiento}}, o en inglés follow-up input.
+    \item \textbf{Grupo metamórfico de entrada}: Llamaremos \textbf{\textit{grupo metamórfico de entrada}} a la secuencia definida por la entrada original y la de seguimiento, es decir, $<x_{1},x_{2},...,x_{k},x_{k+1},...,x_{n}>$.
+    \item \textbf{Testing metamórfico}, TM: Sea $f$ la función o algoritmo objetivo, $P$ una implementación de $f$ y $\mathscr{R}$ una regla metamórfica de $f$. Para realizar \textbf{\textit{testing metamórfico}} sobre $P$ seguiremos los siguiente pasos:
+    \begin{itemize}
+        \item Definimos $\mathscr{R}'$ reemplazando $f$ por $P$ en $\mathscr{H}$.
+        \item Dado una entrada original, generamos sus salidas según $P$ y a partir de aquí construimos los casos de seguimiento $<x_{k+1},...,x_{n}>$, entonces obtenemos $<P(x_{k+1}),...,P(x_{n})>$.
+        \item Estudiamos los resultados obtenidos respecto a $\mathscr{R}'$. Si no es satisfacible entonces diremos que $P$ no es correcto.
+    \end{itemize}
+\end{itemize}
+
+La estrategia presentada anteriormente para TM, será la que se siga en la implementación de las propiedades que se obtendrán a lo largo de este documento. \newline
+
+Para finalizar con esta introducción vamos a revisar brevemente un par de ventajas y retos que presenta el camino que estamos tomando para probar la corrección, o más bien la no corrección, de un algoritmo. \newline
+
+\textbf{Ventajas}:
+\begin{itemize}
+    \item \textbf{Simplicidad}. El concepto e interpretación de una PM es bastante simple en comparación con otros conceptos que se utilizan dentro del campo del testing. Se ha visto en estudios, que incluso gente con poca experiencia, podrían utilizar estas técnicas en relativamente poco tiempo de forma efectiva.(ref 55,73 del paper de testing)
+    \item \textbf{Facilidad en la implementación}. Si partimos de la ventaja anterior como es la simplicidad de la definición, podemos continuar que la implementación de este test es prácticamente seguir los pasos explicados en la definición de TM (link a la definicion).
+\end{itemize}
+
+\vspace{10pt}
+
+\textbf{Retos}:
+\begin{itemize}
+    \item \textbf{Generación efectiva de los grupos metamórficos de entrada}. Aun se sigue estudiando que garantías tenemos en la efectividad que puede tener la elección del grupo metamórfico de entrada en la demostración de la corrección de un algoritmo y en particular, la forma en la que obtenemos nuestra entrada original, ya que la entrada de seguimiento la generamos a partir de esta. Al fin y al cabo nuestro objetivo es maximizar la identificación de errores o defectos en $P$.
+    \item \textbf{Estructura del TM}. Debido a la juventud de este tipo de testing y la gran variedad de PM, aun no hay un acuerdo sobre una estructura definida y formal que nos proporcione seguridad en nuestra pruebas y englobe a todas las posibilidades que tenemos dentro de las PM. Aunque, si bien es cierto, ya ha ayudado a identificar diversos errores en sistemas muy estudiados con otros métodos de testing, como por ejemplo los compiladores GCC y LLVM de C, en los cuales encontró más de 100 defectos (\textit{faults}). (ref 50,51,78)
+\end{itemize}
+
+Los retos de TM pueden ser una buena base para todo el trabajo futuro que se puede realizar en este campo y las posibilidades que este nos puede ofrecer. Trataremos en más profundidad estás posibilidades en el apartado 5.2 de posibles trabajos futuros (link)
+
+
+
