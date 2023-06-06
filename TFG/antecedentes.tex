@@ -210,16 +210,41 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
 
  Para ejecutar estos programas vamos a tener dos posibilidad:
  \begin{itemize}
-     \item \textbf{Simulación}, en nuestro caso con Qiskit. Esta posibilidad nos va a ofrecer una simulación teórica de lo que ocurre en nuestro circuito. Será ejecutado en un ordenador clásico y nos aa a permitir obtener resultados con seguridad y sin ningún problema asociado de errores o ruido.
-     \item \textbf{Ordenador cuántico}, utilizaremos los ordenadores de IBM. La tecnología para la creación de ordenadores cuánticos más fieles sigue avanzando. Esta intenta mitigar los errores que tiene cada operación, así como los errores relacionados con el ruido del entorno influyen en el estado del sistema. Cada ordenador tiene si propia estructura y sus estudios sobre 
+     \item \textbf{Simulación}, en nuestro caso con los simuladores de IBM. Esta posibilidad nos va a ofrecer una simulación teórica de lo que ocurre en nuestro circuito. Será ejecutado a través de un simulador de IBM y nos va a permitir obtener resultados con seguridad y sin ningún problema asociado de errores o ruido.
+     \item \textbf{Ordenador cuántico}, utilizaremos los ordenadores de IBM. La tecnología para la creación de ordenadores cuánticos más fieles sigue avanzando. Esta intenta mitigar los errores que tiene cada operación, así como los errores relacionados con el ruido del entorno que influyen en el estado del sistema modificándolo. Cada ordenador tiene su propia estructura y sus estudios sobre los errores que se cometen en cada qubit, así como calibraciones. Se puede ver en la figura 2.1, los errores de cada qubit así como la estructura del ordenador. Qiskit analizará el circuito y lo adaptará a la arquitectura del sistema elegido para minimizar los errores.
  \end{itemize}
 
- Ambas opciones utilizan el mismo mecanismo, repiten el proceso tantas veces como les sea requerido y acumulan los resultados, mostrando una acumulación 
+ Ambas opciones utilizan el mismo mecanismo, repiten el proceso tantas veces como les sea requerido y muestran la frecuencia acumulada de los resultados (mediciones) o directamente las probabilidades sobre el número total de ejecuciones.
+
  
- Por ello vamos a realizar un ejemplo muy sencillo que nos permita introducir el tipo de ejecución y además entender que es el ruido en una máquina cuántica real. \newline
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{TFG/imagenes/system_error_manhattan.png}
+    \caption{Mapa de errores del ibmq\_manhattan} 
+ \end{figure}
+ 
+ \vspace{5pt}
+ 
+ Veamos un ejemplo para entender la diferencia de resultados de utilizar un opción u otra. Para ello vamos a usar los resultados de una implementación del algoritmo de Bernstein-Vazirani que se presentará en el siguiente capítulo. Este algoritmo nos debería dar un resultado único, pero veamos lo que ocurre. \newline
 
- Veamos que ocurre
+ \begin{figure}[H]
+    \centering
+    \begin{subfigure}[H]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{TFG/imagenes/BV_simulación.png}
+        \caption{Simulación}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[H]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{TFG/imagenes/BV_ruido.png}
+        \caption{Sistema cuántico}
+    \end{subfigure}
+        \caption{Diferencias en resultados de ejecución del algoritmo de Bernstein-Vazirani}
+ \end{figure}
+\vspace{5pt}
 
+Se puede observar en la figura 2.2 la diferencia entre la simulación teórica (a) y la ejecución con el sistema ibmq\_quito (b). Nuestra simulación nos ha dado únicamente el resultado querido, pero al ejecutarlo en sistema cuántico nos ha dado una variedad de resultados, aunque no todos los posibles. Si bien es cierto que el más probable, con suficiente diferencia, es idéntico al obtenido con la simulación. Cabe destacar de la figura 2.2.b que los de mayor probabilidad, una vez eliminada la solución, son aquellos en los cuales solo varía 1 dígito y por el contrario, el complementario binario no ha aparecido como resultado en todas las ejecuciones realizadas.
 
 \section{Propiedades Metamórficas / Testing metamórfico}
 
