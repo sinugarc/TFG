@@ -13,24 +13,24 @@ Para poder desarrollar y entender la mecánica cuántica, que presentaré a cont
 
 \vspace{5pt}
 
-Definimos un espacio de Hilbert, $\mathscr{H}$, como un $\mathbb{C}$-espacio vectorial dotado de un producto interno que es completo. En particular, como vamos a tratar solo $\mathbb{C}$-espacios vectoriales con producto interno finitos, este será completo.
+Definimos un \textbf{espacio de Hilbert}, $\mathscr{H}$, como un $\mathbb{C}$-espacio vectorial dotado de un producto interno que es completo. En particular, como vamos a tratar solo $\mathbb{C}$-espacios vectoriales con producto interno finito, este será completo.
 
 \vspace{5pt}
 
-Por el Teorema de representación de Riesz, tenemos que $\mathscr{H}$ es anti-isomorfo a $\mathscr{H}^{*}$, por ser $\mathbb{C}$ nuestro cuerpo base.
+Por el \textbf{Teorema de representación de Riesz}, tenemos que $\mathscr{H}$ es anti-isomorfo a $\mathscr{H}^{*}$, por ser $\mathbb{C}$ nuestro cuerpo base.
 
 \vspace{5pt}
 
-Denotaremos como ket, $|v\rangle$, a un vector $v$ de $\mathscr{H}$. Análogamente, a toda transformación $w$ de $\mathscr{H}^{*}$, la denotaremos como bra, $\langle w|$. Esta notación es conocida como notación de Dirac y será utilizada en mecánica cuántica.
+Denotaremos como ket, $|v\rangle$, a un vector $v$ de $\mathscr{H}$. Análogamente, a toda transformación $w$ de $\mathscr{H}^{*}$, la denotaremos como bra, $\langle w|$. Esta notación es conocida como \textbf{notación de Dirac} y será utilizada en mecánica cuántica.
 
 \newpage
 
 Veamos ahora distintas definiciones para operadores:
 \begin{itemize}
-    \item Sea $\mathscr{A}:\mathscr{H} \rightarrow \mathscr{H}$ continuo, se denomina adjunto del operador lineal $\mathscr{A}$ al único operador   $\mathscr{A}^{*}:\mathscr{H} \rightarrow \mathscr{H}$ talque $<\mathscr{A}v,w>$ = $<v,\mathscr{A}^{*}w>$.
-    \item Se dice que $\mathscr{A}:\mathscr{H} \rightarrow \mathscr{H}$ es un operador autoadjunto si $\mathscr{A}$ = $\mathscr{A}^{*}$. Por lo cual los autovalores de $\mathscr{A}$ son reales.
-    \item Llamaremos matriz hermitiana a la matriz $A$ que determina el operador autoadjunto $\mathscr{A}$. De aquí obtenemos que $A^{*}$ es la traspuesta conjugada de $A$.
-    \item Se dice que $\mathscr{U}:\mathscr{H} \rightarrow \mathscr{H}$  continuo, es unitario si $<v,w>$ = $<\mathscr{U}v,\mathscr{U}w>$, que en particular es invertible.
+    \item Sea $\mathscr{A}:\mathscr{H} \rightarrow \mathscr{H}$ continuo, se denomina \textbf{adjunto del operador lineal} $\mathscr{A}$ al único operador   $\mathscr{A}^{*}:\mathscr{H} \rightarrow \mathscr{H}$ talque $<\mathscr{A}v,w>$ = $<v,\mathscr{A}^{*}w>$.
+    \item Se dice que $\mathscr{A}:\mathscr{H} \rightarrow \mathscr{H}$ es un \textbf{operador autoadjunto} si $\mathscr{A}$ = $\mathscr{A}^{*}$. Por lo cual los autovalores de $\mathscr{A}$ son reales.
+    \item Llamaremos matriz \textbf{hermitiana} a la matriz $A$ que determina el operador autoadjunto $\mathscr{A}$. De aquí obtenemos que $A^{*}$ es la traspuesta conjugada de $A$.
+    \item Se dice que $\mathscr{U}:\mathscr{H} \rightarrow \mathscr{H}$  continuo, es \textbf{unitario} si $<v,w>$ = $<\mathscr{U}v,\mathscr{U}w>$, que en particular es invertible.
 \end{itemize}
 
 \vspace{5pt}
@@ -45,7 +45,7 @@ Sean $\mathscr{H}$ y $\mathscr{H}'$ dos espacios de Hilbert, llamaremos producto
 Por definición el producto tensorial tiene la linealidad y asociatividad por la izquierda y por la derecha. Además los productor internos de $\mathscr{H}$ y $\mathscr{H}'$ inducen naturalmente un producto interno en $\mathscr{H} \otimes \mathscr{H}'$ por lo que hereda la estructura y con ellos las nociones de adjunto, unitario, normalidad y hermitianidad.
 
 \vspace{5pt}
-Para entender mejor este producto, ya que tiene gran importancia en la mecánica cuántica, veamos su representación matricial como el producto de Kronecker, donde si $A$ y $B$ son 2 matrices, entonces:
+Para entender mejor este producto, ya que tiene gran importancia en la mecánica cuántica, veamos su representación matricial como el \textbf{producto de Kronecker}, donde si $A$ y $B$ son 2 matrices, entonces:
 
 \begin{equation*}
 A\otimes B = \begin{bmatrix}
@@ -84,18 +84,18 @@ Por otra parte, en física cuántica, el estado y evolución de un sistema viene
 \begin{itemize}
     \item \textbf{Tercer postulado:} Evolución probabilística, tenemos observador.
         \begin{itemize}
-            \item Primer apartado: Cada medida $\mathscr{A}$ esta descrita por un operador hermitiano A que actúa sobre $\mathscr{H}$, decimos que este operador es observable, debido a que sus autovectores forman una base de $\mathscr{H}$. El resultado de medir una cantidad $\mathscr{A}$ debe ser uno de los autovalores correspondientes al observable A.
+            \item \textbf{Primer apartado}: Cada medida $\mathscr{A}$ esta descrita por un operador hermitiano A que actúa sobre $\mathscr{H}$, decimos que este operador es observable, debido a que sus autovectores forman una base de $\mathscr{H}$. El resultado de medir una cantidad $\mathscr{A}$ debe ser uno de los autovalores correspondientes al observable A.
             \vspace{10pt}
-            \item Segundo apartado: $Prob(\lambda_{i}) =  \dfrac{||\:P_{|v_{i}\rangle} | \varphi (t) \rangle\:||^{2}}{||\:| \varphi (t) \rangle\:||^{2}} = \dfrac{|\: \langle  v_{i}  |\: \varphi (t)  \rangle\:|^{2}}{||\:| \varphi (t) \rangle\:||^{2}}$
+            \item \textbf{Segundo apartado}: $Prob(\lambda_{i}) =  \dfrac{||\:P_{|v_{i}\rangle} | \varphi (t) \rangle\:||^{2}}{||\:| \varphi (t) \rangle\:||^{2}} = \dfrac{|\: \langle  v_{i}  |\: \varphi (t)  \rangle\:|^{2}}{||\:| \varphi (t) \rangle\:||^{2}}$
             \vspace{10pt}
-            \item Tercer apartado: Si tras realizar una medición $\mathscr{A}$ del estado $|\varphi(t) \rangle$ da como resultado $a_{n}$, entonces el estado del sistema colapsa a la proyección normal de $|\varphi(t) \rangle$ en el subespacio de autovectores asociado a $a_{n}$,  $P_{|v_{n} \rangle} | \varphi (t) \rangle$.
+            \item \textbf{Tercer apartado}: Si tras realizar una medición $\mathscr{A}$ del estado $|\varphi(t) \rangle$ da como resultado $a_{n}$, entonces el estado del sistema colapsa a la proyección normal de $|\varphi(t) \rangle$ en el subespacio de autovectores asociado a $a_{n}$,  $P_{|v_{n} \rangle} | \varphi (t) \rangle$.
         \end{itemize}
         
         \vspace{5pt}
     \item \textbf{Cuarto postulado:} Evolución determinista.
         \begin{itemize}
-            \item Primer apartado: La evolución de un vector $| \varphi (t) \rangle$ está determinado por la ecuación de Schrödinger, $\imath \hbar \dfrac{d|\varphi\rangle}{dt}=H |\varphi\rangle$. Donde H es el Hamiltoniano del sistema, que es un operador hermitiano. Además se entiende H(t) como un observable asociado a la energía total del sistema.
-            \item Segundo apartado: La evolución de un sistema aislado se describe por una transformación unitaria del estado inicial. $| \varphi (t) \rangle = U(t;t_{0})  | \varphi (t_{0}) \rangle$.
+            \item \textbf{Primer apartado}: La evolución de un vector $| \varphi (t) \rangle$ está determinado por la ecuación de Schrödinger, $\imath \hbar \dfrac{d|\varphi\rangle}{dt}=H |\varphi\rangle$. Donde H es el Hamiltoniano del sistema, que es un operador hermitiano. Además se entiende H(t) como un observable asociado a la energía total del sistema.
+            \item \textbf{Segundo apartado}: La evolución de un sistema aislado se describe por una transformación unitaria del estado inicial. $| \varphi (t) \rangle = U(t;t_{0})  | \varphi (t_{0}) \rangle$.
         \end{itemize}
 \end{itemize}
 
