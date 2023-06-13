@@ -7,12 +7,12 @@ La implementación de las reglas metamórficas se pueden encontrar en el [reposi
 Lista de acciones por hacer:
 - [ ] Pasar todos los algoritmos programados de jupyter a github y organizarlos
 - [ ] README.md
-- [x] Terminar el repositorio común, solo falta revisar el README.md
+- [x] Terminar el repositorio común, solo falta revisar el README.md (Falta revisar los últimos comentarios de Luis)
 - [ ] Comprobar la regla IV de BV e implementarla si fuera necesario
 - [ ] TFG redacción: Resumen/Abstract
-- [ ] TFG redacción: Introducción
+- [x] TFG redacción: Introducción
 - [x] TFG redacción: Preliminares: Matematicas-Fisica (Comprobado por Adrian)
-- [x] TFG redacción: Preliminares: Quiskit-PropMetamorficas
+- [x] TFG redacción: Preliminares: Quiskit-PropMetamorficas (Añadir los comentarios)
 - [ ] TFG redacción: Algoritmos cuánticos
 - [ ] TFG redacción: Propiedades Cuánticas
 - [ ] TFG redacción: Conclusiones-Trabajo futuro
