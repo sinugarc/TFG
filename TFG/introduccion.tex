@@ -2,9 +2,35 @@
 
 \chapter{Introducción}
 \label{makereference}
+La memoria y el trabajo presentado a continuación, va a ser el recorrido que nos va a mostrar, desde los principio básicos de la mecánica cuántica y como directamente definen la computación cuántica, hasta una de las posibilidades que tenemos para hacer testing sobre estos programas. Antes de proceder con la forma en la que se ha trabajado y como se ha ido evolucionando y aprendiendo, veamos donde comenzó todo. \newline
 
+La mecánica cuántica se empezó a desarrollar en los años 20, pero no sería hasta los años 80 cuando se empezó a plantear la posibilidad de la aplicación que podía tener esta teoría sobre la computación.(Quantum computing, WikiEN) Paul Benioff presentó en 1980 la \textit{máquina de Turing cuántica} que utilizaba la teoría cuántica para describir un ordenador simplificado. Ya en 1984, se utilizó dicha teoría sobre protocolos criptográficos de la mano de Charlos Bennett y Gilles Brassard. \newline
+
+A partir de entonces ya empezaron a surgir nuevos algoritmos, principalmente para resolver el problema de oráculo. Entre ellos, los algoritmos de Deutsch, Deutsch-Jozsa, Bernstein-Vazirani y Simon. Aquí ya se puede observar la mejora en eficiencia respecto al ordenador clásico, como conjeturó Richard Feynman en 1982. Se podría decir, que lo que hizo despertar al resto de la comunidad sobre la importancia que podía tener la computación cuántica, llegó de la mano de Peter Shor en 1994 con sus algoritmos que podrían permitir romper las claves de encriptación RSA y Diffie-Hellman, que aún se siguen utilizando. Desde entonces la inversión en el estudio de este campo ha ido creciendo, siendo el primero ordenador de dos qubits creado en 1998 y haciendo factible esta posibilidad. En la actualidad, IBM tiene el ordenador con mayor número de qubits, 433, el ibm\_seattle presentado a finales de 2022.
+
+\newpage
 \section{Metodología}
 
+La metodología seguida para este trabajo digamos que se puede distinguir en 3 fases que van a ser apreciables en esta memoria. De hecho, van a corresponder una a una con los capítulos siguientes. El material principal utilizado como base de estudio han sido los libros \textit{Quantum Computation and Quantum Information}, de Michael A. Nielsen y Isaac L. Chuang, y \textit{Quantum Computing for Computer Scientists}, de Noson S. Yanofsky y Mirco A. Mannucci. (Crear la referencia desde aquí) Vamos a introducir brevemente dichas fases: 
+
+\begin{itemize}
+    \item \textbf{Antecedentes}: Esta primera fase de estudio se basa en poder avanzar desde los conocimiento que tenemos del grado, a la base útil para poder entender los algoritmos cuánticos, la obtención de las propiedades metamórficas y su utilización en el testing. Además de los textos mencionados anteriormente, de los que he ido obteniendo los resultados más teóricos, en este capítulo se han fijado los conceptos de la parte de testing y propiedades metamórficas con el artículo \textit{Metamorphic Testing: A Review of Challenges and Opportunities}.(ref)
+    
+    \item \textbf{Programación cuántica y algoritmos}: Una vez realizada y adquirida la base para empezar a entender los algoritmos y la programación, se realizaron los primeros pasos de programación, empezando por un algoritmo tan sencillo como sería la suma y como sería mi implementación de la misma utilizando \textit{Qiskit}. Posteriormente, fui avanzando algoritmo a algoritmo desde los más simples hasta llegar a la transformada cuántica de Fourier (QFT) y la estimación de fase (QEP). El estudio de estos algoritmos se presentará en el capítulo 3 (ref) y todos los algoritmos programados y pruebas realizadas, para no sobrecargar este documento, se encuentran en el repositorio personal de GitHub, https://github.com/sinugarc/TFG.git (crear link y hay que cambiar el nombre del repositiorio).
+    
+    \item \textbf{Propiedades y testing metamórfico}: Ahora que ya hemos conseguido entender e incluso programar nuestros algoritmos cuánticos, vamos a por el último eslabón de la cadena. Este es el estudio de las propiedades metamórficas sobre los algoritmos de Deutsch-Jozsa, Bernstein-Vazirani y Simon. Como apoyo para la comprensión y estudio de este fase, nos hemos apoyado en el artículo \textit{Metamorphic Testing of Oracle Quantum Programs}. Además, esta parte del trabajo se ha realizado de forma conjunta con Rodrigo de la Nuez Moraleda, y todo lo que hemos programado y preparado para el testing de estos algoritmos se puede encontrar en el repositorio de GitHub que tenemos en común, https://github.com/rodelanu/TFG (crear link)
+\end{itemize}
+
 \section{Objetivos}
+
+Una vez analizada la metodología de trabajo seguida y los materiales utilizados, siguiendo el mismo esquema, veamos cuales son los objetivos y competencias que se pretenden adquirir en cada fase.
+
+\begin{itemize}
+    \item \textbf{Antecedentes}:
+    
+    \item \textbf{Programación cuántica y algoritmos}:
+
+    \item \textbf{Propiedades y testing metamórfico}:
+\end{itemize}
 
 \vspace{1cm}

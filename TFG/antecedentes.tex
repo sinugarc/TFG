@@ -1,6 +1,6 @@
 \cleardoublepage
 
-\chapter{Preliminares}
+\chapter{Antecedentes}
 \label{makereference}
 
 El principal objetivo de este apartado es exponer brevemente al lector las bases, tanto matemáticas como físicas, para poder entender y trabajar con propiedades metamórficas y en particular, su aplicación a la computación cuántica. Para ello, vamos a hacer un breve repaso a conceptos básicos de álgebra lineal en matemáticas, los postulados de la macánica cuántica y una iniciación a la computación cuántica y el testing metamórfico. 
@@ -70,10 +70,10 @@ Para entender mejor este producto, ya que tiene gran importancia en la mecánica
 
 \begin{equation*}
 A\otimes B = \begin{bmatrix}
-A_{11}B & A_{12}B & ... & A_{1n}B\\
-A_{21}B & A_{22}B & ... & A_{2n}B\\
+a_{11}B & a_{12}B & ... & a_{1n}B\\
+a_{21}B & a_{22}B & ... & a_{2n}B\\
 \vdots & \vdots & \ddots & \vdots\\
-A_{m1}B & A_{m2}B & ... & A_{mn}B
+a_{m1}B & a_{m2}B & ... & a_{mn}B
 \end{bmatrix}
 \end{equation*}
 
@@ -128,7 +128,7 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
 
  Para realizar nuestros programas cuánticos y simulaciones nos vamos a apoyar en \textit{Qiskit}, es un paquete de desarrollo libre creado por IBM para crear y manipular programas cuánticos así como realizar simulaciones(qiskit). Ya sean teóricas o conectando nuestros programas con los ordenadores cuánticos de IBM. Esto nos dará unos resultados más realistas donde podremos apreciar el ruido que hay actualmente en estos ordenadores. (ref apartado ruido) \newline
  
- La programación en Qiskit se basa en el lenguaje Python, por lo cual usaremos este a la hora de programar. Además, para una mejor visualización de lo que representa el código utilizaré jupyter notebook. Existiría otra opción, que sería generar los circuitos directamente en la página de IBM de forma geométrica.(qiskit) \newline
+ La programación en Qiskit es una libreria de Python, en el que se permite definir y utilizar los circuitos. Además, para una mejor visualización de lo que representa el código utilizaré jupyter notebook. Existiría otra opción, que sería generar los circuitos directamente en la página de IBM de forma geométrica.(qiskit) \newline
  
  Como mencionamos anteriormente los postulados cuánticos, ordenados de acorde a la utilización en este texto, nos van a permitir sentar las bases de la computación cuántica, el primer ejemplo es el qubit. \newline
  
@@ -183,7 +183,7 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
         \item $\boldsymbol Z$: La puerta $Z$, $\Qcircuit @C=1em @R=.7em {& \gate{Z} &\qw}$ , viene determinada por la matriz \begin{math} Z = \begin{bmatrix} 1 & 0\\0 & -1 \end{bmatrix}\end{math}
     \end{itemize}
     
-    \item \textbf{Puerta de Hadamar}, $H$: Este operador viene determinado por $H = \dfrac{1}{\sqrt{2}} \begin{bmatrix} 1 & 1\\1 & -1 \end{bmatrix}$
+    \item \textbf{Puerta de Hadamard}, $H$: Este operador viene determinado por $H = \dfrac{1}{\sqrt{2}} \begin{bmatrix} 1 & 1\\1 & -1 \end{bmatrix}$
     \vspace{3pt}
     
     Probablemente la puerta más interesante de todas, que nos permite poner el qubit en un estado especial, es más, dichas transformaciones sobre la base tiene su propia notación:
@@ -192,7 +192,7 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
         
     $|+\rangle = H|0\rangle = \dfrac{|0\rangle + |1\rangle}{\sqrt{2}} \quad \quad \quad |-\rangle = H |1\rangle = \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}$\end{center}
 
-    A su vez, al igual que las matrices de Pauli, la matriz de Hadamar realiza una rotación de $\pi$ radianes, pero esta vez sobre el eje $(\hat{x} + \hat{z}) / \sqrt{2}$. Puerta:
+    A su vez, al igual que las matrices de Pauli, la matriz de Hadamard realiza una rotación de $\pi$ radianes, pero esta vez sobre el eje $(\hat{x} + \hat{z}) / \sqrt{2}$. Puerta:
     $\Qcircuit @C=1em @R=.7em {& \gate{H} &\qw}$
     
     \item \textbf{Puerta de cambio de fase}, $P(\theta)$: Esta puerta nos va a permitir realizar rotaciones de un ángulo $\theta$ sobre el eje $\hat{z}$. Y está determinada por $P(\theta) = \begin{bmatrix}1 & 0\\0 & e^{i\theta} \end{bmatrix}$
@@ -265,7 +265,7 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
      \vspace{5pt}
      
      \item \textbf{Bits clásicos}: Se representan en la ultima fila, todos juntos. Podemos ver el número, en este caso 4, que nos indica el número de bits clásicos que tenemos.
-     \item \textbf{Puertas para un qubit}: Podemos observar puertas ya conocidas como Hadamar, Z o la medición que vemos como cae hacia el cable de bits clásicos indicando en que bit se registra la medición.
+     \item \textbf{Puertas para un qubit}: Podemos observar puertas ya conocidas como Hadamard, Z o la medición que vemos como cae hacia el cable de bits clásicos indicando en que bit se registra la medición.
      \item \textbf{Puerta $f_{s}$}: Como ya mencionamos anteriormente puede haber puertas que se apliquen a varios qubits, en este caso tenemos la puerta, o bloque, que replica la función del problema de Bernstein-Vazirani. Dentro de esta puerta tenemos puertas más pequeñas como las presentadas anteriormente en este mismo apartado. En particular, $f_{s}$ tiene puertas CNOT. En diversos algoritmos, se representa esta puerta como un bloque debido a que la podemos entender como un oráculo, del que no sabemos como funciona internamente.
      \item \textbf{Barreras}: Nos sirven como apoyo para visualizar el algoritmo y poder separar en secciones.
  \end{itemize}
@@ -347,7 +347,7 @@ Para finalizar con esta introducción vamos a revisar brevemente un par de venta
 \textbf{Retos}:
 \begin{itemize}
     \item \textbf{Generación efectiva de los grupos metamórficos de entrada}. Aun se sigue estudiando que garantías tenemos en la efectividad que puede tener la elección del grupo metamórfico de entrada en la demostración de la corrección de un algoritmo y en particular, la forma en la que obtenemos nuestra entrada original, ya que la entrada de seguimiento la generamos a partir de esta. Al fin y al cabo nuestro objetivo es maximizar la identificación de errores o defectos en $P$.
-    \item \textbf{Estructura del TM}. Debido a la juventud de este tipo de testing y la gran variedad de PM, aun no hay un acuerdo sobre una estructura definida y formal que nos proporcione seguridad en nuestra pruebas y englobe a todas las posibilidades que tenemos dentro de las PM. Aunque, si bien es cierto, ya ha ayudado a identificar diversos errores en sistemas muy estudiados con otros métodos de testing, como por ejemplo los compiladores GCC y LLVM de C, en los cuales encontró más de 100 defectos (\textit{faults}). (ref 50,51,78)
+    \item \textbf{Estructura del TM}. Debido a la juventud de este tipo de testing y la gran variedad de PM, aun no hay un acuerdo sobre una estructura definida y formal que nos proporcione seguridad en nuestra pruebas y englobe a todas las posibilidades que tenemos dentro de las PM. Aunque, si bien es cierto, ya ha ayudado a identificar diversos errores en sistemas muy estudiados con otros métodos de testing, como por ejemplo los compiladores GCC y LLVM de C, en los cuales encontró más de 100 fallos (\textit{faults}). (ref 50,51,78)
 \end{itemize}
 
 Los retos de TM pueden ser una buena base para todo el trabajo futuro que se puede realizar en este campo y las posibilidades que este nos puede ofrecer. Trataremos en más profundidad estás posibilidades en el apartado 5.2 de posibles trabajos futuros (link)
