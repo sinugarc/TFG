@@ -9,7 +9,7 @@ Lista de acciones por hacer:
 - [ ] README.md
 - [x] Terminar el repositorio común, solo falta revisar el README.md (Falta revisar los últimos comentarios de Luis)
 - [ ] Comprobar la regla IV de BV e implementarla si fuera necesario
-- [ ] TFG redacción: Resumen/Abstract
+- [x] TFG redacción: Resumen/Abstract
 - [x] TFG redacción: Introducción
 - [x] TFG redacción: Preliminares: Matematicas-Fisica (Comprobado por Adrian)
 - [x] TFG redacción: Preliminares: Quiskit-PropMetamorficas (Añadir los comentarios)
