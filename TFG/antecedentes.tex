@@ -35,14 +35,25 @@ Veamos ahora distintas definiciones para operadores:
 
 \vspace{5pt}
 
-Para finalizar con esta sección vamos a ver una manera de combinar dos espacios vectoriales, en particular, dos espacios de Hilbert que nos permitirá unir dos sistemas cuánticos, esta operación es el producto tensorial.
+Para finalizar con esta sección vamos a ver una manera de combinar dos espacios vectoriales, en particular, dos espacios de Hilbert que nos permitirá unir dos sistemas cuánticos, esta operación es el producto tensorial. (Nielsen, WikiES)
 
 \vspace{5pt}
 
-Sean $\mathscr{H}$ y $\mathscr{H}'$ dos espacios de Hilbert, llamaremos \textbf{producto tensorial} de $\mathscr{H}$ y $\mathscr{H}'$ , $\mathscr{H} \otimes \mathscr{H}'$, al espacio que tiene como base a los $|i\rangle \otimes |j\rangle$ donde $|i\rangle$ y $|j\rangle$ pertenecen a una base ortonormal de $\mathscr{H}$ y $\mathscr{H}'$ respectivamente. (Nielsen)
+Sean $\mathscr{H}$ y $\mathscr{H}'$ dos espacios de Hilbert,
+\begin{equation*}
+    F(\mathscr{H} \times \mathscr{H}') = \left\lbrace \sum_{i=1}^{n}z_{i} (h_{i},h_{i}')\:|\:n \in \mathbb{N},\: z_{i} \in \mathbb{C},\:(h_{i},h_{i}') \in \mathscr{B}(\mathscr{H} \times \mathscr{H}') \right\rbrace
+\end{equation*}
+\begin{equation*}
+\begin{split}
+    \mathscr{R} =  (h_{1}+h_{2},h') \sim (h_{1},h') + (h_{2},h') \\ 
+    (h,h_{1}'+h_{2}') \sim (h,h_{1}') + (h,h_{2}') \\
+    z(h,h') \sim (z h,h') \sim (h,z h')
+\end{split}
+\end{equation*}
 
-\vspace{5pt}
-Por definición el producto tensorial tiene las siguientes propiedades:
+
+Definimos el \textbf{producto tensorial} de $\mathscr{H}$ y $\mathscr{H}'$ , $\mathscr{H} \otimes \mathscr{H}'$, como el espacio cociente entre $F(\mathscr{H} \times \mathscr{H}')$ y $\mathscr{R}$, es decir, $\mathscr{H} \otimes \mathscr{H}' = F(\mathscr{H} \times \mathscr{H}')/\mathscr{R}$. De la definición obtenemos directamente:
+
 \begin{itemize}
     \item \textbf{Linealidad}: Sea $z\in\mathbb{C}$, $|h\rangle\in\mathscr{H}$ y $|h'\rangle\in\mathscr{H}'$. Entonces:
         \begin{equation*}
@@ -63,24 +74,28 @@ Por definición el producto tensorial tiene las siguientes propiedades:
     \end{itemize}
 \end{itemize}
 
-Además los productor internos de $\mathscr{H}$ y $\mathscr{H}'$ inducen naturalmente un producto interno en $\mathscr{H} \otimes \mathscr{H}'$ por lo que hereda la estructura y con ellos las nociones de adjunto, unitario, normalidad y hermiticidad.
+Además alcanzamos los siguiente resultados sobre el producto tensorial:
+\begin{itemize}
+    \item \textbf{Base}: $|i\rangle \otimes |j\rangle$ es una base de $\mathscr{H} \otimes \mathscr{H}'$ donde $|i\rangle$ y $|j\rangle$ pertenecen a una base ortonormal de $\mathscr{H}$ y $\mathscr{H}'$ respectivamente. 
+    
+    \item \textbf{Producto interno}: los productor internos de $\mathscr{H}$ y $\mathscr{H}'$ inducen naturalmente un producto interno en $\mathscr{H} \otimes \mathscr{H}'$ por lo que hereda la estructura y con ellos las nociones de adjunto, unitario, normalidad y hermiticidad.
+    
+    \item \textbf{Producto de Kronecker}, se corresponde con el producto tensorial de aplicaciones lineales. Nos será de gran utilidad a lo largo de este trabajo. Veamos un ejemplo para visualizarlo. Si $A$ y $B$ son 2 matrices, entonces:\newline
+        \begin{equation*}
+        A\otimes B = \begin{bmatrix}
+        a_{11}B & a_{12}B & ... & a_{1n}B\\
+        a_{21}B & a_{22}B & ... & a_{2n}B\\
+        \vdots & \vdots & \ddots & \vdots\\
+        a_{m1}B & a_{m2}B & ... & a_{mn}B
+        \end{bmatrix}
+        \end{equation*}
 
-\vspace{5pt}
-Para entender mejor este producto, ya que tiene gran importancia en la mecánica cuántica, veamos su representación matricial como el \textbf{producto de Kronecker}, donde si $A$ y $B$ son 2 matrices, entonces:
+    \item \textbf{Dimensión}: $dim(\mathscr{H} \otimes \mathscr{H}')=dim(\mathscr{H})\cdot dim(\mathscr{H}')$
+\end{itemize}
 
-\begin{equation*}
-A\otimes B = \begin{bmatrix}
-a_{11}B & a_{12}B & ... & a_{1n}B\\
-a_{21}B & a_{22}B & ... & a_{2n}B\\
-\vdots & \vdots & \ddots & \vdots\\
-a_{m1}B & a_{m2}B & ... & a_{mn}B
-\end{bmatrix}
-\end{equation*}
+Estos dos últimos apartados nos muestran la complejidad que vamos a tener a la hora de realizar cálculos, ya que la dimensión de las matrices va a crecer de manera exponencial.
 
-\vspace{5pt}
-Aquí se puede observar el crecimiento exponencial de las dimensiones de la matriz con la que se trabaja al operar sobre sucesivas matrices o, como veremos a continuación, la unión de distintos sistemas cuánticos.
-
-\vspace{15pt}
+\newpage
 
 \section{Introducción cuántica}
 La base principal para el comienzo de la computación cuántica fue el desarrollo de la física cuántica. Para poder entender mejor que variaciones e implicaciones tiene, vamos a ver los postulados de la mecánica cuántica y sus diferencias con la mecánica Newtoniana. Aquí encontrará sentido la base matemática presentada en 2.1. (referencia?)
@@ -97,7 +112,7 @@ Por otra parte, en física cuántica, el estado y evolución de un sistema viene
 \textbf{Postulados cinemáticos o de representación:}
 \begin{itemize}
     \item \textbf{Primer postulado:} El estado en un sistema aislado, en un instante t, se corresponde con $| \varphi (t) \rangle$, en un espacio de Hilbert, $\mathscr{H}$.
-    \newpage
+    
     \item \textbf{Segundo Postulado:} El espacio que representa un sistema compuesto es el producto tensorial del los espacios de cada componente del sistema. Es decir, si tuviéramos n componentes, el espacio total sería $|\varphi_{1}\rangle \otimes |\varphi_{2}\rangle \otimes \dotsi \otimes |\varphi_{n}\rangle = |\varphi_{1}\varphi_{2}\dotso \varphi_{n}\rangle$, de forma notacional.
 \end{itemize}
 
@@ -110,6 +125,7 @@ Por otra parte, en física cuántica, el estado y evolución de un sistema viene
         \end{itemize}
     
     \vspace{5pt}
+    \newpage
     \item \textbf{Cuarto postulado:} Evolución probabilística, tenemos observador.
     \begin{itemize}
         \item \textbf{Primer apartado}: Cada medida $\mathscr{A}$ esta descrita por un operador hermitiano A que actúa sobre $\mathscr{H}$, decimos que este operador es observable, debido a que sus autovectores forman una base de $\mathscr{H}$. El resultado de medir una cantidad $\mathscr{A}$ debe ser uno de los autovalores correspondientes al observable A.
@@ -122,19 +138,19 @@ Por otra parte, en física cuántica, el estado y evolución de un sistema viene
 
 Todos estos postulados van a ser clave en los distintos aspectos de la computación cuántica, desde la definición del sistema más simple como el \textit{qubit} hasta las probabilidades en las simulaciones (observaciones).
 
-\newpage
+\vspace{15pt}
 \section{Programación cuántica, Qiskit}
  La programación cuántica se basa en la creación de un circuito o algoritmo cuántico, normalmente representado geométricamente, donde se realizan operaciones (operadores unitarios) sobre los distintos qubits, así como sus mediciones. (quantum for inf)\newline
 
  Para realizar nuestros programas cuánticos y simulaciones nos vamos a apoyar en \textit{Qiskit}, es un paquete de desarrollo libre creado por IBM para crear y manipular programas cuánticos así como realizar simulaciones(qiskit). Ya sean teóricas o conectando nuestros programas con los ordenadores cuánticos de IBM. Esto nos dará unos resultados más realistas donde podremos apreciar el ruido que hay actualmente en estos ordenadores. (ref apartado ruido) \newline
  
- La programación en Qiskit es una libreria de Python, en el que se permite definir y utilizar los circuitos. Además, para una mejor visualización de lo que representa el código utilizaré jupyter notebook. Existiría otra opción, que sería generar los circuitos directamente en la página de IBM de forma geométrica.(qiskit) \newline
+ La programación en Qiskit es una libreria de Python, en el que se permite definir y utilizar los circuitos. Además, para una mejor visualización de lo que representa el código utilizaré jupyter notebook. Existiría otra opción, que sería generar los circuitos directamente en la página de IBM de forma geométrica.(qiskit) \newpage
  
  Como mencionamos anteriormente los postulados cuánticos, ordenados de acorde a la utilización en este texto, nos van a permitir sentar las bases de la computación cuántica, el primer ejemplo es el qubit. \newline
  
- Si recordamos el postulado 1 de la mecánica cuántica (link), vamos a definir \textbf{qubit} como el sistema cuántico más simple, que va a ser nuestra base en la programación cuántica. Un \textbf{qubit} es un espacio bidimensional, donde vamos a suponer que tomamos la base ortonormal $|0 \rangle = \begin{bmatrix} 1\\0 \end{bmatrix}$ y $|1 \rangle = \begin{bmatrix} 0\\1 \end{bmatrix}$. De aquí podemos obtener la combinación lineal de cualquier vector de estado del qubit, aunque los vectores de estado deben de cumplir la condición de normalización, es decir, si $|\varphi \rangle = a |0\rangle + b |1\rangle = \begin{bmatrix} a\\b \end{bmatrix}$ con $a,b \in \mathbb{C}$, entonces $|a|^{2}+|b|^{2}=1$.\newline
+ Si recordamos el postulado 1 de la mecánica cuántica (link), vamos a definir \textbf{qubit} como el sistema cuántico más simple, que va a ser nuestra base en la programación cuántica. Un \textbf{qubit} es un espacio bidimensional, donde vamos a suponer que tomamos la base ortonormal $|0 \rangle = \begin{bmatrix} 1\\0 \end{bmatrix}$ y $|1 \rangle = \begin{bmatrix} 0\\1 \end{bmatrix}$. De aquí podemos obtener la combinación lineal de cualquier vector de estado del qubit, aunque los vectores de estado deben de cumplir la condición de normalización, es decir, si $|\varphi \rangle = a |0\rangle + b |1\rangle = \begin{bmatrix} a\\b \end{bmatrix}$ con $a,b \in \mathbb{C}$, entonces $|a|^{2}+|b|^{2}=1$. Esta condición se impone debido a que el cuadrado de los coeficientes determinan la probabilidad de aparición y por lo tanto la suma de todas la probabilidad de todas las posibilidades debe ser 1. Además, llamaremos estado de \textbf{superposición} a los estados del qubit que se encuentran en el continuo entre $|0\rangle$ y $|1\rangle$.\newline
 
- Estos estados de un qubit se entienden muy bien utilizando la \textbf{esfera de Bloch}, que observaremos en la figura 2.1. Debido a que si $|\Psi \rangle = a |0\rangle + b |1\rangle$, $|a|^{2}+|b|^{2}=1$. Podemos representar $|\Psi \rangle = \left( cos\:\dfrac{\theta}{2} \:|0\rangle +\; e^{i\varphi}\;sin\:\dfrac{\theta}{2}\:|1\rangle\right)$, donde $\theta,\varphi \in \mathbb{R}$. Hay que tener en cuenta que esta representación está limitada a un qubit, ya que no hay manera simple de generalizarla a un sistema más complejo.
+ Estos estados de un qubit se entienden muy bien utilizando la \textbf{esfera de Bloch}, que observaremos en la figura 2.1. Debido a que si $|\Psi \rangle = a |0\rangle + b |1\rangle$, $|a|^{2}+|b|^{2}=1$. Podemos representar $|\Psi \rangle = e^{i\gamma}\left( cos\:\dfrac{\theta}{2} \:|0\rangle +\; e^{i\varphi}\;sin\:\dfrac{\theta}{2}\:|1\rangle\right)$, donde $\theta,\varphi,\gamma \in \mathbb{R}$. Si bien es cierto, podemos ignorar el factor $e^{i\gamma}$. Ya que no tiene efectos observables. Hay que tener en cuenta que esta representación está limitada a un qubit, ya que no hay manera simple de generalizarla.
 
   \begin{figure}[H]
     \centering
@@ -147,7 +163,7 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
     \begin{equation*}|\psi\rangle = a_{00}|00\rangle + a_{01}|01\rangle + a_{10}|10\rangle + a_{11}|11\rangle \;\;\text{donde}\; a_{00},\: a_{01}, \:a_{10}, \:a_{11} \in \mathbb{C}
     \end{equation*}
 
- A estos coeficiente complejos se les denomina \textbf{amplitud} de cada estado de la base.\newline
+ A estos coeficiente complejos se les denomina \textbf{amplitud} de cada estado de la base. Al igual que ocurre en el qubit, $a_{00}+a_{01}+a_{10}+a_{11}=1$. Este resultado se puede obtener del producto de Kronecker, y además tendría sentido con la medición de las probabilidades. En este ejemplo se puede ver claramente que la dimensión de la base va a ser exponencial respecto al número de qubits.\newline
  
  Una vez ya tenemos los elemento básicos, vamos a ver como podemos operar sobre sistema. Para ello vamos a usar las puertas cuánticas.
 
@@ -156,9 +172,7 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
 
  Partimos ahora del tercer postulado, en particular el apartado 2 (link). Se podría ver que existe una correspondencia 1 a 1 entre el Hamiltoniano $H$, por ser hermitiano, y un operador unitario $U$. Estos operadores unitarios serán nuestras \textbf{puertas cuánticas} que vamos a usar junto a los qubits. Este postulado viene de la evolución \textbf{determinista} desde un puesto de vista dinámico, donde no se realiza ninguna observación sobre el sistema. Uno de los puntos importantes de que estos operadores sean unitarios es que conservan la norma, por lo cual no rompen la condición de normalización de la definición de qubit. \newline
  
- En programación cuántica estos operadores unitarios pueden crearse directamente con una matriz, que cumpla las condiciones necesarias, aunque habitualmente utilizaremos puertas cuánticas (operadores) especificas que son las utilizadas en los ordenadores cuánticos reales. (Martín) \newline
-
- Veamos cuales son las puertas cuánticas mas útiles para un qubit:(WikipediaEN, Nielsen)
+ En programación cuántica estos operadores unitarios pueden crearse directamente con una matriz, que cumpla las condiciones necesarias, aunque habitualmente utilizaremos puertas cuánticas (operadores) especificas que son las utilizadas en los ordenadores cuánticos reales (Martín). Veamos cuales son las puertas cuánticas mas útiles para un qubit:(WikipediaEN, Nielsen)
 
  \begin{itemize}
     \item \textbf{Puertas de Pauli}: Estas puertas son la más básicas y nos van a permitir, a excepción de la identidad, realizar rotaciones de $\pi$ radianes dentro de las esfera de Bloch, cada una sobre el eje que indica su propio nombre. Las matrices que determinan estas puertas generan una base del espacio de matrices hermitianas 2x2.
@@ -205,7 +219,8 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
         \item $P(\pi/4) = T$, $\Qcircuit @C=1em @R=.7em {& \gate{T} &\qw}$
     \end{itemize}
  \end{itemize}
-
+ 
+\newpage
  Análogamente, se puede definir las matrices de rotación para los distintos ejes. Y en general, vamos a definir la puerta de rotación sobre un eje cualquiera $\Hat{n}$, esta puerta queda determinada por $R_{\Hat{n}}(\theta) = cos \left(\dfrac{\theta}{2}\right)\:I - i\:sin\left(\dfrac{\theta}{2}\right)\left(n_{x}X + n_{y}Y + n_{z}Z\right) $ \newline
 
  La idea de introducir al lector con esta puerta de rotación, además de su utilidad, se debe a que nos va a permitir presentar el siguiente teorema. Como se mencionó anteriormente, cualquier matriz unitaria 2 x 2, puede definir un operador sobre un qubit, veamos que relación hay con las rotaciones. \newline
@@ -276,7 +291,7 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
  Una vez que ya hemos visto las puertas que podemos usar en un circuito cuántico, así como un ejemplo del mismo, veamos una introducción a las distintas opciones para la ejecución, utilizaremos las dos siguientes: (qiskit, intro cuantica)
  
  \begin{itemize}
-     \item \textbf{Simulación}, en nuestro caso con los simuladores de IBM. Esta posibilidad nos va a ofrecer una simulación teórica de lo que ocurre en nuestro circuito. Será ejecutado a través de un simulador de IBM y nos va a permitir obtener resultados con seguridad y sin ningún problema asociado de errores o ruido.
+     \item \textbf{Simulación}, en nuestro caso con los simuladores de IBM. Esta posibilidad nos va a ofrecer una simulación teórica de lo que ocurre en nuestro circuito. Será ejecutado a través de un simulador de IBM y nos va a permitir obtener resultados con seguridad y sin ningún problema asociado de errores o ruido. Hay que entender que las simulaciones van a tener una limitación debido a la dimensión de las matrices con las que estamos tratando, ya que el coste es exponencial.
      \item \textbf{Ordenador cuántico}, utilizaremos los ordenadores de IBM. La tecnología para la creación de ordenadores cuánticos más fieles sigue avanzando. Esta intenta mitigar los errores que tiene cada operación, así como los errores relacionados con el ruido del entorno que influyen en el estado del sistema modificándolo. Cada ordenador tiene su propia estructura y sus estudios sobre los errores que se cometen en cada qubit, así como calibraciones. Se puede ver en la figura 2.3, los errores de cada qubit así como la estructura del ordenador. Qiskit analizará el circuito que le proponemos y lo adaptará a la arquitectura del sistema elegido para la ejecución, con el objetivo de minimizar los errores cometidos.
  \end{itemize}
 
@@ -293,7 +308,7 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
  
  Veamos un ejemplo para entender la diferencia de resultados de utilizar un opción u otra. Para ello vamos a usar los resultados del circuito presentado en la figura 2.1 del algoritmo de Bernstein-Vazirani que se presentará en el siguiente capítulo. Este algoritmo nos debería dar un resultado único, pero veamos lo que ocurre. \newline
 
- \begin{figure}[H]
+ \begin{figure}[h]
     \centering
     \begin{subfigure}[H]{0.48\textwidth}
         \centering
@@ -308,7 +323,6 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
     \end{subfigure}
         \caption{Diferencias en resultados de ejecución del algoritmo de Bernstein-Vazirani}
  \end{figure}
-\vspace{5pt}
 
 Se puede observar en la figura 2.4 la diferencia entre la simulación teórica (a) y la ejecución con el sistema ibmq\_quito (b). Nuestra simulación nos ha dado únicamente el resultado querido, pero al ejecutarlo en sistema cuántico nos ha dado una variedad de resultados, aunque no todos los posibles. Si bien es cierto que el más probable, con suficiente diferencia, es idéntico al obtenido con la simulación. Cabe destacar de la figura 2.4.b que los de mayor probabilidad, una vez eliminada la solución, son aquellos en los cuales solo varía 1 dígito y por el contrario, el complementario binario no ha aparecido como resultado en ninguna de las ejecuciones realizadas.
 
