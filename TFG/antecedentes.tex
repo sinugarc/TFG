@@ -144,7 +144,9 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
 
  Para realizar nuestros programas cuánticos y simulaciones nos vamos a apoyar en \textit{Qiskit}, es un paquete de desarrollo libre creado por IBM para crear y manipular programas cuánticos así como realizar simulaciones(qiskit). Ya sean teóricas o conectando nuestros programas con los ordenadores cuánticos de IBM. Esto nos dará unos resultados más realistas donde podremos apreciar el ruido que hay actualmente en estos ordenadores. (ref apartado ruido) \newline
  
- La programación en Qiskit es una libreria de Python, en el que se permite definir y utilizar los circuitos. Además, para una mejor visualización de lo que representa el código utilizaré jupyter notebook. Existiría otra opción, que sería generar los circuitos directamente en la página de IBM de forma geométrica.(qiskit) \newpage
+ La programación en Qiskit es una libreria de Python, en el que se permite definir y utilizar los circuitos. Además, para una mejor visualización de lo que representa el código utilizaré jupyter notebook. Existiría otra opción, que sería generar los circuitos directamente en la página de IBM de forma geométrica.(qiskit) \newline
+
+ Además, exisitirían otras opciones como \textit{Azure Quantum} en \textit{C\#} de Microsoft, \textit{Cirq} en \textit{Python} de Google o \textit{Pyket} también en \textit{Python} entre otros.
  
  Como mencionamos anteriormente los postulados cuánticos, ordenados de acorde a la utilización en este texto, nos van a permitir sentar las bases de la computación cuántica, el primer ejemplo es el qubit. \newline
  
@@ -288,7 +290,7 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
  Para producir este circuito se puede hacer de distintas maneras, ya sea programando en python con apoyo de qiskit, o directamente en IBM, ya que nos es posible poner las cajas de los operadores en los qubits que nos interesan.
  
 \subsection{Simulaciones y ruido} 
- Una vez que ya hemos visto las puertas que podemos usar en un circuito cuántico, así como un ejemplo del mismo, veamos una introducción a las distintas opciones para la ejecución, utilizaremos las dos siguientes: (qiskit, intro cuantica)
+ Una vez que ya hemos visto las puertas que podemos usar en un circuito cuántico, así como un ejemplo del mismo, veamos una introducción a las distintas opciones para la ejecución. \textit{Qiskit} traduce a bajo nivel a \textit{qasm}, que es lo que se va a ejecutar al final. Para ello tenemos las dos opciones siguientes: (qiskit, intro cuantica)
  
  \begin{itemize}
      \item \textbf{Simulación}, en nuestro caso con los simuladores de IBM. Esta posibilidad nos va a ofrecer una simulación teórica de lo que ocurre en nuestro circuito. Será ejecutado a través de un simulador de IBM y nos va a permitir obtener resultados con seguridad y sin ningún problema asociado de errores o ruido. Hay que entender que las simulaciones van a tener una limitación debido a la dimensión de las matrices con las que estamos tratando, ya que el coste es exponencial.
@@ -326,6 +328,8 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
 
 Se puede observar en la figura 2.4 la diferencia entre la simulación teórica (a) y la ejecución con el sistema ibmq\_quito (b). Nuestra simulación nos ha dado únicamente el resultado querido, pero al ejecutarlo en sistema cuántico nos ha dado una variedad de resultados, aunque no todos los posibles. Si bien es cierto que el más probable, con suficiente diferencia, es idéntico al obtenido con la simulación. Cabe destacar de la figura 2.4.b que los de mayor probabilidad, una vez eliminada la solución, son aquellos en los cuales solo varía 1 dígito y por el contrario, el complementario binario no ha aparecido como resultado en ninguna de las ejecuciones realizadas.
 
+Para acabar con esta sección, como curiosidad y por completitud, hemos mencionado antes que \textit{Qiskit} traduce a \textit{qasm} a la hora de ejecutar. La función utilizada por \textit{Qiskit} para ensamblar el programa es \textit{assemble} que devuelve un objeto de clase \textit{QasmQobj} \footnote[1]{\url{https://qiskit.org/documentation/stubs/qiskit.compiler.assemble.html}}. El código que utilizaría \textit{Qiskit} para la ejecución del circuito presentado anteriormente lo podemos encontrar en \textit{GitHub}, archivo (link y nombre).
+
 \section{Propiedades Metamórficas / Testing metamórfico}
 
 Informalmente entendemos como propiedad metamórfica aquella que podemos derivar de forma lógica de una definición o especificación. Empecemos con un ejemplo para ponernos en situación, nos vamos a fijar en la función seno, $f(x)=sin(x)$.\newline
@@ -333,6 +337,8 @@ Informalmente entendemos como propiedad metamórfica aquella que podemos derivar
 La definición que aprendemos cuando empezamos a ver trigonometría es que el seno es la proporción entre el cateto opuesto y la hipotenusa en un triángulo rectángulo. Teniendo esta imagen la cabeza es muy fácil darse cuenta que $sin(x)=sin(x + 2\pi)=sin(\pi-x)$. Estas son dos propiedades metamórficas de la función seno. \newline
 
 Veamos ahora que es lo que consideramos formalmente una regla o propiedad metamórfica y como llegamos a los pasos de testing metamórfico: (Metamorfic testing paper)
+
+\newpage
 
 \begin{itemize}
     \item \textbf{Relación metamórfica}, PM: Sea $f: X \rightarrow Y$ una función o algoritmo. Se considera que $\mathscr{R} \subseteq X^{n} \times Y^{n}$ es una \textbf{\textit{regla metamórfica}} si es una relación entre una secuencia de entrada $\langle x_{1},x_{2},...,x_{n}\rangle$ con $n>1$ y sus salidas correspondientes $\langle f(x_{1}),f(x_{2}),...,f(x_{n})\rangle$, la cual se puede deducir de forma lógica desde el algoritmo. Es decir, es una propiedad necesaria de f.
