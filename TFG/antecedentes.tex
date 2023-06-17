@@ -37,12 +37,16 @@ Veamos ahora distintas definiciones para operadores:
 
 Para finalizar con esta sección vamos a ver una manera de combinar dos espacios vectoriales, en particular, dos espacios de Hilbert que nos permitirá unir dos sistemas cuánticos, esta operación es el producto tensorial. (Nielsen, WikiES)
 
-\vspace{5pt}
+\vspace{10pt}
 
 Sean $\mathscr{H}$ y $\mathscr{H}'$ dos espacios de Hilbert,
+
+\vspace{5pt}
 \begin{equation*}
     F(\mathscr{H} \times \mathscr{H}') = \left\lbrace \sum_{i=1}^{n}z_{i} (h_{i},h_{i}')\:|\:n \in \mathbb{N},\: z_{i} \in \mathbb{C},\:(h_{i},h_{i}') \in \mathscr{B}(\mathscr{H} \times \mathscr{H}') \right\rbrace
 \end{equation*}
+
+\vspace{5pt}
 \begin{equation*}
 \begin{split}
     \mathscr{R} =  (h_{1}+h_{2},h') \sim (h_{1},h') + (h_{2},h') \\ 
@@ -51,8 +55,8 @@ Sean $\mathscr{H}$ y $\mathscr{H}'$ dos espacios de Hilbert,
 \end{split}
 \end{equation*}
 
-
-Definimos el \textbf{producto tensorial} de $\mathscr{H}$ y $\mathscr{H}'$ , $\mathscr{H} \otimes \mathscr{H}'$, como el espacio cociente entre $F(\mathscr{H} \times \mathscr{H}')$ y $\mathscr{R}$, es decir, $\mathscr{H} \otimes \mathscr{H}' = F(\mathscr{H} \times \mathscr{H}')/\mathscr{R}$. De la definición obtenemos directamente:
+\vspace{5pt}
+Definimos el \textbf{producto tensorial} de $\mathscr{H}$ y $\mathscr{H}'$ , $\mathscr{H} \otimes \mathscr{H}'$, como el espacio cociente entre $F(\mathscr{H} \times \mathscr{H}')$ y $\mathscr{R}$, es decir, $\mathscr{H} \otimes \mathscr{H}' = F(\mathscr{H} \times \mathscr{H}')/\mathscr{R}$. Partiendo directamente desde la definición de la relación obtenemos:
 
 \begin{itemize}
     \item \textbf{Linealidad}: Sea $z\in\mathbb{C}$, $|h\rangle\in\mathscr{H}$ y $|h'\rangle\in\mathscr{H}'$. Entonces:
@@ -60,6 +64,7 @@ Definimos el \textbf{producto tensorial} de $\mathscr{H}$ y $\mathscr{H}'$ , $\m
             z\:(|h\rangle \otimes |h'\rangle) = (\:z|h\rangle) \otimes |h'\rangle = |h\rangle \otimes (\:z|h'\rangle)
         \end{equation*}
         
+    \newpage
     \item \textbf{Asociatividad}:
     \begin{itemize}
         \item Sea $|h_{1}\rangle\in\mathscr{H}$, $|h_{2}\rangle\in\mathscr{H}$ y $|h'\rangle\in\mathscr{H}'$. Entonces:
@@ -78,9 +83,10 @@ Además alcanzamos los siguiente resultados sobre el producto tensorial:
 \begin{itemize}
     \item \textbf{Base}: $|i\rangle \otimes |j\rangle$ es una base de $\mathscr{H} \otimes \mathscr{H}'$ donde $|i\rangle$ y $|j\rangle$ pertenecen a una base ortonormal de $\mathscr{H}$ y $\mathscr{H}'$ respectivamente. 
     
-    \item \textbf{Producto interno}: los productor internos de $\mathscr{H}$ y $\mathscr{H}'$ inducen naturalmente un producto interno en $\mathscr{H} \otimes \mathscr{H}'$ por lo que hereda la estructura y con ellos las nociones de adjunto, unitario, normalidad y hermiticidad.
+    \item \textbf{Producto interno}: los productor internos de $\mathscr{H}$ y $\mathscr{H}'$ inducen naturalmente un producto interno en $\mathscr{H} \otimes \mathscr{H}'$ por lo que hereda la estructura y con ella, las nociones de adjunta, unitaria, normalidad y hermiticidad.
     
-    \item \textbf{Producto de Kronecker}, se corresponde con el producto tensorial de aplicaciones lineales. Nos será de gran utilidad a lo largo de este trabajo. Veamos un ejemplo para visualizarlo. Si $A$ y $B$ son 2 matrices, entonces:\newline
+    \item \textbf{Producto de Kronecker}, se corresponde con el producto tensorial de aplicaciones lineales. Nos será de gran utilidad a lo largo de este trabajo y nos ayuda a visualizar el producto tensorial. Veamos un ejemplo, si $A$ y $B$ son 2 matrices, entonces:\newline
+
         \begin{equation*}
         A\otimes B = \begin{bmatrix}
         a_{11}B & a_{12}B & ... & a_{1n}B\\
@@ -90,6 +96,7 @@ Además alcanzamos los siguiente resultados sobre el producto tensorial:
         \end{bmatrix}
         \end{equation*}
 
+    \vspace{5pt}
     \item \textbf{Dimensión}: $dim(\mathscr{H} \otimes \mathscr{H}')=dim(\mathscr{H})\cdot dim(\mathscr{H}')$
 \end{itemize}
 
@@ -152,11 +159,11 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
  
  Si recordamos el postulado 1 de la mecánica cuántica (link), vamos a definir \textbf{qubit} como el sistema cuántico más simple, que va a ser nuestra base en la programación cuántica. Un \textbf{qubit} es un espacio bidimensional, donde vamos a suponer que tomamos la base ortonormal $|0 \rangle = \begin{bmatrix} 1\\0 \end{bmatrix}$ y $|1 \rangle = \begin{bmatrix} 0\\1 \end{bmatrix}$. De aquí podemos obtener la combinación lineal de cualquier vector de estado del qubit, aunque los vectores de estado deben de cumplir la condición de normalización, es decir, si $|\varphi \rangle = a |0\rangle + b |1\rangle = \begin{bmatrix} a\\b \end{bmatrix}$ con $a,b \in \mathbb{C}$, entonces $|a|^{2}+|b|^{2}=1$. Esta condición se impone debido a que el cuadrado de los coeficientes determinan la probabilidad de aparición y por lo tanto la suma de todas la probabilidad de todas las posibilidades debe ser 1. Además, llamaremos estado de \textbf{superposición} a los estados del qubit que se encuentran en el continuo entre $|0\rangle$ y $|1\rangle$.\newline
 
- Estos estados de un qubit se entienden muy bien utilizando la \textbf{esfera de Bloch}, que observaremos en la figura 2.1. Debido a que si $|\Psi \rangle = a |0\rangle + b |1\rangle$, $|a|^{2}+|b|^{2}=1$. Podemos representar $|\Psi \rangle = e^{i\gamma}\left( cos\:\dfrac{\theta}{2} \:|0\rangle +\; e^{i\varphi}\;sin\:\dfrac{\theta}{2}\:|1\rangle\right)$, donde $\theta,\varphi,\gamma \in \mathbb{R}$. Si bien es cierto, podemos ignorar el factor $e^{i\gamma}$. Ya que no tiene efectos observables. Hay que tener en cuenta que esta representación está limitada a un qubit, ya que no hay manera simple de generalizarla.
+ Estos estados de un qubit se entienden muy bien utilizando la \textbf{esfera de Bloch}, que observaremos en la figura 2.1 \footnote{https://en.wikipedia.org/wiki/Bloch\_sphere#/media/File:Bloch\_sphere.svg}. Debido a que si $|\Psi \rangle = a |0\rangle + b |1\rangle$, $|a|^{2}+|b|^{2}=1$. Podemos representar $|\Psi \rangle = e^{i\gamma}\left( cos\:\dfrac{\theta}{2} \:|0\rangle +\; e^{i\varphi}\;sin\:\dfrac{\theta}{2}\:|1\rangle\right)$, donde $\theta,\varphi,\gamma \in \mathbb{R}$. Si bien es cierto, podemos ignorar el factor $e^{i\gamma}$. Ya que no tiene efectos observables. Hay que tener en cuenta que esta representación está limitada a un qubit, ya que no hay manera simple de generalizarla.
 
   \begin{figure}[H]
     \centering
-    \includegraphics[width=0.4\textwidth]{TFG/imagenes/Bloch_sphere.png}
+    \includegraphics[width=0.37\textwidth]{TFG/imagenes/Bloch_sphere.png}
     \caption{Esfera de Bloch} 
   \end{figure}
  
@@ -238,17 +245,31 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
 
  \begin{itemize}
      \item \textbf{CNOT}, tambien conocida como \textit{puerta de control Pauli-X}. Es un caso particular de las puertas de control sobre cualquier operador. En este caso, sobre la puerta X. \newline 
-     Este operador viene determinado por la matriz $CNOT = \begin{bmatrix} 1 & 0 & 0 & 0\\0 & 1 & 0 & 0\\0 & 0 & 0 & 1\\0 & 0 & 1 & 0 \end{bmatrix}=\begin{bmatrix} I & 0  \\ 0 & X \end{bmatrix}$\newline
+     Este operador viene determinado por la matriz, 
+     
+     \begin{equation*}
+     CNOT = \begin{bmatrix} 1 & 0 & 0 & 0\\0 & 1 & 0 & 0\\0 & 0 & 0 & 1\\0 & 0 & 1 & 0 \end{bmatrix}=\begin{bmatrix} I & 0  \\ 0 & X \end{bmatrix}
+     \end{equation*}
+     
      La interpretación de esta puerta es que si el primer qubit es $|1\rangle$, realiza la operación $X$ sobre el segundo qubit. En general, podriamos definir la puerta controlada para un operador U, de forma análoga intercambiando $X$ por $U$.\newline 
      
-     La representación de CNOT en un circuito es: $\;\;\;\;\;\;\Qcircuit @C=1em @R=.7em {\lstick{q_{1}}&  \ctrl{1} &\qw \\ \lstick{q_{2}} &\targ & \qw }$. En general, $\;\;\;\;\;\;\Qcircuit @C=1em @R=.7em {\lstick{q_{1}}&  \ctrl{1} &\qw \\ \lstick{q_{2}} &\gate{U} & \qw }$
+     La representación de CNOT en un circuito es: 
+     \raisebox{7pt}{$\;\;\;\;\;\;\Qcircuit @C=1em @R=.7em {\lstick{q_{1}}&  \ctrl{1} &\qw \\ \lstick{q_{2}} &\targ & \qw }$}. En general,\raisebox{10pt}{ $\;\;\;\;\;\;\Qcircuit @C=1em @R=.7em {\lstick{q_{1}}&  \ctrl{1} &\qw \\ \lstick{q_{2}} &\gate{U} & \qw }$}
      
-     \item \textbf{SWAP}, o puerta de intercambio de qubits. \\ Queda determinada por la matriz $SWAP = \begin{bmatrix}
+     \item \textbf{SWAP}, o puerta de intercambio de qubits. Con notación \raisebox{7pt}{$\;\Qcircuit @C=1em @R=1em {&  \qswap &\qw \\ &\qswap \qwx & \qw }$} . La determinada,
+     
+     \begin{equation*}
+     SWAP = \begin{bmatrix}
          1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1
-     \end{bmatrix}$, $\;\;\;\;\;\;\Qcircuit @C=1em @R=1em {&  \qswap &\qw \\ &\qswap \qwx & \qw }$
-     \item \textbf{Toffoli, CCNOT}. Puerta de control sobre 2 qubits $q_{1}, q_{2}$ aplicando la puerta X a $q_{3}$. \\ Queda determinada por $CCNOT = \begin{bmatrix}
-         I & 0 & 0 \\ 0 & I & 0 \\ 0 & 0 & X
-     \end{bmatrix}$, $\;\;\;\;\;\;\Qcircuit @C=1em @R=.7em {\lstick{q_{1}}&  \ctrl{1} &\qw \\ \lstick{q_{2}} &\ctrl{1} & \qw  \\ \lstick{q_{3}} & \targ & \qw}$
+     \end{bmatrix} \end{equation*}
+     
+     \item \textbf{Toffoli, CCNOT}. Puerta de control sobre 2 qubits $q_{1}, q_{2}$ aplicando la puerta X a $q_{3}$. \\ \\ Usaremos como notación \raisebox{12pt}{$\;\;\;\;\;\;\Qcircuit @C=1em @R=.7em {\lstick{q_{1}}&  \ctrl{1} &\qw \\ \lstick{q_{2}} &\ctrl{1} & \qw  \\ \lstick{q_{3}} & \targ & \qw}$} . Queda determinada por,
+     
+     \begin{equation*}
+        CCNOT = \begin{bmatrix}
+        I & 0 & 0 \\ 0 & I & 0 \\ 0 & 0 & X
+        \end{bmatrix}
+    \end{equation*}
 
      Esta puerta, al igual que CNOT, podría generalizarse para un operador unitario U.
  \end{itemize}
@@ -260,7 +281,8 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
  Esta será la última operación que presentar, $\Qcircuit @C=1em @R=.7em {& \meter &\qw}$ , la \textbf{medición} de un qubit. Si bien es cierto que podemos medir sobre distintas base, vamos a tomar como referencia $\{|0\rangle,|1\rangle\}$. Pero, ¿qué va a ser realmente la medición de un qubit? \newline
 
  Esta medición viene totalmente determinada por el postulado 4, obtendrá uno de los elementos donde proyectamos con cierta probabilidad. Que interpretando la fórmula vista anteriormente, esta probabilidad va a ser el cuadrado de su amplitud. Es decir, si $|\varphi \rangle = a |0\rangle + b |1\rangle$ es el estado de un qubit antes de la medición, la probabilidad de que el resultado obtenido sea $|0\rangle$ es $|a|^{2}$ y para $|1\rangle$ será $|b|^{2}$. Lo que hay que tener en cuenta, es que una vez realizada una medición, apartado 3, hemos modificado el qubit y a partir de entonces $|\varphi\rangle = |0\rangle$ o $|\varphi\rangle = |1\rangle$. \newline 
- 
+
+ \newpage
  Para almacenar esta información utilizaremos bits clásicos, por eso podremos observar como la medición se representa con la puerta anterior y la caída hacia el bit clásico donde se almacene. \newline
  
  Con todas estas operaciones, nos ayuda a poner los qubits en los distintos estados queridos y permitir realizar nuestros programas obteniendo una medición final. Al fin y al cabo, un programa cuántico es una sucesión de operaciones (o puertas) aplicadas sobre los qubits del sistema. \newline
@@ -275,7 +297,7 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
 
  Detallemos brevemente los elementos principales de este circuito:
  \begin{itemize}
-     \item \textbf{Qubits}: Se representan en las primeras lineas, cada uno en una línea distinta. El circuito de la figura 2.2 se compone de 5 qubits. Entre ellos vemos un qubit llamado anc1, que es un qubit ancilla, auxiliar. Muchas veces este qubit extra almacenará el resultado de las operaciones, ya que nunca deberíamos modificar los datos originales. Se debe seguir el siguiente esquema:
+     \item \textbf{Qubits}: Se representan en las primeras lineas, cada uno en una línea distinta. El circuito de la figura 2.2 se compone de 5 qubits. Entre ellos vemos un qubit llamado anc1, que es un qubit ancilla con un estado inicial conocido. Algunas veces este qubit auxiliar nos servirá como apoyo para realizar operaciones o almacenará el resultado, ya que nunca deberíamos modificar los datos originales. Se debería seguir el siguiente esquema:
      
      \begin{center}$\Qcircuit @C=1em @R=.7em {\lstick{|x\rangle}&  \multigate{1}{U_{f}} &\qw & \rstick{|x\rangle}\\ \lstick{|y\rangle} &\ghost{U_{f}} & \qw & \rstick{|y \oplus f(x)\rangle}}$ \end{center}
      
@@ -294,7 +316,11 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
  
  \begin{itemize}
      \item \textbf{Simulación}, en nuestro caso con los simuladores de IBM. Esta posibilidad nos va a ofrecer una simulación teórica de lo que ocurre en nuestro circuito. Será ejecutado a través de un simulador de IBM y nos va a permitir obtener resultados con seguridad y sin ningún problema asociado de errores o ruido. Hay que entender que las simulaciones van a tener una limitación debido a la dimensión de las matrices con las que estamos tratando, ya que el coste es exponencial.
-     \item \textbf{Ordenador cuántico}, utilizaremos los ordenadores de IBM. La tecnología para la creación de ordenadores cuánticos más fieles sigue avanzando. Esta intenta mitigar los errores que tiene cada operación, así como los errores relacionados con el ruido del entorno que influyen en el estado del sistema modificándolo. Cada ordenador tiene su propia estructura y sus estudios sobre los errores que se cometen en cada qubit, así como calibraciones. Se puede ver en la figura 2.3, los errores de cada qubit así como la estructura del ordenador. Qiskit analizará el circuito que le proponemos y lo adaptará a la arquitectura del sistema elegido para la ejecución, con el objetivo de minimizar los errores cometidos.
+
+     \newpage
+     
+     \item \textbf{Ordenador cuántico}, utilizaremos los ordenadores de IBM. La tecnología para la creación de ordenadores cuánticos más fieles sigue avanzando. Esta intenta mitigar los errores que tiene cada operación, así como los errores relacionados con el ruido del entorno que influyen en el estado del sistema modificándolo. Cada ordenador tiene su propia estructura y sus estudios sobre los errores que se cometen en cada qubit, así como calibraciones. Se puede ver en la figura 2.3 \footnote{https://qiskit.org/documentation/qc\_intro.html}, los errores de cada qubit así como la estructura del ordenador. Qiskit analizará el circuito que le proponemos y lo adaptará a la arquitectura del sistema elegido para la ejecución, con el objetivo de minimizar los errores cometidos.
+     
  \end{itemize}
 
  Ambas opciones utilizan el mismo mecanismo, repiten el proceso tantas veces como les sea requerido y muestran la frecuencia acumulada de los resultados (mediciones) o directamente las probabilidades sobre el número total de ejecuciones.
@@ -307,7 +333,8 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
  \end{figure}
  
  \vspace{5pt}
- 
+
+ \newpage
  Veamos un ejemplo para entender la diferencia de resultados de utilizar un opción u otra. Para ello vamos a usar los resultados del circuito presentado en la figura 2.1 del algoritmo de Bernstein-Vazirani que se presentará en el siguiente capítulo. Este algoritmo nos debería dar un resultado único, pero veamos lo que ocurre. \newline
 
  \begin{figure}[h]
@@ -326,9 +353,11 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
         \caption{Diferencias en resultados de ejecución del algoritmo de Bernstein-Vazirani}
  \end{figure}
 
-Se puede observar en la figura 2.4 la diferencia entre la simulación teórica (a) y la ejecución con el sistema ibmq\_quito (b). Nuestra simulación nos ha dado únicamente el resultado querido, pero al ejecutarlo en sistema cuántico nos ha dado una variedad de resultados, aunque no todos los posibles. Si bien es cierto que el más probable, con suficiente diferencia, es idéntico al obtenido con la simulación. Cabe destacar de la figura 2.4.b que los de mayor probabilidad, una vez eliminada la solución, son aquellos en los cuales solo varía 1 dígito y por el contrario, el complementario binario no ha aparecido como resultado en ninguna de las ejecuciones realizadas.
+Se puede observar en la figura 2.4 la diferencia entre la simulación teórica (a) y la ejecución con el sistema ibmq\_quito (b). Nuestra simulación nos ha dado únicamente el resultado querido, pero al ejecutarlo en sistema cuántico nos ha dado una variedad de resultados, aunque no todos los posibles. Si bien es cierto que el más probable, con suficiente diferencia, es idéntico al obtenido con la simulación. Cabe destacar de la figura 2.4.b que los de mayor probabilidad, una vez eliminada la solución, son aquellos en los cuales solo varía 1 dígito y por el contrario, el complementario binario no ha aparecido como resultado en ninguna de las ejecuciones realizadas. \newline
 
-Para acabar con esta sección, como curiosidad y por completitud, hemos mencionado antes que \textit{Qiskit} traduce a \textit{qasm} a la hora de ejecutar. La función utilizada por \textit{Qiskit} para ensamblar el programa es \textit{assemble} que devuelve un objeto de clase \textit{QasmQobj} \footnote[1]{\url{https://qiskit.org/documentation/stubs/qiskit.compiler.assemble.html}}. El código que utilizaría \textit{Qiskit} para la ejecución del circuito presentado anteriormente lo podemos encontrar en \textit{GitHub}, archivo (link y nombre).
+Para acabar con esta sección, como curiosidad y por completitud, hemos mencionado antes que \textit{Qiskit} traduce a \textit{qasm} a la hora de ejecutar. La función utilizada en \textit{Qiskit} para ensamblar el programa es \textit{assemble} que devuelve un objeto de clase \textit{QasmQobj} \footnote{\url{https://qiskit.org/documentation/stubs/qiskit.compiler.assemble.html}}. El código que utilizaría \textit{Qiskit} para la ejecución del circuito presentado anteriormente lo podemos encontrar en \textit{GitHub}, archivo (link y nombre).\newline
+
+
 
 \section{Propiedades Metamórficas / Testing metamórfico}
 
@@ -336,18 +365,18 @@ Informalmente entendemos como propiedad metamórfica aquella que podemos derivar
 
 La definición que aprendemos cuando empezamos a ver trigonometría es que el seno es la proporción entre el cateto opuesto y la hipotenusa en un triángulo rectángulo. Teniendo esta imagen la cabeza es muy fácil darse cuenta que $sin(x)=sin(x + 2\pi)=sin(\pi-x)$. Estas son dos propiedades metamórficas de la función seno. \newline
 
-Veamos ahora que es lo que consideramos formalmente una regla o propiedad metamórfica y como llegamos a los pasos de testing metamórfico: (Metamorfic testing paper)
-
-\newpage
+Veamos ahora que es lo que consideramos formalmente una regla o propiedad metamórfica y como llegamos a los pasos de testing metamórfico: (Metamorfic testing paper)\newline
 
 \begin{itemize}
-    \item \textbf{Relación metamórfica}, PM: Sea $f: X \rightarrow Y$ una función o algoritmo. Se considera que $\mathscr{R} \subseteq X^{n} \times Y^{n}$ es una \textbf{\textit{regla metamórfica}} si es una relación entre una secuencia de entrada $\langle x_{1},x_{2},...,x_{n}\rangle$ con $n>1$ y sus salidas correspondientes $\langle f(x_{1}),f(x_{2}),...,f(x_{n})\rangle$, la cual se puede deducir de forma lógica desde el algoritmo. Es decir, es una propiedad necesaria de f.
-    \item \textbf{Entrada original/seguimiento}: Sea $\mathscr{R}$ una relación metamórfica y sea $\langle x_{1},x_{2},...,x_{k}\rangle$ la secuencia original con sus respectivos resultados. Denotaremos como \textbf{\textit{entrada original}}, source input, a   $\langle x_{1},x_{2},...,x_{k}\rangle$  los cuales son datos definidos o caracterizados, es decir, ya conocidos. A su vez, podemos generar $\langle x_{k+1},x_{k+2},...,x_{n}\rangle$, los cuales están construidos en base a la entrada original e incluso a la salida de esta. A esta secuencia la llamaremos \textbf{\textit{entrada de seguimiento}}, o en inglés follow-up input.
-    \item \textbf{Grupo metamórfico de entrada}: Llamaremos \textbf{\textit{grupo metamórfico de entrada}} a la secuencia definida por la entrada original y la de seguimiento, es decir, $\langle x_{1},x_{2},...,x_{k},x_{k+1},...,x_{n}\rangle$.
-    \item \textbf{Testing metamórfico}, TM: Sea $f$ la función o algoritmo objetivo, $P$ una implementación de $f$ y $\mathscr{R}$ una regla metamórfica de $f$. Para realizar \textbf{\textit{testing metamórfico}} sobre $P$ seguiremos los siguiente pasos:
+    \item \textbf{Relación metamórfica}, PM: Sea $f: X \rightarrow Y$ una función o algoritmo. Se considera que $\mathscr{R} \subseteq X^{n} \times Y^{n}$ es una \textbf{regla metamórfica} si es una relación entre una secuencia de entrada $\langle x_{1},x_{2},...,x_{n}\rangle$ con $n>1$ y sus salidas correspondientes $\langle f(x_{1}),f(x_{2}),...,f(x_{n})\rangle$, la cual se puede deducir de forma lógica desde el algoritmo. Es decir, es una propiedad necesaria de f.
+    \item \textbf{\textit{Source/follow-up input}}: Sea $\mathscr{R}$ una relación metamórfica y sea $\langle x_{1},x_{2},...,x_{k}\rangle$ la secuencia original con sus respectivos resultados. Denotaremos como \textbf{\textit{source input}} a   $\langle x_{1},x_{2},...,x_{k}\rangle$  los cuales son datos definidos o caracterizados, es decir, ya conocidos. A su vez, podemos generar $\langle x_{k+1},x_{k+2},...,x_{n}\rangle$, los cuales están construidos en base a la entrada original e incluso a la salida de esta. A esta secuencia la llamaremos \textbf{\textit{follow-up input}}.
+    \item \textbf{Grupo metamórfico de entrada}: Llamaremos \textbf{grupo metamórfico de entrada} a la secuencia definida por \textit{source} y \textit{follow-up input}, es decir, $\langle x_{1},x_{2},...,x_{k},x_{k+1},...,x_{n}\rangle$.
+    \item \textbf{\textit{Testing} metamórfico}, TM: Sea $f$ la función o algoritmo objetivo, $P$ una implementación de $f$ y $\mathscr{R}$ una regla metamórfica de $f$.\newpage
+    
+    Para realizar \textbf{\textit{testing} metamórfico} sobre $P$ seguiremos los siguiente pasos:
     \begin{itemize}
         \item Definimos $\mathscr{R}'$ reemplazando $f$ por $P$ en $\mathscr{R}$.
-        \item Dado una entrada original, generamos sus salidas según $P$, construimos a partir de estos, los casos de seguimiento $\langle x_{k+1},...,x_{n}\rangle$, y obtenemos $\langle P(x_{k+1}),...,P(x_{n})\rangle$.
+        \item Dado el \textit{source input}, generamos sus salidas según $P$, construimos a partir de estos el \textit{follow-up input} $\langle x_{k+1},...,x_{n}\rangle$, y obtenemos $\langle P(x_{k+1}),...,P(x_{n})\rangle$.
         \item Estudiamos los resultados obtenidos respecto a $\mathscr{R}'$. Si no es satisfacible entonces diremos que $P$ no es correcto.
     \end{itemize}
 \end{itemize}
@@ -366,8 +395,9 @@ Para finalizar con esta introducción vamos a revisar brevemente un par de venta
 
 \textbf{Retos}:
 \begin{itemize}
-    \item \textbf{Generación efectiva de los grupos metamórficos de entrada}. Aun se sigue estudiando que garantías tenemos en la efectividad que puede tener la elección del grupo metamórfico de entrada en la demostración de la corrección de un algoritmo y en particular, la forma en la que obtenemos nuestra entrada original, ya que la entrada de seguimiento la generamos a partir de esta. Al fin y al cabo nuestro objetivo es maximizar la identificación de errores o defectos en $P$.
-    \item \textbf{Estructura del TM}. Debido a la juventud de este tipo de testing y la gran variedad de PM, aun no hay un acuerdo sobre una estructura definida y formal que nos proporcione seguridad en nuestra pruebas y englobe a todas las posibilidades que tenemos dentro de las PM. Aunque, si bien es cierto, ya ha ayudado a identificar diversos errores en sistemas muy estudiados con otros métodos de testing, como por ejemplo los compiladores GCC y LLVM de C, en los cuales encontró más de 100 fallos (\textit{faults}). (ref 50,51,78)
+    \item \textbf{Generación efectiva de los grupos metamórficos de entrada}. Aun se sigue estudiando que garantías tenemos en la efectividad que puede tener la elección del grupo metamórfico de entrada en la demostración de la corrección de un algoritmo y en particular, la forma en la que obtenemos nuestro \textit{source input}, ya que \textit{follow-up input} se genera a partir de esta. Al fin y al cabo nuestro objetivo es maximizar la identificación de errores o defectos en $P$.\newpage
+    
+    \item \textbf{Estructura del TM}. Debido a la juventud de este tipo de \textit{testing} y la gran variedad de PM, aun no hay un acuerdo sobre una estructura definida y formal que nos proporcione seguridad en nuestra pruebas y englobe a todas las posibilidades que tenemos dentro de las PM. Aunque, si bien es cierto, ya ha ayudado a identificar diversos errores en sistemas muy estudiados con otros métodos de \textit{testing}, como por ejemplo los compiladores GCC y LLVM de C, en los cuales encontró más de 100 fallos. (ref 50,51,78)
 \end{itemize}
 
 Los retos de TM pueden ser una buena base para todo el trabajo futuro que se puede realizar en este campo y las posibilidades que este nos puede ofrecer. Trataremos en más profundidad estás posibilidades en el apartado 5.2 de posibles trabajos futuros (link)
