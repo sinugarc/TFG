@@ -5,18 +5,187 @@
 
 El siguiente paso en este camino hacia la unión entre la computación cuántica y el \textit{testing} metamórfico es la creación de algoritmos o programas cuánticos que nos ayuden a resolver problemas propuestos o avanzar. \newline
 
-Todo el desarrollo de estos algoritmos se pueden encontrar en los libros principales (Nielsen//CforInf). Presentaremos a continuación todos los algoritmos finales que nos permiten obtener nuestros objetivos, si bien es cierto, solo vamos a presentar el camino completo de creación del algoritmo de Deutsch-Jozsa. Esto se debe a que para alcanzar nuestro objetivo debemos ir haciendo modificaciones y cálculos sobre nuestros algoritmos hasta dar con la combinación correcta de puertas que nos permita resolverlo.\newline
+Todo el desarrollo de estos algoritmos se pueden encontrar en los libros principales (Nielsen//CforComSci). Presentaremos a continuación todos los algoritmos finales que nos permiten obtener nuestros objetivos, si bien es cierto, solo vamos a presentar el camino completo de creación del algoritmo de Deutsch por su simplicidad. Esto se debe a que para alcanzar nuestro objetivo debemos ir haciendo modificaciones y cálculos sobre nuestros algoritmos hasta dar con la combinación correcta de puertas que nos permita resolverlo.\newline
 
-Esta sección va a seguir prácticamente la misma estructura para cada apartado, Empezará con una presentación, seguida de la exposición del problema a resolver. Entonces nos dispondremos a presentar el algoritmo que lo resuelve, o su creación, y las pruebas realizadas. Es necesario recordar que toda la programación realizada sobre estos algoritmos se encuentra en el repositorio de GitHub \url{https://github.com/sinugarc/TFG.git}
+Esta sección va a seguir prácticamente la misma estructura para cada apartado, a excepción de la suma. Empezará con una introducción, seguida de la exposición del problema a resolver. Entonces nos dispondremos a presentar el algoritmo que lo resuelve, o como lo creamos, y las pruebas realizadas. Es necesario recordar que toda la programación realizada sobre estos algoritmos se encuentra en el repositorio de GitHub \url{https://github.com/sinugarc/TFG.git}
 
 \section{Suma}
- Este primer algoritmo nos va a servir como primera toma de contacto con la programación cuántica, las puertas que podemos utilizar y el uso de \textit{Qiskit}. Veamos cual es el problema a resolver:
+ Este primer algoritmo nos va a servir como primera toma de contacto con la programación cuántica, las puertas que podemos utilizar y el uso de \textit{Qiskit}. Veamos cual es el problema a resolver:\newline
 
-\section{DJ}
- Algoritmo de Deutsch-Jozsa \n
+ \textbf{Problema}: Dadas dos cadenas binarias, queremos obtener la suma binaria de ambas.\newline
 
-\section{BV}
-Algoritmo de Berstein- Vazirani \n
+\section{Deutsch} (CforCompSci)
+ El algoritmo de Deutsch fue propuesto por David Deutsch en 1985, siendo este uno de los primeros algoritmos propuestos y en sí, el que se podría entender como problema más simple. Sea $f:\{0,1\}\rightarrow\{0,1\}$, diremos que $f$ es \textbf{balanceada} si $f(0)\neq f(1)$ y diremos que es \textbf{constante} si $f(0)=f(1)$. \newline
+
+ \textbf{Problema}: Dada una función $f:\{0,1\}\rightarrow\{0,1\}$ balanceada o constante, la cual no podemos observar su definición. Queremos determinar que tipo de función es.\newline
+
+ \textbf{Solución clásica}: Tenemos que evaluar $f$ en ambos valores y comparar las soluciones.\newline
+
+ Veamos ahora que podemos hacer con un ordenador cuántico, ¿seremos capaces de evaluar $f$ una única vez? \newline
+
+ Primero observamos un ejemplo particular y cómo vamos a llevarlo a un circuito cuántico. Sea $f(0)=1$ y $f(1)=0$, buscamos una matriz unitaria que nos permita representarla en un circuito cuántico, aunque tendremos que hacer alguna modificación más. Por ahora lo que obtenemos es,
+
+ \begin{equation*}
+     \begin{matrix}
+           & \begin{matrix} \textbf{0} & \textbf{1} \end{matrix} \\
+         \begin{matrix} \textbf{0} \\ \textbf{1} \end{matrix} & \begin{bmatrix}
+             0 & 1 \\
+             1 & 0
+         \end{bmatrix}
+     \end{matrix}
+ \end{equation*}
+
+ \vspace{5pt}
+
+ Donde la columna representa la entrada y la fila la salida. Como ya se mencionó al explicar los qubits del circuito (figura 2.2), es importante conservar la entrada y por lo tanto si $U_{f}$ es la caja negra que representa a $f$, nuestro circuito será:
+
+ \vspace{10pt}
+
+ \begin{center}$\Qcircuit @C=1em @R=.7em {\lstick{|x\rangle}&  \multigate{1}{U_{f}} &\qw & \rstick{|x\rangle}\\ \lstick{|y\rangle} &\ghost{U_{f}} & \qw & \rstick{|y \oplus f(x)\rangle}}$ \end{center}
+
+ \vspace{7pt}
+
+ Es más, si aplicáramos $U_{f}$ dos veces obtendríamos la entrada:
+
+ \vspace{10pt}
+
+ \begin{center}$\Qcircuit @C=1em @R=.7em {\lstick{|x\rangle} & \multigate{1}{U_{f}} & \qw & \qw & \ustick{|x\rangle} \qw & \qw & \qw & \multigate{1}{U_{f}} & \qw & \rstick{|x\rangle}\\ \lstick{|y\rangle} & \ghost{U_{f}} & \qw & \qw & \dstick{|y \oplus f(x)\rangle} \qw & \qw & \qw &\ghost{U_{f}} & \qw & \rstick{|y\rangle}}$\end{center}
+
+ \vspace{14pt}
+
+ Esto se debe a que $f(x)\oplus f(x) = 0$. Pero claro, ¿qué matriz realmente representa a $U_{f}$? Veamos como quedaría respecto a la base:
+
+ \vspace{5pt}
+ \begin{center}
+ \begin{blockarray}{ccccc}
+         & $\mathbf{|00\rangle}$ & $\mathbf{|01\rangle}$ & $\mathbf{|10\rangle}$ & $\mathbf{|11\rangle}$\\
+    \begin{block}{c[cccc]}
+        $\mathbf{|00\rangle}$ & 0 & 1 & 0 & 0 \\
+        $\mathbf{|01\rangle}$ & 1 & 0 & 0 & 0 \\
+        $\mathbf{|10\rangle}$ & 0 & 0 & 1 & 0 \\
+        $\mathbf{|11\rangle}$ & 0 & 0 & 0 & 1
+     \end{block}
+\end{blockarray}
+\end{center}
+
+\vspace{5pt}
+
+Se podría comprobar que esta matriz es su propia adjunta, por lo que es invertible y unitaria. Por lo que cumple las características necesarias para ser una puerta de un circuito cuántico.\newline
+
+ Ahora que ya tenemos la caja negra deseada, determinada por una matriz unitaria, nos queremos poner a resolver el problema. Como comenté en la introducción de este capítulo, esta va a ser el único algoritmo al que le vamos a seguir la pista de razonamiento de principio a final, es decir, partiremos de una idea inicial y acabaremos en el algoritmo de Deutsch que resuelve este problema.\newline
+
+ Nuestro objetivo es mejorar la complejidad de la solución del problema respecto a la solución clásica. Recordamos que necesitamos evaluar $f$ dos veces, por lo que nuestro objetivo va a ser obtener el resultado evaluando $f$ una única vez. Para ello nos vamos a sustentar en la superposición, para así analizar que ocurre en el $|0\rangle$ y en el $|1\rangle$ al mismo tiempo, es decir, vamos a tener que utilizar la puerta de Hadamard. \newline
+ 
+ \textbf{Primer intento}: Tomamos nuestro primer \textit{input} para el problema, por ejemplo $|x\rangle=|0\rangle$ e $|y\rangle=|0\rangle$ y creamos el primer circuito:
+
+ \vspace{5pt}
+
+ \begin{center}$\Qcircuit @C=1.5em @R=.7em {\lstick{|0\rangle} & \qw & \gate{H} & \qw &\multigate{1}{U_{f}} & \qw & \qw & \qw  \\ \lstick{|0\rangle} & \dstick{\begin{matrix} \Uparrow \\ \varphi_{0} \end{matrix}} \qw & \qw  & \dstick{\begin{matrix} \Uparrow \\ \varphi_{1} \end{matrix}} \qw & \ghost{U_{f}} & \dstick{\begin{matrix} \Uparrow \\ \varphi_{2} \end{matrix}} \qw & \meter & \qw \\}$\end{center}
+
+\vspace{30pt}
+
+Donde cada $\varphi_{i}$ va a representar el estado del sistema en cada momento, esto nos va a ayudar a analizar de forma determinista lo que ocurre en nuestro circuito.\newline
+
+Podemos resumir el circuito como  $U_{f}(H\otimesI)|0,0\rangle$, veamos ahora que estados tenemos en cada instante $i$:
+
+\begin{itemize}
+    \item $\mathbf{|\varphi_{0}\rangle} = |0\rangle \otimes |0\rangle = |0,0\rangle$
+
+    \item $\mathbf{|\varphi_{1}\rangle} = (H\otimes I)|0,0\rangle = \left[ \dfrac{|0\rangle + |1\rangle}{\sqrt{2}}\right] |0\rangle = \dfrac{|0,0\rangle+|1,0\rangle}{\sqrt{2}}$
+
+    \item  $\mathbf{|\varphi_{2}\rangle} = \dfrac{|0,f(0)\rangle+|1,f(1)\rangle}{\sqrt{2}}$
+\end{itemize}
+
+Si nos fijamos en el ejemplo que expuesto al principio del algoritmo obtendríamos el siguiente estado antes de la medición:
+
+\begin{equation*}
+    |\varphi_{2}\rangle=\begin{bmatrix}
+        0 & 1 & 0 & 0 \\
+        1 & 0 & 0 & 0 \\
+        0 & 0 & 1 & 0 \\
+        0 & 0 & 0 & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+        \frac{1}{\sqrt{2}} \\ 0 \\ \frac{1}{\sqrt{2}} \\ 0 
+    \end{bmatrix} = 
+    \begin{bmatrix}
+        0 \\ \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \\ 0 
+    \end{bmatrix} = \dfrac{|0,1\rangle + |1,0\rangle}{\sqrt{2}}
+\end{equation*}
+
+De aquí podemos observar, que sin importar donde hagamos la medición, el resultado no va a ser concluyente, porque vamos a tener una probabilidad de 0.5 de obtener $|0\rangle$ o $|1\rangle$. Es decir, este primer intento no nos sirve para nuestro objetivo. \newline
+
+\textbf{Segundo intento}: Veamos ahora que ocurre si en vez de poner en superposición el primer qubit, ahora ponemos el segundo, tomando $|1\rangle$ como \textit{input}:
+
+ \vspace{5pt}
+
+ \begin{center}$\Qcircuit @C=1.5em @R=.7em {\lstick{|x\rangle} & \qw & \qw & \qw &\multigate{1}{U_{f}} & \qw & \qw & \qw  \\ \lstick{|1\rangle} & \dstick{\begin{matrix} \Uparrow \\ \varphi_{0} \end{matrix}} \qw & \gate{H}  & \dstick{\begin{matrix} \Uparrow \\ \varphi_{1} \end{matrix}} \qw & \ghost{U_{f}} & \dstick{\begin{matrix} \Uparrow \\ \varphi_{2} \end{matrix}} \qw & \meter & \qw \\}$\end{center}
+
+\vspace{30pt}
+
+Ahora iremos directamente a $|\varphi_{2}\rangle$ :
+
+\begin{equation*}
+    |\varphi_{2}\rangle=|x\rangle \left[ \dfrac{|0\otimes f(x)\rangle - |1\otimes f(x)\rangle}{\sqrt{2}} \right] = \begin{cases} |x\rangle \:  \left[ \dfrac{|0\rangle-|1\rangle}{\sqrt{2}}\right] \;\; si \: f(x) = 0 \\ \\ |x\rangle \: \left[ \dfrac{|0\rangle-|1\rangle}{\sqrt{2}} \right] \;\; si \: f(x) = 1 \end{cases}
+\end{equation*}\newline
+
+Esto los podemos resumir como:
+
+\begin{equation*}
+    |\varphi_{2}\rangle = (-1)^{f(x)} \;|x\rangle \; \left[ \dfrac{|0\rangle-|1\rangle}{\sqrt{2}}\right]
+\end{equation*}\newline
+
+Pero al igual que en intento anterior, al intentar medir en cualquiera de ambos qubits no obtendríamos ningún resultado concluyente. Esto nos va a llevar al último intento.\newline
+
+\textbf{Tercer intento}, \textbf{Algoritmo de Deutsch}: Al no ser capaces de obtener un resultado poniendo sólo un qubit en superposición, esta vez vamos a poner ambos en estado de superposición, con  el \textit{input} $|0,1\rangle$. Además, vamos a medir sobre el qubit superior tras aplicar una puerta de Hadamard, que recordamos es su propia inversa. Este es el circuito final que representa al algoritmo de Deutsch:
+
+ \vspace{5pt}
+
+ \begin{center}$\Qcircuit @C=1.5em @R=.7em {\lstick{|0\rangle} & \qw & \gate{H} & \qw &\multigate{1}{U_{f}} & \qw & \gate{H} & \qw & \meter & \qw  \\ \lstick{|1\rangle} & \dstick{\begin{matrix} \Uparrow \\ \varphi_{0} \end{matrix}} \qw & \gate{H}  & \dstick{\begin{matrix} \Uparrow \\ \varphi_{1} \end{matrix}} \qw & \ghost{U_{f}} & \dstick{\begin{matrix} \Uparrow \\ \varphi_{2} \end{matrix}} \qw & \qw & \dstick{\begin{matrix} \Uparrow \\ \varphi_{3} \end{matrix}} \qw & \qw & \qw }$\end{center}
+
+\vspace{30pt}
+
+Esto matricialmente nos queda como $(H\otimes I)\:U_{f}\:(H\otimes H)\:|0,1\rangle$ .\newline
+
+Analizamos ahora todos los estados $|\varphi_{i}\rangle$:
+
+\begin{itemize}
+    \item $\mathbf{|\varphi_{0}\rangle} = |0\rangle \otimes |1\rangle = |0,1\rangle$
+
+    \vspace{5pt}
+
+    \item  $\mathbf{|\varphi_{1}\rangle} = \left[ \dfrac{|0\rangle + |1\rangle}{\sqrt{2}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right]$
+
+    \vspace{5pt}
+
+    \item $\mathbf{|\varphi_{2}\rangle} = \left[ \dfrac{(-1)^{f(0)}\:|0\rangle + (-1)^{f(1)}\:|1\rangle}{\sqrt{2}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right]$\newline 
+    
+    Hemos obtenido este resultado substituyendo $|x\rangle$ en el intento anterior. Pero veamos que ocurre separando $(-1)^{f(0)}\:|0\rangle + (-1)^{f(1)}\:|1\rangle$ según nuestras posibilidades:
+    \begin{itemize}
+        \item $f$ es constante: $(-1)^{f(0)}\:|0\rangle + (-1)^{f(1)}\:|1\rangle = (\pm 1)\left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right]$
+
+        \vspace{5pt}
+        
+        \item $f$ es balanceada: $(-1)^{f(0)}\:|0\rangle + (-1)^{f(1)}\:|1\rangle = (\pm 1)\left[ \dfrac{|0\rangle + |1\rangle}{\sqrt{2}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right]$
+
+    \end{itemize}
+
+    \vspace{5pt}
+    
+    \item $\mathbf{|\varphi_{3}\rangle} = \begin{cases} (\pm 1)\:|0\rangle \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right] \;\; si \: f(x)\:\text{es constante} \\ \\ (\pm 1)\:|1\rangle \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right] \;\; si \: f(x)\:\text{es balanceada} \end{cases}$
+\end{itemize} \newline
+
+Por lo que hemos conseguido nuestro objetivo. Tras una única evaluación de $f$ según la medición del primer qubit, sabremos si $f$ es constante con medición $|0\rangle$ o balanceada, $|1\rangle$. Consiguiendo así nuestro objetivo.\newline
+
+\textbf{Simulaciones}: En el repositorio podemos encontrar este algoritmo programado con ayuda de \textit{Qiskit}. Una de las peculiaridades que encontramos es la forma en la que \textit{Qiskit} nos presenta los qubits. Las cadenas se presentan al revés. Veamos un ejemplo:
+
+\section{Deutsch-Jozsa}
+ Algoritmo de Deutsch-Jozsa \newline
+
+  \textbf{Observación}: Hay que tener en cuenta, que si la función no es ni balanceada ni constante, este algoritmo no tiene soluciona el problema y los resultados pueden conducir a confunsión
+
+\section{Bernstein-Vazirani}
+Algoritmo de Bernstein- Vazirani \n
 
 \section{Simon}
 Algoritmo de Simon \n
@@ -28,4 +197,4 @@ Algoritmo de la transformada cuántica de Fourier \n
 Algoritmo cuántico de estimación de fase \n
 
 \section{Grover}
-Algoritmo cuántico de busqueda de Grover \n
+Algoritmo cuántico de búsqueda de Grover \n
