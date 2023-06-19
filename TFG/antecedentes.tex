@@ -174,12 +174,31 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
 
  A estos coeficiente complejos se les denomina \textbf{amplitud} de cada estado de la base. Al igual que ocurre en el qubit, $a_{00}+a_{01}+a_{10}+a_{11}=1$. Este resultado se puede obtener del producto de Kronecker, y además tendría sentido con la medición de las probabilidades. En este ejemplo se puede ver claramente que la dimensión de la base va a ser exponencial respecto al número de qubits.\newline
  
- Por último y antes de pasar a las puertas cuánticas y como operamos en el sistema, vamos a introducir un último concepto, el enredo cuántico o \textit{entanglement}. Esta es una propiedad de la mecánica cuántica que aparece en un sistema, se puede decir que 2 qubits están en estado de \textit{entanglement} cuando existe una correlación entre ellos. Normalmente se observa a la hora de hacer mediciones en dicho sistema, también conocido como \textit{entangled measurements}. Muchas de estas situaciones donde se observa el enredo entre 2 qubits llega de la mano de que no todo estado de un sistema 2-qubit se puede expresar como producto tensorial de dos 1-qubit. Si bien es cierto, aún se sigue investigando esta propiedad, así como completar la teoría sobre \textit{entanglement}. (Nielsen)  Veamos un ejemplo simple que nos va a permitir obtener una idea. \newline
+ Por último y antes de pasar a las puertas cuánticas y como operamos en el sistema, vamos a introducir un último concepto, el enredo cuántico o \textbf{\textit{entanglement}}. Esta es una propiedad de la mecánica cuántica que aparece en un sistema, se puede decir que un sistema de 2 qubits están en un estado de \textit{entanglement} cuando no es posible separar el estado como producto tensorial de los dos qubits(CforInf), diremos además que existe una correlación entre ellos. Normalmente se observa a la hora de hacer mediciones en dicho sistema, también conocido como \textit{entangled measurements}. Si bien es cierto, aún se sigue investigando esta propiedad, así como completar su teoría. (Nielsen)  Veamos un ejemplo simple que nos va a permitir obtener una idea. \newline
 
- Definimos $Bell\:state $ como $ \dfrac{|00\rangle + |11\rangle}{\sqrt{2}}$, queremos realizamos una medición con base $\{|0\rangle,|1\rangle\}$, pero sabemos que sólo podemos obtener los resultados $|00\rangle$ o $|11\rangle$. Es decir, cuando se mida el primer qubit sabríamos el valor del segundo \footnote{\url{https://jcc.dcc.fceia.unr.edu.ar/2006/slides/2006-diazcaro-samborskiforlese.pdf}}. Podemos encontrar ejemplos y preguntas muy interesantes sobre \textit{entanglement} en \url{https://quantum-computing.ibm.com/composer/docs/iqx/guide/entanglement}, donde estudia distintas posibilidades con la puerta CNOT, que presentaremos a continuación, y distintos estados interesantes como \textit{Bell state}, \textit{GHZ states} and \textit{W states}.
+ Definimos $Bell\:state $ como $ \dfrac{|00\rangle + |11\rangle}{\sqrt{2}}$, veamos primero que no se puede expresar como producto tensorial. 
+
+ \begin{equation*}
+     (Bell\:state)\sqrt{2} = 1|00\rangle+ 0|01\rangle+ 0|10\rangle+ 1|11\rangle
+ \end{equation*}
+ 
+ \vspace{3pt}
+
+ Suponemos que $(Bell\:state)\sqrt{2} = (a_{0}|0\rangle+a_{1}|1\rangle) \otimes(a_{0}'|0\rangle+a_{1}'|1\rangle)$, entonces:
+ 
+ \vspace{3pt}
+     
+ \begin{center}
+     $(a_{0}|0\rangle+a_{1}|1\rangle)\otimes(a_{0}'|0\rangle+a_{1}'|1\rangle) =a_{0}a_{0}'|00\rangle + a_{0}a_{1}'|01\rangle + a_{1}a_{0}'|10\rangle + a_{1}a_{1}'|11\rangle \Rightarrow \\ \Rightarrow a_{0}a_{0}'=a_{1}a_{1}'=1\:\text{y}\:a_{0}a_{1}'=a_{1}a_{0}'=0$
+ \end{center}
+ 
+ \vspace{3pt}
+
+ Pero este sistema de ecuaciones no tiene solución, por lo que $(Bell\:state)\sqrt{2}$ no se puede expresar como producto tensorial y en particular, $Bell\:state$ tampoco.\newline
+ 
+ Ahora queremos realizar una medición con base $\{|0\rangle,|1\rangle\}$, pero sabemos que sólo podemos obtener los resultados $|00\rangle$ o $|11\rangle$. Es decir, cuando se mida el primer qubit ya tendremos el valor del segundo sin haberlo medido \footnote{\url{https://jcc.dcc.fceia.unr.edu.ar/2006/slides/2006-diazcaro-samborskiforlese.pdf}}. Podemos encontrar otros ejemplos y preguntas muy interesantes sobre \textit{entanglement} en \url{https://quantum-computing.ibm.com/composer/docs/iqx/guide/entanglement}, donde estudia distintas posibilidades con la puerta CNOT, que presentaremos a continuación, y estados interesantes como \textit{Bell state}, \textit{GHZ states} and \textit{W states}.
 
 
-\newpage
 \subsection{Puertas y circuitos cuánticos}
 
  Partimos ahora del tercer postulado, en particular el apartado 2 (link). Se podría ver que existe una correspondencia 1 a 1 entre el Hamiltoniano $H$, por ser hermitiano, y un operador unitario $U$. Estos operadores unitarios serán nuestras \textbf{puertas cuánticas} que vamos a usar junto a los qubits. Este postulado viene de la evolución \textbf{determinista} desde un puesto de vista dinámico, donde no se realiza ninguna observación sobre el sistema. Uno de los puntos importantes de que estos operadores sean unitarios es que conservan la norma, por lo cual no rompen la condición de normalización de la definición de qubit. \newline
@@ -190,7 +209,12 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
     \item \textbf{Puertas de Pauli}: Estas puertas son la más básicas y nos van a permitir, a excepción de la identidad, realizar rotaciones de $\pi$ radianes dentro de las esfera de Bloch, cada una sobre el eje que indica su propio nombre. Las matrices que determinan estas puertas generan una base del espacio de matrices hermitianas 2x2.
     \begin{itemize}
     
-        \item \textbf{Puerta identidad}: $I = \begin{bmatrix} 1 & 0\\0 & 1 \end{bmatrix}$.
+        \item \textbf{Puerta identidad}: $I = \begin{bmatrix} 1 & 0\\0 & 1 \end{bmatrix}$, con puerta geométrica $\Qcircuit @C=1em @R=.7em {& \gate{I} &\qw}$
+        
+        \item $\boldsymbol Y$: La puerta $Y$,  $\Qcircuit @C=1em @R=.7em {& \gate{Y} &\qw}$ , viene determinada por la matriz \begin{math} Y = \begin{bmatrix} 0 & -i\\i & 0 \end{bmatrix}\end{math}
+        \vspace{3pt}
+        
+        \item $\boldsymbol Z$: La puerta $Z$, $\Qcircuit @C=1em @R=.7em {& \gate{Z} &\qw}$ , viene determinada por la matriz \begin{math} Z = \begin{bmatrix} 1 & 0\\0 & -1 \end{bmatrix}\end{math}
         
         \item $\boldsymbol X$: La puerta $X$ es un operador que viene determinado por la matriz \begin{math} X = \begin{bmatrix} 0 & 1\\1 & 0 \end{bmatrix}\end{math}
         
@@ -200,16 +224,10 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
         $|0\rangle \rightarrow |1\rangle$, $|1\rangle \rightarrow |0\rangle$, por lo que dado $|\varphi \rangle = a |0\rangle + b |1\rangle \Rightarrow X|\varphi \rangle = b |0\rangle + a |1\rangle$
         \vspace{3pt}
 
-        Al realizar los circuitos utilizaremos estas puertas geométricas: $\Qcircuit @C=1em @R=.7em {& \gate{X} &\qw}$
+        Su puerta geométrica al realizar los circuitos será: $\Qcircuit @C=1em @R=.7em {& \gate{X} &\qw}$
         \vspace{5pt}
-        
-        \item $\boldsymbol Y$: La puerta $Y$,  $\Qcircuit @C=1em @R=.7em {& \gate{Y} &\qw}$ , viene determinada por la matriz \begin{math} Y = \begin{bmatrix} 0 & -i\\i & 0 \end{bmatrix}\end{math}
-        \vspace{3pt}
-        
-        \item $\boldsymbol Z$: La puerta $Z$, $\Qcircuit @C=1em @R=.7em {& \gate{Z} &\qw}$ , viene determinada por la matriz \begin{math} Z = \begin{bmatrix} 1 & 0\\0 & -1 \end{bmatrix}\end{math}
     \end{itemize}
     
-    \newpage
     \item \textbf{Puerta de Hadamard}, $H$: Este operador viene determinado por $H = \dfrac{1}{\sqrt{2}} \begin{bmatrix} 1 & 1\\1 & -1 \end{bmatrix}$
     \vspace{3pt}
     
@@ -291,7 +309,7 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
 
  \begin{figure}[H]
     \centering
-    \includegraphics[width=0.59\textwidth]{TFG/imagenes/BV_circuito.png}
+    \includegraphics[width=0.8\textwidth]{TFG/imagenes/BV_circuito.png}
     \caption{Circuito, algoritmo BV para s de longitud 4} 
  \end{figure}
 
@@ -306,12 +324,11 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
      \vspace{5pt}
      
      \item \textbf{Bits clásicos}: Se representan en la ultima fila, todos juntos. Podemos ver el número, en este caso 4, que nos indica el número de bits clásicos que tenemos.
-     \item \textbf{Puertas para un qubit}: Podemos observar puertas ya conocidas como Hadamard, Z o la medición que vemos como cae hacia el cable de bits clásicos indicando en que bit se registra la medición.
+     \item \textbf{Puertas para un qubit}: Podemos observar puertas ya conocidas como Hadamard, Z o la medición que vemos como cae hacia el cable de bits clásicos indicando en que bit se registra la medición.\newpage
+     
      \item \textbf{Puerta $f_{s}$}: Como ya mencionamos anteriormente puede haber puertas que se apliquen a varios qubits, en este caso tenemos la puerta, o bloque, que replica la función del problema de Bernstein-Vazirani. Dentro de esta puerta tenemos puertas más pequeñas como las presentadas anteriormente en este mismo apartado. En particular, $f_{s}$ tiene puertas CNOT. En diversos algoritmos, se representa esta puerta como un bloque debido a que la podemos entender como un oráculo, del que no sabemos como funciona internamente.
      \item \textbf{Barreras}: Nos sirven como apoyo para visualizar el algoritmo y poder separar en secciones.
  \end{itemize}
-
- Para producir este circuito se puede hacer de distintas maneras, ya sea programando en python con apoyo de qiskit, o directamente en IBM, ya que nos es posible poner las cajas de los operadores en los qubits que nos interesan.
  
 \subsection{Simulaciones y ruido} 
  Una vez que ya hemos visto las puertas que podemos usar en un circuito cuántico, así como un ejemplo del mismo, veamos una introducción a las distintas opciones para la ejecución. \textit{Qiskit} traduce a bajo nivel a \textit{qasm}, que es lo que se va a ejecutar al final. Para ello tenemos las dos opciones siguientes: (qiskit, intro cuantica)
@@ -323,16 +340,15 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
      
  \end{itemize}
 
+\newpage
  Ambas opciones utilizan el mismo mecanismo, repiten el proceso tantas veces como les sea requerido y muestran la frecuencia acumulada de los resultados (mediciones) o directamente las probabilidades sobre el número total de ejecuciones. \newline
 
  Veamos un ejemplo para entender la diferencia de resultados de utilizar un opción u otra. Para ello vamos a usar los resultados del circuito presentado en la figura 2.1 del algoritmo de Bernstein-Vazirani que se presentará en el siguiente capítulo. Este algoritmo nos debería dar un resultado único, pero veamos lo que ocurre. \newline
  
- \newline
- 
 
   \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{TFG/imagenes/system_error_manhattan.png}
+    \includegraphics[width=0.95\textwidth]{TFG/imagenes/system_error_manhattan.png}
     \caption{Mapa de errores del ibmq\_manhattan} 
  \end{figure}
 
@@ -382,7 +398,7 @@ Veamos ahora que es lo que consideramos formalmente una regla o propiedad metam�
 
 La estrategia presentada anteriormente para TM, será la que se siga en la implementación de las propiedades que se obtendrán a lo largo de este documento. \newline
 
-Para finalizar con esta introducción vamos a revisar brevemente un par de ventajas y retos que presenta el camino que estamos tomando para probar la corrección, o más bien la no corrección, de un algoritmo. \newline
+Para finalizar con esta introducción vamos a revisar brevemente un par de ventajas y retos que presenta el camino que estamos tomando para probar la corrección, o más bien la no corrección, de un algoritmo. \newpage
 
 \textbf{Ventajas}:
 \begin{itemize}
