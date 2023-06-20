@@ -287,7 +287,7 @@ Por lo que hemos conseguido nuestro objetivo. Tras una única evaluación de $f$
     \end{equation}
  \end{itemize}
 
- El último paso a analizar y que nos determinará la validez o el que esperamos de este algoritmo es al medición de los primeros n-qubits. Otra manera de estudiar la medición es directamente preguntarnos cual es la probabilidad de que $|\varphi_{3}\rangle$ colapse a $|\mathbf{0}\rangle$ al realizar la medición. Esto es análogo a $\mathbf{z}=\mathbf{0}$, que por las propiedades estudiadas anteriormente $\langle\mathbf{z},\mathbf{x}\rangle=\langle\mathbf{0},\mathbf{x}\rangle=0$. Con este resultado, si volvemos a la ecuación 3.5 (link):
+ El último paso a analizar y que nos determinará la validez o el que esperamos de este algoritmo es al medición de los primeros n-qubits. Otra manera de estudiar la medición es directamente preguntarnos cual es la probabilidad de que $|\varphi_{3}\rangle$ colapse a $|\mathbf{0}\rangle$ al realizar la medición. Esto es análogo a si bien en el algoritmo anterior nos interesaba medir cuando $|\mathbf{z}\rangle=|\mathbf{0}\rangle$, que por las propiedades estudiadas anteriormente $\langle\mathbf{z},\mathbf{x}\rangle=\langle\mathbf{0},\mathbf{x}\rangle=0$. Con este resultado, si volvemos a la ecuación 3.5 (link):
 
  \begin{equation}
      \mathbf{|\varphi_{3}\rangle}=\left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}|\mathbf{0}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right]
@@ -305,46 +305,55 @@ Por lo que hemos conseguido nuestro objetivo. Tras una única evaluación de $f$
  Por lo que podemos concluir que este algoritmo resuelve nuestro problema con una única evaluación de $f$. Si el resultado es $|\mathbf{0}\rangle$, $f$ es constante y si es otro cualquiera, $f$ es balanceada. Por esta razón la observación que realizamos anteriormente, ya que nos sería imposible identificar si la función no es ni constante ni balanceada. Y esto explica porque es una de nuestras hipótesis.
 
 \section{Bernstein-Vazirani}
-El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umesh Vazirani en 1997 \cite{ARP:BV:1997}. Se puede entender que este algoritmo es una generalización más del algoritmo de Deutsch-Jozsa \footnote{https://learn.qiskit.org/course/ch-algorithms/bernstein-vazirani-algorithm}. \newline
+El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umesh Vazirani\cite{ARP:BV:1997}. Se puede entender que este algoritmo es una generalización más del algoritmo de Deutsch-Jozsa \footnote{https://learn.qiskit.org/course/ch-algorithms/bernstein-vazirani-algorithm}. \newline
 
+\textbf{Problema}: Sea $f:\{0,1\}^{n} \rightarrow \{0,1\}$, sea $\mathbf{s}=s_{0}s_{1}...s_{n-1}$, por hipótesis $f(\mathbf{x})=\mathbf{s}\cdot \mathbf{x}\: \text{mod}\:2 = s_{0}x_{0} \oplus s_{1}x_{1} \oplus ... \oplus s_{n-1}x_{n-1}$. Queremos obtener la cadena $\mathbf{s}$.\newline
 
+\textbf{Solución clásica}: Ejecutamos la función $f$ $n$ veces una con cada elemento de la base canónica. Esto nos permitirá obtener los $n$ elementos de $\mathbf{s}$.\newline
 
+\textbf{Algoritmo de Bernstein-Vazirani}:
 
+ \vspace{10pt}
 
+ \begin{center}$\Qcircuit @C=1.5em @R=1em {
+ \lstick{|\mathbf{0}\rangle}& \qw {/^{n}} & \gate{H^{\otimes n}} & \qw  & \qw {/^{n}} & \multigate{1}{U_{f}} & \qw {/^{n}} & \gate{H^{\otimes n}} & \qw {/^{n}} & \meter & \qw \\ \lstick{|0\rangle} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{0}\rangle \end{matrix}} \qw & \gate{H} & \gate{Z} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{1}\rangle \end{matrix}} \qw &\ghost{U_{f}} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{2}\rangle \end{matrix}} \qw & \qw & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{3}\rangle \end{matrix}} \qw  & \qw & \qw}$ \end{center}
 
+ \vspace{30pt}
 
+ Matricialmente: $(H^{\otimes n} \otimes I)\: U_{f}\:(I\otimes Z)\:(H^{\otimes n} \otimes H) |\mathbf{0},0\rangle$ \newline
 
+ Veamos ahora los estados alcanzados, similares al circuito anterior:
 
+ \begin{itemize}
+     \item $\mathbf{|\varphi_{0}\rangle} = |\mathbf{0},0\rangle$
 
+    \vspace{5pt}
 
+    \item  $\mathbf{|\varphi_{1}\rangle} = \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}|\mathbf{x}\rangle}{\sqrt{2^{n}}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right]$
 
+    \vspace{5pt}
 
+    \item $\mathbf{|\varphi_{2}\rangle} =\left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}|\mathbf{x}\rangle}{\sqrt{2^{n}}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right]$
 
+    \vspace{5pt}
 
+    \item Ahora tenemos que superponer la superposición, pero en este caso no es la inversa ya que se aplica sobre otros estados $|\mathbf{z}\rangle$:
 
+    \begin{equation}
+        \begin{split}\mathbf{|\varphi_{3}\rangle} &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}\sum_{\mathbf{z} \in \{0,1\}^{n}}(-1)^{\langle\mathbf{z},\mathbf{x}\rangle}|\mathbf{z}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{2^{n}}\right] \\ &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}\sum_{\mathbf{z} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}(-1)^{\langle\mathbf{z},\mathbf{x}\rangle}|\mathbf{z}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{2^{n}}\right] \\ &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}\sum_{\mathbf{z} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})\oplus\langle\mathbf{z},\mathbf{x}\rangle}|\mathbf{z}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{2^{n}}\right] \\  &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}\sum_{\mathbf{z} \in \{0,1\}^{n}}(-1)^{\langle\mathbf{s},\mathbf{x}\rangle\oplus\langle\mathbf{z},\mathbf{x}\rangle}|\mathbf{z}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{2^{n}}\right] \\ &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}\sum_{\mathbf{z} \in \{0,1\}^{n}}(-1)^{\langle\mathbf{s}\oplus \mathbf{z},\mathbf{x}\rangle}|\mathbf{z}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{2^{n}}\right] \\
+        \end{split}
+    \end{equation}
+ \end{itemize}
 
+ Veamos que esta ocurriendo en ese primer bloque de qubits, que será al que apliquemos la medición, si bien en el algoritmo anterior nos interesaba medir cuando $|\mathbf{z}\rangle=|\mathbf{0}\rangle$, pero ahora queremos obtener la cadena $\mathbf{s}$, por lo que vamos a ver que sucede cuando $\mathbf{z}=\mathbf{s}$.
 
+ \begin{equation}
+    \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{\langle\mathbf{s}\oplus \mathbf{s},\mathbf{x}\rangle}|\mathbf{s}\rangle}{2^{n}} = \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{\langle\mathbf{0},\mathbf{x}\rangle}|\mathbf{s}\rangle}{2^{n}}= \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}|\mathbf{s}\rangle}{2^{n}} = |\mathbf{s}\rangle
+ \end{equation}
 
+ \vspace{5pt}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ ¿Qué está ocurriendo aquí?, lo que hemos observado es que la amplitud de $|\mathbf{s}\rangle$ es 1, y si recordamos la teoría de los sistemas cuánticos, la suma de los cuadrados de las amplitudes es 1. Es decir, las amplitudes del resto de posibles valores de $|\mathbf{z}\rangle$ es 0. Por lo que al hacer la medición sobre el primer bloque de qubits nos devolverá la cadena $\mathbf{s}$ deseada, al ser su probabilidad de aparición 1. Podemos concluir entonces que hemos obtenido la cadena $\mathbf{s}$ con una única ejecución de $f$.\newline
 
 
 \section{Simon}
