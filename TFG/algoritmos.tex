@@ -15,9 +15,9 @@ Esta sección va a seguir prácticamente la misma estructura para cada apartado,
  \textbf{Problema}: Dadas dos cadenas binarias, queremos obtener la suma binaria de ambas.\newline
 
 \section{Deutsch} (CforCompSci)
- El algoritmo de Deutsch fue propuesto por David Deutsch en 1985, siendo este uno de los primeros algoritmos propuestos y en sí, el que se podría entender como problema más simple. Sea $f:\{0,1\}\rightarrow\{0,1\}$, diremos que $f$ es \textbf{balanceada} si $f(0)\neq f(1)$ y diremos que es \textbf{constante} si $f(0)=f(1)$. \newline
+ El algoritmo de Deutsch fue propuesto por David Deutsch en 1985, siendo este uno de los primeros algoritmos propuestos y en sí, el que se podría entender como uno de los problema más simples. Sea $f:\{0,1\}\rightarrow\{0,1\}$, diremos que $f$ es \textbf{balanceada} si $f(0)\neq f(1)$ y diremos que es \textbf{constante} si $f(0)=f(1)$. \newline
 
- \textbf{Problema}: Dada una función $f:\{0,1\}\rightarrow\{0,1\}$ balanceada o constante, la cual no podemos observar su definición. Queremos determinar que tipo de función es.\newline
+ \textbf{Problema}: Dada una función $f:\{0,1\}\rightarrow\{0,1\}$ balanceada o constante, la cual no podemos observar su definición. Queremos determinar si esta función es constante o balanceada.\newline
 
  \textbf{Solución clásica}: Tenemos que evaluar $f$ en ambos valores y comparar las soluciones.\newline
 
@@ -80,7 +80,7 @@ Se podría comprobar que esta matriz es su propia adjunta, por lo que es inverti
 
  \vspace{5pt}
 
- \begin{center}$\Qcircuit @C=1.5em @R=.7em {\lstick{|0\rangle} & \qw & \gate{H} & \qw &\multigate{1}{U_{f}} & \qw & \qw & \qw  \\ \lstick{|0\rangle} & \dstick{\begin{matrix} \Uparrow \\ \varphi_{0} \end{matrix}} \qw & \qw  & \dstick{\begin{matrix} \Uparrow \\ \varphi_{1} \end{matrix}} \qw & \ghost{U_{f}} & \dstick{\begin{matrix} \Uparrow \\ \varphi_{2} \end{matrix}} \qw & \meter & \qw \\}$\end{center}
+ \begin{center}$\Qcircuit @C=1.5em @R=.7em {\lstick{|0\rangle} & \qw & \gate{H} & \qw &\multigate{1}{U_{f}} & \qw & \qw & \qw  \\ \lstick{|0\rangle} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{0}\rangle \end{matrix}} \qw & \qw  & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{1}\rangle \end{matrix}} \qw & \ghost{U_{f}} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{2}\rangle \end{matrix}} \qw & \meter & \qw \\}$\end{center}
 
 \vspace{30pt}
 
@@ -98,7 +98,7 @@ Podemos resumir el circuito como  $U_{f}(H\otimesI)|0,0\rangle$, veamos ahora qu
 
 Si nos fijamos en el ejemplo que expuesto al principio del algoritmo obtendríamos el siguiente estado antes de la medición:
 
-\begin{equation*}
+\begin{equation}
     |\varphi_{2}\rangle=\begin{bmatrix}
         0 & 1 & 0 & 0 \\
         1 & 0 & 0 & 0 \\
@@ -111,7 +111,7 @@ Si nos fijamos en el ejemplo que expuesto al principio del algoritmo obtendríam
     \begin{bmatrix}
         0 \\ \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \\ 0 
     \end{bmatrix} = \dfrac{|0,1\rangle + |1,0\rangle}{\sqrt{2}}
-\end{equation*}
+\end{equation}
 
 De aquí podemos observar, que sin importar donde hagamos la medición, el resultado no va a ser concluyente, porque vamos a tener una probabilidad de 0.5 de obtener $|0\rangle$ o $|1\rangle$. Es decir, este primer intento no nos sirve para nuestro objetivo. \newline
 
@@ -119,21 +119,21 @@ De aquí podemos observar, que sin importar donde hagamos la medición, el resul
 
  \vspace{5pt}
 
- \begin{center}$\Qcircuit @C=1.5em @R=.7em {\lstick{|x\rangle} & \qw & \qw & \qw &\multigate{1}{U_{f}} & \qw & \qw & \qw  \\ \lstick{|1\rangle} & \dstick{\begin{matrix} \Uparrow \\ \varphi_{0} \end{matrix}} \qw & \gate{H}  & \dstick{\begin{matrix} \Uparrow \\ \varphi_{1} \end{matrix}} \qw & \ghost{U_{f}} & \dstick{\begin{matrix} \Uparrow \\ \varphi_{2} \end{matrix}} \qw & \meter & \qw \\}$\end{center}
+ \begin{center}$\Qcircuit @C=1.5em @R=.7em {\lstick{|x\rangle} & \qw & \qw & \qw &\multigate{1}{U_{f}} & \qw & \qw & \qw  \\ \lstick{|1\rangle} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{0}\rangle \end{matrix}} \qw & \gate{H}  & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{1}\rangle \end{matrix}} \qw & \ghost{U_{f}} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{2}\rangle \end{matrix}} \qw & \meter & \qw \\}$\end{center}
 
 \vspace{30pt}
 
 Ahora iremos directamente a $|\varphi_{2}\rangle$ :
 
-\begin{equation*}
+\begin{equation}
     |\varphi_{2}\rangle=|x\rangle \left[ \dfrac{|0\otimes f(x)\rangle - |1\otimes f(x)\rangle}{\sqrt{2}} \right] = \begin{cases} |x\rangle \:  \left[ \dfrac{|0\rangle-|1\rangle}{\sqrt{2}}\right] \;\; si \: f(x) = 0 \\ \\ |x\rangle \: \left[ \dfrac{|0\rangle-|1\rangle}{\sqrt{2}} \right] \;\; si \: f(x) = 1 \end{cases}
-\end{equation*}\newline
+\end{equation}\newline
 
-Esto los podemos resumir como:
+Esto lo podemo resumir como:
 
-\begin{equation*}
+\begin{equation}
     |\varphi_{2}\rangle = (-1)^{f(x)} \;|x\rangle \; \left[ \dfrac{|0\rangle-|1\rangle}{\sqrt{2}}\right]
-\end{equation*}\newline
+\end{equation}\newline
 
 Pero al igual que en intento anterior, al intentar medir en cualquiera de ambos qubits no obtendríamos ningún resultado concluyente. Esto nos va a llevar al último intento.\newline
 
@@ -141,7 +141,7 @@ Pero al igual que en intento anterior, al intentar medir en cualquiera de ambos 
 
  \vspace{5pt}
 
- \begin{center}$\Qcircuit @C=1.5em @R=.7em {\lstick{|0\rangle} & \qw & \gate{H} & \qw &\multigate{1}{U_{f}} & \qw & \gate{H} & \qw & \meter & \qw  \\ \lstick{|1\rangle} & \dstick{\begin{matrix} \Uparrow \\ \varphi_{0} \end{matrix}} \qw & \gate{H}  & \dstick{\begin{matrix} \Uparrow \\ \varphi_{1} \end{matrix}} \qw & \ghost{U_{f}} & \dstick{\begin{matrix} \Uparrow \\ \varphi_{2} \end{matrix}} \qw & \qw & \dstick{\begin{matrix} \Uparrow \\ \varphi_{3} \end{matrix}} \qw & \qw & \qw }$\end{center}
+ \begin{center}$\Qcircuit @C=1.5em @R=.7em {\lstick{|0\rangle} & \qw & \gate{H} & \qw &\multigate{1}{U_{f}} & \qw & \gate{H} & \qw & \meter & \qw  \\ \lstick{|1\rangle} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{0}\rangle \end{matrix}} \qw & \gate{H}  & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{1}\rangle \end{matrix}} \qw & \ghost{U_{f}} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{2}\rangle \end{matrix}} \qw & \qw & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{3}\rangle \end{matrix}} \qw & \qw & \qw }$\end{center}
 
 \vspace{30pt}
 
@@ -160,7 +160,7 @@ Analizamos ahora todos los estados $|\varphi_{i}\rangle$:
 
     \item $\mathbf{|\varphi_{2}\rangle} = \left[ \dfrac{(-1)^{f(0)}\:|0\rangle + (-1)^{f(1)}\:|1\rangle}{\sqrt{2}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right]$\newline 
     
-    Hemos obtenido este resultado substituyendo $|x\rangle$ en el intento anterior. Pero veamos que ocurre separando $(-1)^{f(0)}\:|0\rangle + (-1)^{f(1)}\:|1\rangle$ según nuestras posibilidades:
+    Hemos obtenido este resultado substituyendo $|x\rangle$ en el la ecuación 3.3 (link). Pero veamos que ocurre separando $(-1)^{f(0)}\:|0\rangle + (-1)^{f(1)}\:|1\rangle$ según nuestras posibilidades:
     \begin{itemize}
         \item $f$ es constante: $(-1)^{f(0)}\:|0\rangle + (-1)^{f(1)}\:|1\rangle = (\pm 1)\left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right]$
 
@@ -172,17 +172,137 @@ Analizamos ahora todos los estados $|\varphi_{i}\rangle$:
 
     \vspace{5pt}
     
-    \item $\mathbf{|\varphi_{3}\rangle} = \begin{cases} (\pm 1)\:|0\rangle \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right] \;\; si \: f(x)\:\text{es constante} \\ \\ (\pm 1)\:|1\rangle \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right] \;\; si \: f(x)\:\text{es balanceada} \end{cases}$
-\end{itemize} \newline
+    \item Y por último obtenemos:
+    \begin{equation}\mathbf{|\varphi_{3}\rangle} = \begin{cases} (\pm 1)\:|0\rangle \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right] \;\; si \: f(x)\:\text{es constante} \\ \\ (\pm 1)\:|1\rangle \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right] \;\; si \: f(x)\:\text{es balanceada} \end{cases}\end{equation}
+\end{itemize}
 
 Por lo que hemos conseguido nuestro objetivo. Tras una única evaluación de $f$ según la medición del primer qubit, sabremos si $f$ es constante con medición $|0\rangle$ o balanceada, $|1\rangle$. Consiguiendo así nuestro objetivo.\newline
 
 \textbf{Simulaciones}: En el repositorio podemos encontrar este algoritmo programado con ayuda de \textit{Qiskit}. Una de las peculiaridades que encontramos es la forma en la que \textit{Qiskit} nos presenta los qubits. Las cadenas se presentan al revés. Veamos un ejemplo:
 
-\section{Deutsch-Jozsa}
- Algoritmo de Deutsch-Jozsa \newline
+\textbf{FALTA EJEMPLO DE PROGRAMACION}
 
-  \textbf{Observación}: Hay que tener en cuenta, que si la función no es ni balanceada ni constante, este algoritmo no tiene soluciona el problema y los resultados pueden conducir a confunsión
+\section{Deutsch-Jozsa}
+ El algoritmo de Deutsch-Jozsa es una generalización del algoritmo de Deutsch del apartado anterior, pero ahora trabajamos con $f:\{0,1\}^{n} \rightarrow\{0,1\}$. El domino se puede entender como los números escrito en binario de 0 a $2^{n}-1$. En este caso vamos a redefinir los conceptos anteriores:
+
+ \begin{itemize}
+     \item Diremos que $f$ es \textbf{constante} si todo el domino va a 0 ó a 1.
+     \item Diremos que $f$ es \textbf{balanceada} si exactamente la mitad del domino va a 0 y la otra mitad va a 1.
+ \end{itemize}
+
+ \textbf{Problema}: Dada una función $f:\{0,1\}^{n} \rightarrow\{0,1\}$ balanceada o constante, la cual no podemos observar su definición. Queremos determinar si esta función es constante o balanceada.\newline
+
+ \textbf{Solución clásica}: Vamos a tener que evaluar la función $f$ tantas veces como sea necesario. El mejor caso es tras 2 ejecuciones, ya que puede darse la situación en la que es balanceada y cada ejecución da un resultado diferente. Por otra parte, el peor caso se da con $2^{n-1}+1$ ejecuciones, ya que si las primeras $2^{n-1}$ son iguales, la siguiente nos va a determinar si es constante o balanceada. Todo esto se debe a que como hipótesis tenemos que es una de las 2 cosas. \newline
+
+ \textbf{Observación}: Hay que tener en cuenta, que si la función no es ni balanceada ni constante, este algoritmo no soluciona el problema y los resultados no son concluyentes.\newline
+
+ Vamos a partir del circuito inicial, donde $U_{f}$ determina la función $f$:
+
+ \vspace{10pt}
+
+ \begin{center}$\Qcircuit @C=1.5em @R=1em {\lstick{|\mathbf{x}\rangle}& \qw {/^{n}} & \multigate{1}{U_{f}} & \qw {/^{n}} &\qw & \rstick{|\mathbf{x}\rangle}\\ \lstick{|y\rangle} & \qw &\ghost{U_{f}} & \qw & \qw & \rstick{|y \oplus f(\mathbf{x})\rangle}}$ \end{center}
+
+ \vspace{7pt}
+
+ Hay que destacar que $|\mathbf{x}\rangle=|x_{0}x_{1}...x_{n-1}\rangle$, por eso posteriormente escribimos $/^{n}$, para indicar que son n qubits.\newline
+
+ \textbf{Algoritmo de Deutsch-Jozsa}:
+
+ \vspace{10pt}
+
+ \begin{center}$\Qcircuit @C=1.5em @R=1em {
+ \lstick{|\mathbf{0}\rangle}& \qw {/^{n}} & \gate{H^{\otimes n}} & \qw {/^{n}} & \multigate{1}{U_{f}} & \qw {/^{n}} & \gate{H^{\otimes n}} & \qw {/^{n}} & \meter & \qw \\ \lstick{|1\rangle} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{0}\rangle \end{matrix}} \qw & \gate{H} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{1}\rangle \end{matrix}} \qw &\ghost{U_{f}} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{2}\rangle \end{matrix}} \qw & \qw & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{3}\rangle \end{matrix}} \qw  & \qw & \qw}$ \end{center}
+
+ \vspace{30pt}
+
+ Que en término de matrices es: $(H^{\otimes n} \otimes I)\:U_{f}\:(H^{\otimes n} \otimes H)\:|\mathbf{0},1\rangle$ \newline
+
+ Antes de analizar los estados en cada $|\varphi_{i}\rangle$, vamos a estudiar que ocurre cuando tenemos la puerta $H^{\otimes n}$ y como se comporta sobre los diferentes estados, así como la notación que utilizamos, ya que esta será necesaria en el análisis de los $|\varphi_{i}\rangle$. \newline
+
+ El estudio sobre las características de $H^{\otimes n}$ se pueden estudiar en profundidad en (CforCompSci), aquí resumiremos los resultados principales que nos van a permitir profundizar en los circuitos cuánticos, ya que la aplicación de esta puerta es muy común.\newline
+
+ Antes de meternos en $H^{\otimes n}$, vamos a definir un producto interno en $\mathbb{Z}_{2}$:\newline
+
+ \begin{equation*}
+     \langle\:,\:\rangle\::\{0,1\}^{n} \times \{0,1\}^{n} \rightarrow \{0,1\}\end{equation*}
+
+ Si $\mathbf{x}=x_{0}x_{1}...x_{n-1}$ e $\mathbf{y}=y_{0}y_{1}...y_{n-1}$, entonces:
+
+ \begin{equation*}
+     \begin{split}
+     \langle\mathbf{x},\mathbf{y}\rangle &= \langle x_{0}x_{1}...x_{n-1},y_{0}y_{1}...y_{n-1}\rangle \\ &= (x_{0}\land y_{0})\oplus(x_{1}\land y_{1})\oplus...\oplus(x_{n-1}\land y_{n-1})
+     \end{split}
+ \end{equation*}
+
+ Donde $\land$ es la operación lógica AND.\newline
+
+ También definimos, $\mathbf{x}\oplus\mathbf{y}=x_{0}\oplus y_{0},x_{1}\oplus y_{1},...,x_{n-1}\oplus y_{n-1}$ .\newline
+
+ Con esto obtenemos las siguiente propiedades del producto interno:
+
+ \begin{itemize}
+     \item $\langle \mathbf{x} \oplus \mathbf{x}',\mathbf{y}\rangle=\langle \mathbf{x},\mathbf{y}\rangle \oplus \langle \mathbf{x}',\mathbf{y}\rangle$
+
+     \item $\langle \mathbf{x},\mathbf{y} \oplus \mathbf{y}'\rangle=\langle \mathbf{x},\mathbf{y}\rangle \oplus \langle \mathbf{x},\mathbf{y}'\rangle$
+
+     \item $\langle 0\cdot \mathbf{x},\mathbf{y}\rangle=\langle\mathbf{0},\mathbf{y}\rangle=0$
+
+     \item $\langle \mathbf{x}, 0 \cdot \mathbf{y}\rangle=\langle \mathbf{x},\mathbf{0}\rangle=0$
+ \end{itemize}
+
+ Una vez definidas estas operaciones y propiedades vamos a poder definir la matriz que caracteriza a $H^{\otimes n}$. Cabe recordar que cada fila y cada columna representa un elemento de la base, que se corresponde con la representación binaria de la fila y la columna desde 0:
+ 
+ \begin{equation}H^{\otimes n} [\mathbf{i},\mathbf{j}] = \dfrac{1}{\sqrt{2^{n}}}(-1)^{\langle\mathbf{i},\mathbf{j}\rangle}\end{equation}
+
+ Desde aquí podemos obtener las 2 expresiones que utilizaremos a continuación:
+
+ \begin{equation}
+     H^{\otimes n}|\mathbf{0}\rangle=H^{\otimes n}[-,\mathbf{0}]=\dfrac{1}{\sqrt{2^{n}}}\sum_{\mathbf{x} \in \{0,1\}^{n}} |\mathbf{x}\rangle
+ \end{equation}
+
+ \begin{equation}
+     H^{\otimes n}|\mathbf{y}\rangle=H^{\otimes n}[-,\mathbf{y}]=\dfrac{1}{\sqrt{2^{n}}}\sum_{\mathbf{x} \in \{0,1\}^{n}} (-1)^{\langle\mathbf{x},\mathbf{y}\rangle}|\mathbf{x}\rangle
+ \end{equation}
+ 
+ Ahora ya si que vamos a observar los estados que se producen en los distintos momentos del circuito:
+
+ \begin{itemize}
+     \item $\mathbf{|\varphi_{0}\rangle} = |\mathbf{0},1\rangle$
+
+    \vspace{5pt}
+
+    \item  $\mathbf{|\varphi_{1}\rangle} = \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}|\mathbf{x}\rangle}{\sqrt{2^{n}}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right]$
+
+    \vspace{5pt}
+
+    \item $\mathbf{|\varphi_{2}\rangle} =\left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}|\mathbf{x}\rangle}{\sqrt{2^{n}}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right]$
+
+    \vspace{5pt}
+
+    \item Ahora tenemos que superponer la superposición, pero en este caso no es la inversa ya que se aplica sobre otros estados $|\mathbf{z}\rangle$:
+
+    \begin{equation}
+        \begin{split}\mathbf{|\varphi_{3}\rangle} &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}\sum_{\mathbf{z} \in \{0,1\}^{n}}(-1)^{\langle\mathbf{z},\mathbf{x}\rangle}|\mathbf{z}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{2^{n}}\right] \\ &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}\sum_{\mathbf{z} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}(-1)^{\langle\mathbf{z},\mathbf{x}\rangle}|\mathbf{z}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{2^{n}}\right] \\ &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}\sum_{\mathbf{z} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})\oplus\langle\mathbf{z},\mathbf{x}\rangle}|\mathbf{z}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{2^{n}}\right]
+        \end{split}
+    \end{equation}
+ \end{itemize}
+
+ El último paso a analizar y que nos determinará la validez o el que esperamos de este algoritmo es al medición de los primeros n-qubits. Otra manera de estudiar la medición es directamente preguntarnos cual es la probabilidad de que $|\varphi_{3}\rangle$ colapse a $|\mathbf{0}\rangle$ al realizar la medición. Esto es análogo a $\mathbf{z}=\mathbf{0}$, que por las propiedades estudiadas anteriormente $\langle\mathbf{z},\mathbf{x}\rangle=\langle\mathbf{0},\mathbf{x}\rangle=0$. Con este resultado, si volvemos a la ecuación 3.5 (link):
+
+ \begin{equation}
+     \mathbf{|\varphi_{3}\rangle}=\left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}|\mathbf{0}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right]
+ \end{equation}
+
+ Veamos cual sería el estado del primer qubit dependiendo de de nuestras posibilidades:
+
+ \begin{itemize}
+     \item $f$ es constante:  $\dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}|\mathbf{0}\rangle}{2^{n}}=\dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}|\mathbf{0}\rangle}{2^{n}}=\dfrac{(\pm1)2^{n}|\mathbf{0}\rangle}{2^{n}}=(\pm1)|\mathbf{0}\rangle$
+
+     \item $f$ es balanceada: 
+     $\dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}|\mathbf{0}\rangle}{2^{n}}=\dfrac{0|\mathbf{0}\rangle}{2^{n}}=0|\mathbf{0}\rangle$
+ \end{itemize}
+
+ Por lo que podemos concluir que este algoritmo resuelve nuestro problema con una única evaluación de $f$. Si el resultado es $|\mathbf{0}\rangle$, $f$ es constante y si es otro cualquiera, $f$ es balanceada. Por esta razón la observación que realizamos anteriormente, ya que nos sería imposible identificar si la función no es ni constante ni balanceada. Y esto explica porque es una de nuestras hipótesis.
 
 \section{Bernstein-Vazirani}
 Algoritmo de Bernstein- Vazirani \n
