@@ -317,7 +317,7 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
 
  Detallemos brevemente los elementos principales de este circuito:
  \begin{itemize}
-     \item \textbf{Qubits}: Se representan en las primeras lineas, cada uno en una línea distinta. El circuito de la figura 2.2 se compone de 5 qubits. Entre ellos vemos un qubit llamado anc1, que es un qubit ancilla con un estado inicial conocido. Algunas veces este qubit auxiliar nos servirá como apoyo para realizar operaciones o almacenará el resultado, ya que nunca deberíamos modificar los datos originales. Se debería seguir el siguiente esquema:
+     \item \textbf{Qubits}: Se representan en las primeras lineas, cada uno en una línea distinta. El circuito de la figura 2.2 se compone de 5 qubits. Entre ellos vemos un qubit llamado anc1, que es un qubit ancilla con un estado inicial conocido. Algunas veces este qubit auxiliar nos servirá como apoyo para realizar operaciones o almacenará el resultado. Se debería seguir el siguiente esquema si vemos U_F como oraculo para que sea invertible: (cambiar a U como puerta unitaria)
      
      \begin{center}$\Qcircuit @C=1em @R=.7em {\lstick{|x\rangle}&  \multigate{1}{U_{f}} &\qw & \rstick{|x\rangle}\\ \lstick{|y\rangle} &\ghost{U_{f}} & \qw & \rstick{|y \oplus f(x)\rangle}}$ \end{center}
      
@@ -383,7 +383,7 @@ La definición que aprendemos cuando empezamos a ver trigonometría es que el se
 Veamos ahora que es lo que consideramos formalmente una regla o propiedad metamórfica y como llegamos a los pasos de testing metamórfico: (Metamorfic testing paper)\newline
 
 \begin{itemize}
-    \item \textbf{Relación metamórfica}, PM: Sea $f: X \rightarrow Y$ una función o algoritmo. Se considera que $\mathscr{R} \subseteq X^{n} \times Y^{n}$ es una \textbf{regla metamórfica} si es una relación entre una secuencia de entrada $\langle x_{1},x_{2},...,x_{n}\rangle$ con $n>1$ y sus salidas correspondientes $\langle f(x_{1}),f(x_{2}),...,f(x_{n})\rangle$, la cual se puede deducir de forma lógica desde el algoritmo. Es decir, es una propiedad necesaria de f.
+    \item \textbf{Relación metamórfica}, PM: Sea $f: X \rightarrow Y$ una función o algoritmo. Se considera que $\mathscr{R} \subseteq X^{n} \times Y^{n}$ es una \textbf{regla metamórfica} si es una relación entre una secuencia de entrada $\langle x_{1},x_{2},...,x_{n}\rangle$ con $n>1$ y sus salidas correspondientes $\langle f(x_{1}),f(x_{2}),...,f(x_{n})\rangle$. Es decir, es una propiedad necesaria de f.
     \item \textbf{\textit{Source/follow-up input}}: Sea $\mathscr{R}$ una relación metamórfica y sea $\langle x_{1},x_{2},...,x_{k}\rangle$ la secuencia original con sus respectivos resultados. Denotaremos como \textbf{\textit{source input}} a   $\langle x_{1},x_{2},...,x_{k}\rangle$  los cuales son datos definidos o caracterizados, es decir, ya conocidos. A su vez, podemos generar $\langle x_{k+1},x_{k+2},...,x_{n}\rangle$, los cuales están construidos en base a la entrada original e incluso a la salida de esta. A esta secuencia la llamaremos \textbf{\textit{follow-up input}}.
     \item \textbf{Grupo metamórfico de entrada}: Llamaremos \textbf{grupo metamórfico de entrada} a la secuencia definida por \textit{source} y \textit{follow-up input}, es decir, $\langle x_{1},x_{2},...,x_{k},x_{k+1},...,x_{n}\rangle$.
     \item \textbf{\textit{Testing} metamórfico}, TM: Sea $f$ la función o algoritmo objetivo, $P$ una implementación de $f$ y $\mathscr{R}$ una regla metamórfica de $f$.
@@ -392,7 +392,7 @@ Veamos ahora que es lo que consideramos formalmente una regla o propiedad metam�
     \begin{itemize}
         \item Definimos $\mathscr{R}'$ reemplazando $f$ por $P$ en $\mathscr{R}$.
         \item Dado el \textit{source input}, generamos sus salidas según $P$, construimos a partir de estos el \textit{follow-up input} $\langle x_{k+1},...,x_{n}\rangle$, y obtenemos $\langle P(x_{k+1}),...,P(x_{n})\rangle$.
-        \item Estudiamos los resultados obtenidos respecto a $\mathscr{R}'$. Si no es satisfacible entonces diremos que $P$ no es correcto.
+        \item Estudiamos los resultados obtenidos respecto a $\mathscr{R}'$. Si $\mathscr{R}'$ no se satisface entonces podemos afirmar que $P$ no es correcto.
     \end{itemize}
 \end{itemize}
 
