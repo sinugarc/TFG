@@ -305,21 +305,21 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
 
  Para almacenar esta información utilizaremos bits clásicos, por eso podremos observar como la medición se representa con la puerta anterior y la caída hacia el bit clásico donde se almacene. \newline
  
- Con todas estas operaciones, nos ayuda a poner los qubits en los distintos estados queridos y permitir realizar nuestros programas obteniendo una medición final. Al fin y al cabo, un programa cuántico es una sucesión de operaciones (o puertas) aplicadas sobre los qubits del sistema.
+ Con todas estas operaciones, nos ayuda a poner los qubits en los distintos estados queridos y permitir realizar nuestros programas obteniendo una medición final. Al fin y al cabo, un programa cuántico es una sucesión de operaciones (o puertas) aplicadas sobre los qubits del sistema. \newline
 
- \begin{figure}[H]
+  Así que permítanme mostrarles un ejemplo que será utilizado y explicado en el capitulo siguiente. Este ejemplo, Figura 2.2, es la implementación del algoritmo de Bernstein-Vazirani, en adelante BV, para una cadena s de longitud 4. Lo que debe hacer el algoritmo es descubrir esa cadena.
+
+   \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{TFG/imagenes/BV_circuito.png}
     \caption{Circuito, algoritmo BV para s de longitud 4} 
  \end{figure}
 
-  Así que permítanme mostrarles un ejemplo que será utilizado y explicado en el capitulo siguiente. Este ejemplo, Figura 2.2, es la implementación del algoritmo de Bernstein-Vazirani para una cadena s de longitud 4. Lo que debe hacer el algoritmo es descubrir esa cadena.\newline
-
  Detallemos brevemente los elementos principales de este circuito:
  \begin{itemize}
      \item \textbf{Qubits}: Se representan en las primeras lineas, cada uno en una línea distinta. El circuito de la figura 2.2 se compone de 5 qubits. Entre ellos vemos un qubit llamado anc1, que es un qubit ancilla con un estado inicial conocido. Algunas veces este qubit auxiliar nos servirá como apoyo para realizar operaciones o almacenará el resultado. Se debería seguir el siguiente esquema si vemos $U$ como oraculo para que sea invertible: (cambiar a U como puerta unitaria)
      
-     \begin{center}$\Qcircuit @C=1em @R=.7em {\lstick{|x\rangle}&  \multigate{1}{U} &\qw & \rstick{|x\rangle}\\ \lstick{|y\rangle} &\ghost{U_{f}} & \qw & \rstick{|y \oplus f(x)\rangle}}$ \end{center}
+     \begin{center}$\Qcircuit @C=1em @R=.7em {\lstick{|x\rangle} & \multigate{1}{U} & \qw & \rstick{|x\rangle} \\ \lstick{|y\rangle} & \ghost{U_{f}} & \qw & \rstick{|y \oplus f(x)\rangle}}$ \end{center}
      
      \vspace{5pt}
      
@@ -336,25 +336,24 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
  \begin{itemize}
      \item \textbf{Simulación}, en nuestro caso con los simuladores de IBM. Esta posibilidad nos va a ofrecer una simulación teórica de lo que ocurre en nuestro circuito. Será ejecutado a través de un simulador de IBM y nos va a permitir obtener resultados con seguridad y sin ningún problema asociado de errores o ruido. Hay que entender que las simulaciones van a tener una limitación debido a la dimensión de las matrices con las que estamos tratando, ya que el coste es exponencial.
      
-     \item \textbf{Ordenador cuántico}, utilizaremos los ordenadores de IBM. La tecnología para la creación de ordenadores cuánticos más fieles sigue avanzando. Esta intenta mitigar los errores que tiene cada operación, así como los errores relacionados con el ruido del entorno que influyen en el estado del sistema modificándolo. Cada ordenador tiene su propia estructura y sus estudios sobre los errores que se cometen en cada qubit, así como calibraciones. Se puede ver en la figura 2.3, los errores de cada qubit así como la estructura del ordenador. Qiskit analizará el circuito que le proponemos y lo adaptará a la arquitectura del sistema elegido para la ejecución, con el objetivo de minimizar los errores cometidos.
+     \item \textbf{Ordenador cuántico}, utilizaremos los ordenadores de IBM. La tecnología para la creación de ordenadores cuánticos más fieles sigue avanzando. Esta intenta mitigar los errores que tiene cada operación, así como los errores relacionados con el ruido del entorno que influyen en el estado del sistema modificándolo. Cada ordenador tiene su propia estructura y sus estudios sobre los errores que se cometen en cada qubit, así como calibraciones. Se puede ver en la figura 2.3, los errores de cada qubit así como la estructura del ordenador, además de observar que no todos los qubits tienen relación entre sí, por ejemplo, los qubit 2 y 15 no tienen relación. Qiskit analizará el circuito que le proponemos y lo adaptará a la arquitectura del sistema elegido para la ejecución, con el objetivo de minimizar los errores cometidos.
      
  \end{itemize}
 
 
- Ambas opciones utilizan el mismo mecanismo, repiten el proceso tantas veces como les sea requerido y muestran la frecuencia acumulada de los resultados (mediciones) o directamente las probabilidades sobre el número total de ejecuciones. \newline
 
- Veamos un ejemplo para entender la diferencia de resultados de utilizar un opción u otra. Para ello vamos a usar los resultados del circuito presentado en la figura 2.1 del algoritmo de Bernstein-Vazirani que se presentará en el siguiente capítulo. Este algoritmo nos debería dar un resultado único, pero veamos lo que ocurre. \newline
- 
+ Ambas opciones utilizan el mismo mecanismo, repiten el proceso tantas veces como les sea requerido y muestran la frecuencia acumulada de los resultados (mediciones) o directamente las probabilidades sobre el número total de ejecuciones. \newline
 
   \begin{figure}[H]
     \centering
-    \includegraphics[width=0.95\textwidth]{TFG/imagenes/system_error_manhattan.png}
+    \includegraphics[width=\textwidth]{TFG/imagenes/system_error_manhattan.png}
     \caption{Mapa de errores del ibmq\_manhattan} 
  \end{figure}
 
-Se puede observar en la figura 2.4 la diferencia entre la simulación teórica (a) y la ejecución con el sistema ibmq\_quito (b). Nuestra simulación nos ha dado únicamente el resultado querido, pero al ejecutarlo en sistema cuántico nos ha dado una variedad de resultados, aunque no todos los posibles. Si bien es cierto que el más probable, con suficiente diferencia, es idéntico al obtenido con la simulación. Cabe destacar de la figura 2.4.b que los de mayor probabilidad, una vez eliminada la solución, son aquellos en los cuales solo varía 1 dígito y por el contrario, el complementario binario no ha aparecido como resultado en ninguna de las ejecuciones realizadas. \newline
+ Veamos un ejemplo para entender la diferencia de resultados de utilizar un opción u otra. Para ello vamos a usar los resultados del circuito presentado en la figura 2.1 del algoritmo de Bernstein-Vazirani que se presentará en el siguiente capítulo. Este algoritmo nos debería dar un resultado único, pero veamos lo que ocurre. \newline
 
-Para acabar con esta sección, como curiosidad y por completitud, hemos mencionado antes que \textit{Qiskit} traduce a \textit{qasm} a la hora de ejecutar. La función utilizada en \textit{Qiskit} para ensamblar el programa es \textit{assemble} que devuelve un objeto de clase \textit{QasmQobj} \footnote{\url{https://qiskit.org/documentation/stubs/qiskit.compiler.assemble.html}}. El código que utilizaría \textit{Qiskit} para la ejecución del circuito presentado anteriormente lo podemos encontrar en \textit{GitHub}, archivo (link y nombre).\newline
+
+Se puede observar en la figura 2.4 la diferencia entre la simulación teórica (a) y la ejecución con el sistema ibmq\_quito (b). Nuestra simulación nos ha dado únicamente el resultado querido, pero al ejecutarlo en sistema cuántico nos ha dado una variedad de resultados, aunque no todos los posibles. Si bien es cierto que el más probable, con suficiente diferencia, es idéntico al obtenido con la simulación. Cabe destacar de la figura 2.4.b que los de mayor probabilidad, una vez eliminada la solución, son aquellos en los cuales solo varía 1 dígito y por el contrario, el complementario binario no ha aparecido como resultado en ninguna de las ejecuciones realizadas.
 
 \begin{figure}[H]
     \centering
@@ -372,21 +371,24 @@ Para acabar con esta sección, como curiosidad y por completitud, hemos menciona
         \caption{Diferencias en resultados de ejecución del algoritmo de Bernstein-Vazirani}
  \end{figure}
 
+Para acabar con esta sección, como curiosidad y por completitud, hemos mencionado antes que \textit{Qiskit} traduce a \textit{qasm} a la hora de ejecutar. La función utilizada en \textit{Qiskit} para ensamblar el programa es \textit{assemble} que devuelve un objeto de clase \textit{QasmQobj} \footnote{\url{https://qiskit.org/documentation/stubs/qiskit.compiler.assemble.html}}. El código que utilizaría \textit{Qiskit} para la ejecución del circuito presentado anteriormente lo podemos encontrar en \textit{GitHub}, archivo (link y nombre).\newline
+
+
 \vspace{10pt}
 
-\section{Propiedades Metamórficas / Testing metamórfico}
+\section{Propiedades Metamórficas / \textit{Testing} metamórfico}
 
-Informalmente entendemos como propiedad metamórfica aquella que podemos derivar de forma lógica de una definición o especificación. Empecemos con un ejemplo para ponernos en situación, nos vamos a fijar en la función seno, $f(x)=sin(x)$.\newline
+Informalmente entendemos como propiedad metamórfica, en adelante MR del inglés \textit{metamorphic rule}, aquella que podemos derivar de forma lógica de una definición o especificación. Empecemos con un ejemplo para ponernos en situación, nos vamos a fijar en la función seno, $f(x)=sin(x)$.\newline
 
 La definición que aprendemos cuando empezamos a ver trigonometría es que el seno es la proporción entre el cateto opuesto y la hipotenusa en un triángulo rectángulo. Teniendo esta imagen la cabeza es muy fácil darse cuenta que $sin(x)=sin(x + 2\pi)=sin(\pi-x)$. Estas son dos propiedades metamórficas de la función seno. \newline
 
-Veamos ahora que es lo que consideramos formalmente una regla o propiedad metamórfica y como llegamos a los pasos de testing metamórfico\cite{AR:MTmain:2008}:\newline
+Veamos ahora que es lo que consideramos formalmente una MR y como llegamos a los pasos de testing metamórfico, en adelante MT del inglés \textit{metamorphic testing}\cite{AR:MTmain:2008}:\newline
 
 \begin{itemize}
-    \item \textbf{Relación metamórfica}, PM: Sea $f: X \rightarrow Y$ una función o algoritmo. Se considera que $\mathscr{R} \subseteq X^{n} \times Y^{n}$ es una \textbf{regla metamórfica} si es una relación entre una secuencia de entrada $\langle x_{1},x_{2},...,x_{n}\rangle$ con $n>1$ y sus salidas correspondientes $\langle f(x_{1}),f(x_{2}),...,f(x_{n})\rangle$. Es decir, es una propiedad necesaria de f.
+    \item \textbf{Relación metamórfica}, MR: Sea $f: X \rightarrow Y$ una función. Se considera que $\mathscr{R} \subseteq X^{n} \times Y^{n}$ es una \textbf{regla metamórfica} si es una relación entre una secuencia de entrada $\langle x_{1},x_{2},...,x_{n}\rangle$ con $n>1$ y sus salidas correspondientes $\langle f(x_{1}),f(x_{2}),...,f(x_{n})\rangle$. Es decir, es una propiedad necesaria de f.
     \item \textbf{\textit{Source/follow-up input}}: Sea $\mathscr{R}$ una relación metamórfica y sea $\langle x_{1},x_{2},...,x_{k}\rangle$ la secuencia original con sus respectivos resultados. Denotaremos como \textbf{\textit{source input}} a   $\langle x_{1},x_{2},...,x_{k}\rangle$  los cuales son datos definidos o caracterizados, es decir, ya conocidos. A su vez, podemos generar $\langle x_{k+1},x_{k+2},...,x_{n}\rangle$, los cuales están construidos en base a la entrada original e incluso a la salida de esta. A esta secuencia la llamaremos \textbf{\textit{follow-up input}}.
     \item \textbf{Grupo metamórfico de entrada}: Llamaremos \textbf{grupo metamórfico de entrada} a la secuencia definida por \textit{source} y \textit{follow-up input}, es decir, $\langle x_{1},x_{2},...,x_{k},x_{k+1},...,x_{n}\rangle$.
-    \item \textbf{\textit{Testing} metamórfico}, TM: Sea $f$ la función o algoritmo objetivo, $P$ una implementación de $f$ y $\mathscr{R}$ una regla metamórfica de $f$.
+    \item \textbf{\textit{Testing} metamórfico}, MT: Sea $f$ la función objetivo, $P$ una implementación de $f$ y $\mathscr{R}$ una regla metamórfica de $f$.
     
     Para realizar \textbf{\textit{testing} metamórfico} sobre $P$ seguiremos los siguiente pasos:
     \begin{itemize}
@@ -396,14 +398,14 @@ Veamos ahora que es lo que consideramos formalmente una regla o propiedad metam�
     \end{itemize}
 \end{itemize}
 
-La estrategia presentada anteriormente para TM, será la que se siga en la implementación de las propiedades que se obtendrán a lo largo de este documento. \newline
+La estrategia presentada anteriormente para MT, será la que se siga en la implementación de las propiedades que se obtendrán a lo largo de este documento. \newline
 
 Para finalizar con esta introducción vamos a revisar brevemente un par de ventajas y retos que presenta el camino que estamos tomando para probar la corrección, o más bien la no corrección, de un algoritmo. \newline
 
 \textbf{Ventajas}:
 \begin{itemize}
-    \item \textbf{Simplicidad}. El concepto e interpretación de una PM es bastante simple en comparación con otros conceptos que se utilizan dentro del campo del testing. Se ha visto en estudios, que incluso gente con poca experiencia, podrían utilizar estas técnicas en relativamente poco tiempo de forma efectiva.\cite{Note:MT55} \cite{Note:MT73}
-    \item \textbf{Facilidad en la implementación}. Si partimos de la ventaja anterior como es la simplicidad de la definición, podemos continuar que la implementación de este test es prácticamente seguir los pasos explicados en la definición de TM (link a la definicion).
+    \item \textbf{Simplicidad}. El concepto e interpretación de una MR es bastante simple en comparación con otros conceptos que se utilizan dentro del campo del testing. Se ha visto en estudios, que incluso gente con poca experiencia, podrían utilizar estas técnicas en relativamente poco tiempo de forma efectiva.\cite{AR:MTmain:2008} \cite{Note:MT55} \cite{Note:MT73}
+    \item \textbf{Facilidad en la implementación}. Si partimos de la ventaja anterior como es la simplicidad de la definición, podemos continuar que la implementación de este test es prácticamente seguir los pasos explicados en la definición de MT (link a la definicion).
 \end{itemize}
 
 \vspace{10pt}
@@ -412,10 +414,10 @@ Para finalizar con esta introducción vamos a revisar brevemente un par de venta
 \begin{itemize}
     \item \textbf{Generación efectiva de los grupos metamórficos de entrada}. Aun se sigue estudiando que garantías tenemos en la efectividad que puede tener la elección del grupo metamórfico de entrada en la demostración de la corrección de un algoritmo y en particular, la forma en la que obtenemos nuestro \textit{source input}, ya que \textit{follow-up input} se genera a partir de esta. Al fin y al cabo nuestro objetivo es maximizar la identificación de errores o defectos en $P$.
     
-    \item \textbf{Estructura del TM}. Debido a la juventud de este tipo de \textit{testing} y la gran variedad de PM, aun no hay un acuerdo sobre una estructura definida y formal que nos proporcione seguridad en nuestra pruebas y englobe a todas las posibilidades que tenemos dentro de las PM. Aunque, si bien es cierto, ya ha ayudado a identificar diversos errores en sistemas muy estudiados con otros métodos de \textit{testing}, como por ejemplo los compiladores GCC y LLVM de C, en los cuales encontró más de 100 fallos.\cite{Note:MT50} \cite{Note:MT51} \cite{Note:MT78}
+    \item \textbf{Estructura del MT}. Debido a la gran variedad de MR, aun no hay un acuerdo sobre una estructura definida y formal que nos proporcione seguridad en nuestra pruebas y englobe a todas las posibilidades que tenemos dentro de las MR. Aunque, si bien es cierto, ya ha ayudado a identificar diversos errores en sistemas muy estudiados con otros métodos de \textit{testing}, como por ejemplo los compiladores GCC y LLVM de C, en los cuales encontró más de 100 fallos.\cite{AR:MTmain:2008} \cite{Note:MT50} \cite{Note:MT51} \cite{Note:MT78}
 \end{itemize}
 
-Los retos de TM pueden ser una buena base para todo el trabajo futuro que se puede realizar en este campo y las posibilidades que este nos puede ofrecer. Trataremos en más profundidad estás posibilidades en el apartado 5.2 de posibles trabajos futuros (link)
+Los retos de MT pueden ser una buena base para todo el trabajo futuro que se puede realizar en este campo y las posibilidades que este nos puede ofrecer. Trataremos en más profundidad estás posibilidades en el apartado 5.2 de posibles trabajos futuros. (link)
 
 
 

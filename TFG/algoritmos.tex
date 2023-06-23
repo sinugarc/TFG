@@ -162,11 +162,11 @@ Analizamos ahora todos los estados $|\varphi_{i}\rangle$:
     
     Hemos obtenido este resultado substituyendo $|x\rangle$ en el la ecuación 3.3 (link). Pero veamos que ocurre separando $(-1)^{f(0)}\:|0\rangle + (-1)^{f(1)}\:|1\rangle$ según nuestras posibilidades:
     \begin{itemize}
-        \item $f$ es constante: $(-1)^{f(0)}\:|0\rangle + (-1)^{f(1)}\:|1\rangle = (\pm 1)\left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right]$
+        \item $f$ es constante: $\dfrac{(-1)^{f(0)}\:|0\rangle + (-1)^{f(1)}\:|1\rangle}{\sqrt{2}} = (\pm 1)\left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right]$
 
         \vspace{5pt}
         
-        \item $f$ es balanceada: $(-1)^{f(0)}\:|0\rangle + (-1)^{f(1)}\:|1\rangle = (\pm 1)\left[ \dfrac{|0\rangle + |1\rangle}{\sqrt{2}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right]$
+        \item $f$ es balanceada: $\dfrac{(-1)^{f(0)}\:|0\rangle + (-1)^{f(1)}\:|1\rangle}{\sqrt{2}} = (\pm 1)\left[ \dfrac{|0\rangle + |1\rangle}{\sqrt{2}}\right]$
 
     \end{itemize}
 
@@ -193,8 +193,6 @@ Por lo que hemos conseguido nuestro objetivo. Tras una única evaluación de $f$
  \textbf{Problema}: Dada una función $f:\{0,1\}^{n} \rightarrow\{0,1\}$ balanceada o constante, la cual no podemos observar su definición. Queremos determinar si esta función es constante o balanceada.\newline
 
  \textbf{Solución clásica}: Vamos a tener que evaluar la función $f$ tantas veces como sea necesario. El mejor caso es tras 2 ejecuciones, ya que puede darse la situación en la que es balanceada y cada ejecución da un resultado diferente. Por otra parte, el peor caso se da con $2^{n-1}+1$ ejecuciones, ya que si las primeras $2^{n-1}$ son iguales, la siguiente nos va a determinar si es constante o balanceada. Todo esto se debe a que como hipótesis tenemos que es una de las 2 cosas. \newline
-
- \textbf{Observación}: Hay que tener en cuenta, que si la función no es ni balanceada ni constante, este algoritmo no soluciona el problema y los resultados no son concluyentes.\newline
 
  Vamos a partir del circuito inicial, donde $U_{f}$ determina la función $f$:
 
@@ -302,7 +300,12 @@ Por lo que hemos conseguido nuestro objetivo. Tras una única evaluación de $f$
      $\dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}|\mathbf{0}\rangle}{2^{n}}=\dfrac{0|\mathbf{0}\rangle}{2^{n}}=0|\mathbf{0}\rangle$
  \end{itemize}
 
- Por lo que podemos concluir que este algoritmo resuelve nuestro problema con una única evaluación de $f$. Si el resultado es $|\mathbf{0}\rangle$, $f$ es constante y si es otro cualquiera, $f$ es balanceada. Por esta razón la observación que realizamos anteriormente, ya que nos sería imposible identificar si la función no es ni constante ni balanceada. Y esto explica porque es una de nuestras hipótesis.
+ Por lo que podemos concluir que este algoritmo resuelve nuestro problema con una única evaluación de $f$. Si el resultado es $|\mathbf{0}\rangle$, $f$ es constante y si es otro cualquiera, $f$ es balanceada. \newline
+
+ \textbf{REVISAR}\newline
+ \textbf{Observación}: Hay que tener en cuenta, que si la función no es ni balanceada ni constante, este algoritmo no soluciona el problema y los resultados no son concluyentes.\newline
+
+ Por esta razón la observación que realizamos anteriormente, ya que nos sería imposible identificar si la función no es ni constante ni balanceada. Y esto explica porque es una de nuestras hipótesis.
 
 \section{Bernstein-Vazirani}
 El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umesh Vazirani\cite{ARP:BV:1997}. Se puede entender que este algoritmo es una generalización más del algoritmo de Deutsch-Jozsa \footnote{https://learn.qiskit.org/course/ch-algorithms/bernstein-vazirani-algorithm}. \newline
@@ -353,7 +356,9 @@ El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umes
 
  \vspace{5pt}
 
- ¿Qué está ocurriendo aquí?, lo que hemos observado es que la amplitud de $|\mathbf{s}\rangle$ es 1, y si recordamos la teoría de los sistemas cuánticos, la suma de los cuadrados de las amplitudes es 1. Es decir, las amplitudes del resto de posibles valores de $|\mathbf{z}\rangle$ es 0. Por lo que al hacer la medición sobre el primer bloque de qubits nos devolverá la cadena $\mathbf{s}$ deseada, al ser su probabilidad de aparición 1. Podemos concluir entonces que hemos obtenido la cadena $\mathbf{s}$ con una única ejecución de $f$.\newline
+ ¿Qué está ocurriendo aquí?, lo que hemos observado es que la amplitud de $|\mathbf{s}\rangle$ es 1, y si recordamos la teoría de los sistemas cuánticos, la suma de los cuadrados de las amplitudes es 1. Es decir, las amplitudes del resto de posibles valores de $|\mathbf{z}\rangle$ es 0. Por lo que al hacer la medición sobre el primer bloque de qubits nos devolverá la cadena $\mathbf{s}$ deseada, al ser su probabilidad de aparición 1. Podemos concluir entonces que hemos obtenido la cadena $\mathbf{s}$ con una única ejecución de $f$, mejorando así la solución clásica para este algoritmo.\newline
+
+ \textbf{Simulaciones}:\newline
 
 
 \section{Simon}
@@ -416,6 +421,8 @@ El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umes
  Pero, ¿proporciona esto una solución esto nuestro algoritmo? Visto así directamente puede parecer que no, debido a que cada vez que lo ejecutemos nos proporcionará una cadena distinta que tiene esa característica. Pero tras obtener n cadenas, obtenemos un sistema de ecuaciones a partir del cual obtenemos la cadena $\mathbf{c}$ deseada. Aquí es donde entraría la computación clásica para acabar de resolver el problema.\newline
 
  Se puede ver la mejora respecto a la solución clásica, ya que al ser todas las cadenas equiprobables, obtendremos $n$ cadenas distintas en menos ejecuciones que $2^{n-1}+1$, para $n$ suficientemente grande, que necesitaba el algoritmo clásico. Se puede ver un ejemplo concreto del desarrollo completo del algoritmo con $f:\{0,1\}^{3} \rightarrow\{0,1\}^{3}$ en \citealp[\textit{Quantum computing for computer scientists, page 190}]{B:QuantumScientist:2008}
+
+ \textbf{Simulaciones}:\newline
     
 \section{QFT}
 Este apartado va a tratar sobre la transformada cuántica de Fourier, QFT del inglés \textit{Quantum Fourier transform}. Si bien es cierto que todos los algoritmos anteriores tenían un problema a resolver, el estudio de este algoritmo así como su continuación, la estimación cuántica de fase, QEP del inglés \textit{Quantum phase estimation}, se basa en la gran utilidad que tienen estas transformadas en cualquier contexto. Aunque en este texto no se tratan algoritmos que necesitan de esta aparatología, podemos adelantar que dos de los algoritmos más importantes que hay actualmente en programación cuántica lo usan, hablamos del algoritmo de Grover o de búsqueda y del algoritmo de Shor o de factorización.
