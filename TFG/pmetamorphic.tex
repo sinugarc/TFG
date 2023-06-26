@@ -50,7 +50,7 @@ El algoritmo de Bernstein-Vazirani fue el primero presentado como ejemplo al int
 
  \textbf{Oráculo}: Antes de presentar las reglas y ver su programación, vamos a estudiar como a partir de una cadena $\mathbf{s}$ podemos construir un oráculo funcione como $f_{s}$. \newline
 
- 
+ (FALTA LA INF DEL ORACULO)\newline
 
  Si suponemos que P es una implementación del algoritmo de BV, vamos a estudiar la reglas obtenidas: \newline
 
@@ -81,7 +81,9 @@ La razón por la que esperamos el ket $|\mathbf{1}\rangle$ se debe a que si uno 
 
  El circuito utilizado es idéntico al que se muestra en la \hyperref[Fig:BVRule1]{Figura } que se empleó en el caso particular de esta regla. \newline
 
- \textbf{Regla III}: Sean $\mathbf{s}$ y $\mathbf{s}'$ cadenas binarias de longitud $n$. Si entendemos la composición como la concatenación de sus oráculos, entonces $P(f(\mathbf{s}) \circ f(\mathbf{s}'))= P(f_{\mathbf{s}})\oplus P(f_{\mathbf{s}'})$.\newline
+ \textbf{Regla III}: Sean $\mathbf{s}$ y $\mathbf{s}'$ cadenas binarias de longitud $n$. Si entendemos la composición como la concatenación de sus oráculos, entonces $P(f(\mathbf{s}) \circ f(\mathbf{s}'))= P(f_{\mathbf{s}}) +_{b} P(f_{\mathbf{s}'})$.\newline
+
+ (COMPROBAR LA SUMA BIT A BIT)
 
  La primera vez que se pensó en esta regla fue directamente desde las ecuaciones del algoritmo, en particular, la ecuación \ref{eq:BV:phi2}. Tras aplicar la primera $f$, en este caso $f_{\mathbf{s}}$, obtendríamos:
 
@@ -125,4 +127,27 @@ Veamos como quedaría el circuito con la concatenación, que incluye este estado
  
 \section{Simon}
 \label{Sec4.3:Simon}
-\n
+
+Por último vamos a terminar de estudiar el algoritmo de Simon y como vamos a obtener las reglas metamórficas. En este caso no van a ser una aplicación tan directa como los algoritmos anteriores, debido a que el algoritmo de Simon acaba con computación clásica. Por lo que para la obtención de MR, nos vamos a centrar en ese punto intermedio entre el uso de la computación cuántica y el paso a lo clásico para solucionar los sistemas de ecuaciones que vimos en la presentación del algoritmo en la sección \ref{Sec3.5:Simon} \newline
+
+\textbf{Problema}: Dada una función $f:\{0,1\}^{n} \rightarrow\{0,1\}^{n}$ con periodo $\mathbf{c}=c_{0}c_{1}...c_{n-1}$. Queremos determinar cual es el periodo de $f$ teniendo en cuenta que no conocemos su definición.\newline
+
+\textbf{Algoritmo de Simon}, parte cuántica:
+
+ \vspace{3pt}
+
+ \begin{center}$\Qcircuit @C=1.5em @R=1em {
+ \lstick{|\mathbf{0}\rangle}& \qw {/^{n}} & \gate{H^{\otimes n}} & \qw {/^{n}} & \multigate{1}{U_{f}} & \qw {/^{n}} & \gate{H^{\otimes n}} & \qw {/^{n}} & \meter & \qw \\ \lstick{|\mathbf{0}\rangle} & \qw & \qw {/^{n}} & \qw &\ghost{U_{f}} & \qw & \qw {/^{n}} & \qw  & \qw & \qw}$ \end{center}
+
+ \vspace{30pt}
+
+ \textbf{Resultados}: Obtención de $n$ cadenas binarias tal que si $\mathbf{z}$ es una de estas cadenas, entonces $\langle \mathbf{z},\mathbf{c}\rangle = 0$.\newline
+
+ \textbf{Oráculo}: En este caso particular, la creación del oráculo, dada su complejidad se importa de la librería de Qiskit.\newline
+
+ Supongamos ahora que tenemos $P$ implementación del algoritmo de Simon, veamos que MR hemos podido obtener para este algoritmo.\newline
+
+ \textbf{Regla I}: Al efectuar la suma bit a bit con los posibles resultados del programa que resuelve el algoritmo de Simon, obtenemos de nuevo el conjunto inicial. Es decir, forma un grupo con 
+
+
+
