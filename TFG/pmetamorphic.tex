@@ -1,14 +1,94 @@
 \cleardoublepage
 
 \chapter{Propiedades metamórficas}
-\label{makereference}
+\label{Cap4:PMetamorficas}
 
+En este último capítulo antes de la conclusión queremos presentar al lector con el objetivo principal de este trabajo. Queremos finalmente unir las propiedades metamórficas con los algoritmos que hemos estudiado en el capítulo \ref{Cap3:Algoritmos}, si bien es cierto solo hemos conseguido estudiar los tres algoritmos que se presentan a continuación. Presentaremos cuales son las propiedades obtenidas, así como de donde las hemos obtenido, para luego pasar a la programación y los circuitos que hemos preparado para poder realizar dichas pruebas.
 
 \section{DJ}
-\n
+\label{Sec4.1:DJ}
+En esta sección vamos a estudiar que reglas hemos obtenido del \hyperref[Sec3.3:Deutsch-Jozsa]{algoritmo de Deutsch-Jozsa} y como las hemos implementado en nuestro \href{https://github.com/rodelanu/TFG/blob/main/1_Deutsch_Jozsa_Rules.ipynb}{repositorio}. Recordamos brevemente el problema y el algoritmo obtenido:\newline
+
+\textbf{\hyperref[P:DJ]{Problema}}: Dada una función $f:\{0,1\}^{n} \rightarrow\{0,1\}$ balanceada o constante, la cual no podemos observar su definición. Queremos determinar si esta función es constante o balanceada.\newline
+
+\textbf{\hyperref[A:DJ]{Algoritmo de Deutsch-Jozsa}}:
+
+ \vspace{10pt}
+
+ \begin{center}$\Qcircuit @C=1.5em @R=1em {
+ \lstick{|\mathbf{0}\rangle}& \qw {/^{n}} & \gate{H^{\otimes n}} & \qw {/^{n}} & \multigate{1}{U_{f}} & \qw {/^{n}} & \gate{H^{\otimes n}} & \qw {/^{n}} & \meter & \qw \\ \lstick{|1\rangle} & \qw & \gate{H} & \qw &\ghost{U_{f}} & \qw & \qw & \qw  & \qw & \qw}$ \end{center}
+
+ \vspace{30pt}
+
+\textbf{Resultado}: Se obtiene $|\mathbf{0}\rangle$ si $f$ es constante y cualquier otro resultado si $f$ es balanceada.\newline
+
+\textbf{Observación}: No hay que olvidar la importancia de tener como hipótesis que $f$ es constante o balanceada. Pero en este caso, debido a que esta va a formar parte de nuestro \textit{source input}, podemos asegurar esta propiedad. \newline
+
+Suponemos $P$ la implementación del algoritmo de Deutsch-Jozsa a analizar, tal que $P(f)=0$ si $f$ es constante y $P(f)=1$ si $f$ es balanceada., veamos que reglas hemos obtenido y como las vamos a aplicar: \newline
+
+
+\textbf{Regla I}: Sea $f:\{0,1\}^{n} \rightarrow\{0,1\}$ la función a analizar definida en problema y sea $g : \{0,1\}^{n} -> \{0,1\}^{n}$ un automorfismo. Entonces, $P(f)=|\mathbf{0}\rangle$ si y solo si $P(f\circ g)=|\mathbf{0}\rangle$???? Estudiar a fondo en comparación a lo subido.\newline
+
+\textbf{Regla II}: Sea $f:\{0,1\}^{n} \rightarrow\{0,1\}$ la función a analizar definida en problema y sea $h:\{0,1\}^{n} \rightarrow\{0,1\}$ tal que $h(x) = 1 - f(x)$. Entonces, $P(f)=|\mathbf{0}\rangle$ si y solo si $P(h)=|\mathbf{0}\rangle$. Estudiar si la inversión de 0's y 1's da el mismo ket.
 
 \section{BV}
-\n
+\label{Sec4.2:BV}
+El algoritmo de Bernstein-Vazirani fue el primero presentado como ejemplo al introducir la \hyperref[Sec2.3:Qiskit]{programación cuántica} en el \hyperref[Cap2:Antecedentes]{capítulo 2}. Recapitulemos lo visto cuando se estudió el \hyperref[Sec3.4:BV]{algoritmo de BV}.\newline
+
+\textbf{Problema}: Sea $f:\{0,1\}^{n} \rightarrow \{0,1\}$, sea $\mathbf{s}=s_{0}s_{1}...s_{n-1}$, por hipótesis sabemos que $ f(\mathbf{x})=(\mathbf{s}\cdot \mathbf{x})\: \text{mod}\:2 = s_{0}x_{0} \oplus s_{1}x_{1} \oplus ... \oplus s_{n-1}x_{n-1}$. Queremos obtener la cadena $\mathbf{s}$.\newline
+
+\textbf{Algoritmo de Bernstein-Vazirani}:
+
+ \vspace{10pt}
+
+ \begin{center}$\Qcircuit @C=1.5em @R=1em {
+ \lstick{|\mathbf{0}\rangle}& \qw {/^{n}} & \gate{H^{\otimes n}} & \qw  & \qw {/^{n}} & \multigate{1}{U_{f}} & \qw {/^{n}} & \gate{H^{\otimes n}} & \qw {/^{n}} & \meter & \qw \\ \lstick{|0\rangle} & \qw & \gate{H} & \gate{Z} & \qw &\ghost{U_{f}} & \qw & \qw & \qw  & \qw & \qw}$ \end{center}
+
+ \vspace{30pt}
+
+ \textbf{Resultado}: Obtenemos la cadena $|\mathbf{s}\rangle$ en la medición.\newline
+
+ \textbf{Oráculo}: Antes de presentar las reglas y ver su programación, vamos a estudiar como a partir de una cadena $\mathbf{s}$ podemos construir un oráculo funcione como $f_{s}$. \newline
+
+ 
+
+ Si suponemos que P es una implementación del algoritmo de BV, vamos a estudiar la reglas obtenidas: \newline
+
+ \textbf{Regla I}\label{R:BV:1}: Sea $\mathbf{s}$ una cadena binaria de longitud $n$ y sea $\mathbf{\Bar{s}}$ su complementario binario. Entonces $P(\mathbf{s})\oplus P(\mathbf{\Bar{s}})=|\mathbf{1}\rangle$ de longitud $n$.\newline
+
+ Esta regla se ha obtenido como un caso particular de la regla general que se presentará a continuación. Ahora bien, ¿Es trascendente el particularizar una regla ya obtenida? Hagamos un pequeño inciso para aclarar este tema.\newline
+
+ La respuesta a esta pregunta es sí, ya que aunque una regla más general cubre muchos más casos, pero eso no nos asegura que encontrar un fallo sea más fácil, por el contrario, puede ser incluso más complejo programar un regla general. Es cierto que este caso es muy simple, aunque la comprobación para este caso es directa, ya que queremos obtener el ket $|\mathbf{1}\rangle$. \newline
+
+ El ejemplo básico que se usa para explicar esta diferencia es el siguiente \cite{AR:MTmain:2008}:\newline
+
+Suponemos que tenemos una implementación $P$ con una MR tal que $f(k\times x)=k\times f(x)$, donde $k \in \mathbb{Z} \setminus \{0\}$. De esta manera se puede extrapolar fácilmente de un \textit{source input} a infinitos casos al fijar un $x$ y variar $k in \mathbb{N}$. Pero en realidad sigue dejando muchísimos casos sin comprobar y tiene cierta dificultad para confirmar todos los \textit{follow-up inputs} en $P$, debido a la cantidad de comprobaciones a realizar para un mismo \textit{source input}. Por otra parte, si tomamos $k=-1$ tenemos otra MR, que aún siendo más débil que la anterior es más fácil de verificar. Y evidentemente, cualquier fallo que se dé con $f(-x)=-f(x)$ es tan efectivo como uno encontrado con la regla general.\newline
+
+Ahora volvamos a nuestra regla I. Para programar este test, vamos a ejecutar por separado $P$ para cada cadena $\mathbf{s}$ y $\mathbf{\Bar{s}}$ y realizaremos la \hyperref[Sec3.1:Suma]{suma} de los resultados antes de realizar la medición. Se podría interpelar que la suma puede dar fallos a la hora de probar la corrección, es decir, que si detectamos un fallo este no sea de $P$, si no de la suma realizada a continuación. A partir de ahora supondremos que la suma cuántica es correcta, es más, tras el artículo \textit{Metamorphic testing of oracle quantum programs}\cite{metamorphicAdd:2022} podemos decir que ha sido incluso probada con el uso de estas mismas técnicas. \newline
+
+El circuito obtenido sería:
+
+
+La razón por la que esperamos el ket $|\mathbf{1}\rangle$ se debe a que si uno es el complementario binario del otro, su suma binaria es 1 en cada posición.\newline
+
+\textbf{Regla II}: Sean $\mathbf{s}$ y $\mathbf{s}'$ cadenas binarias de longitud $n$. Entonces $P(\mathbf{s})\oplus P(\mathbf{s}')=\mathbf{s} \oplus \mathbf{s}'$.\newline
+
+ Se puede entender que esta es la generalización de la \hyperref[R:BV:1]{regla I}, si bien es cierto podría incluso generalizarse para 2 cadenas que no tengan que tener la misma longitud o incluso se podría interpretar como $P(f_{\mathbf{s}
+}\oplus f_{\mathbf{s}'})=P(f_{\mathbf{s}})\oplus P(f_{\mathbf{s}'})$, relacionando así dos \textit{output} del \textit{source input} con uno del \textit{follow-up input}.\newline
+
+ Las reglas anteriores han sido obtenidas de forma directa por la naturaleza del problema, donde si el resultado es la cadena con la que hemos generado el oráculo, entonces la suma binaria se debe conservar tanto en el \textit{source input} como en el \textit{output}.\newline
+
+ El circuito utilizado es idéntico al que se muestra en la \hyperref[Fig:BVRule1]{Figura } que se empleó en el caso particular de esta regla. \newline
+
+ \textbf{Regla III}: Sean $\mathbf{s}$ y $\mathbf{s}'$ cadenas binarias de longitud $n$. Si entendemos la composición como la concatenación de sus oráculos, entonces $P(f(\mathbf{s}) \circ f(\mathbf{s}'))= P(f_{\mathbf{s}})\oplus P(f_{\mathbf{s}'})$.\newline
+
+ Esta regla se puede estudiar de dos maneras distintas, veamos cuales son ambas percepciones: \newline
+
+ La primera vez que se pensó en esta regla fue directamente desde las ecuaciones del algoritmo, 
+
+
+
 
 \section{Simon}
+\label{Sec4.3:Simon}
 \n

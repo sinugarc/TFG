@@ -1,7 +1,7 @@
 \cleardoublepage
 
 \chapter{Algoritmos cuánticos}
-\label{makereference}
+\label{Cap3:Algoritmos}
 
 El siguiente paso en este camino hacia la unión entre la computación cuántica y el \textit{testing} metamórfico es la creación de algoritmos o programas cuánticos que nos ayuden a resolver problemas propuestos o avanzar. \newline
 
@@ -10,11 +10,14 @@ Todo el desarrollo de estos algoritmos se pueden encontrar en los libros princip
 Esta sección va a seguir prácticamente la misma estructura para cada apartado, a excepción de la suma. Empezará con una introducción, seguida de la exposición del problema a resolver. Entonces nos dispondremos a presentar el algoritmo que lo resuelve, o como lo creamos, y las pruebas realizadas. Es necesario recordar que toda la programación realizada sobre estos algoritmos se encuentra en el repositorio de GitHub \url{https://github.com/sinugarc/TFG.git}
 
 \section{Suma}
+\label{Sec3.1:Suma}
  Este primer algoritmo nos va a servir como primera toma de contacto con la programación cuántica, las puertas que podemos utilizar y el uso de \textit{Qiskit}. Veamos cual es el problema a resolver:\newline
 
  \textbf{Problema}: Dadas dos cadenas binarias, queremos obtener la suma binaria de ambas.\newline
 
-\section{Deutsch} 
+\section{Deutsch}
+\label{Sec3.2:Deutsch}
+
  El algoritmo de Deutsch\cite{B:QuantumScientist:2008} fue propuesto por David Deutsch en 1985, siendo este uno de los primeros algoritmos propuestos y en sí, el que se podría entender como uno de los problema más simples. Sea $f:\{0,1\}\rightarrow\{0,1\}$, diremos que $f$ es \textbf{balanceada} si $f(0)\neq f(1)$ y diremos que es \textbf{constante} si $f(0)=f(1)$. \newline
 
  \textbf{Problema}: Dada una función $f:\{0,1\}\rightarrow\{0,1\}$ balanceada o constante, la cual no podemos observar su definición. Queremos determinar si esta función es constante o balanceada.\newline
@@ -183,6 +186,7 @@ Por lo que hemos conseguido nuestro objetivo. Tras una única evaluación de $f$
 \textbf{FALTA EJEMPLO DE PROGRAMACION}
 
 \section{Deutsch-Jozsa}
+\label{Sec3.3:Deutsch-Jozsa}
  El algoritmo de Deutsch-Jozsa\cite{B:QuantumScientist:2008} es una generalización del algoritmo de Deutsch del apartado anterior, pero ahora trabajamos con $f:\{0,1\}^{n} \rightarrow\{0,1\}$. El domino se puede entender como los números escrito en binario de 0 a $2^{n}-1$. En este caso vamos a redefinir los conceptos anteriores:
 
  \begin{itemize}
@@ -190,7 +194,7 @@ Por lo que hemos conseguido nuestro objetivo. Tras una única evaluación de $f$
      \item Diremos que $f$ es \textbf{balanceada} si exactamente la mitad del domino va a 0 y la otra mitad va a 1.
  \end{itemize}
 
- \textbf{Problema}: Dada una función $f:\{0,1\}^{n} \rightarrow\{0,1\}$ balanceada o constante, la cual no podemos observar su definición. Queremos determinar si esta función es constante o balanceada.\newline
+ \textbf{Problema}\label{P:DJ}: Dada una función $f:\{0,1\}^{n} \rightarrow\{0,1\}$ balanceada o constante, la cual no podemos observar su definición. Queremos determinar si esta función es constante o balanceada.\newline
 
  \textbf{Solución clásica}: Vamos a tener que evaluar la función $f$ tantas veces como sea necesario. El mejor caso es tras 2 ejecuciones, ya que puede darse la situación en la que es balanceada y cada ejecución da un resultado diferente. Por otra parte, el peor caso se da con $2^{n-1}+1$ ejecuciones, ya que si las primeras $2^{n-1}$ son iguales, la siguiente nos va a determinar si es constante o balanceada. Todo esto se debe a que como hipótesis tenemos que es una de las 2 cosas. \newline
 
@@ -204,7 +208,7 @@ Por lo que hemos conseguido nuestro objetivo. Tras una única evaluación de $f$
 
  Hay que destacar que $|\mathbf{x}\rangle=|x_{0}x_{1}...x_{n-1}\rangle$, por eso posteriormente escribimos $/^{n}$, para indicar que son n qubits.\newline
 
- \textbf{Algoritmo de Deutsch-Jozsa}:
+ \textbf{Algoritmo de Deutsch-Jozsa\label{A:DJ}}:
 
  \vspace{10pt}
 
@@ -308,6 +312,8 @@ Por lo que hemos conseguido nuestro objetivo. Tras una única evaluación de $f$
  Por esta razón la observación que realizamos anteriormente, ya que nos sería imposible identificar si la función no es ni constante ni balanceada. Y esto explica porque es una de nuestras hipótesis.
 
 \section{Bernstein-Vazirani}
+\label{Sec3.4:BV}
+
 El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umesh Vazirani\cite{ARP:BV:1997}. Se puede entender que este algoritmo es una generalización más del algoritmo de Deutsch-Jozsa \footnote{https://learn.qiskit.org/course/ch-algorithms/bernstein-vazirani-algorithm}. \newline
 
 \textbf{Problema}: Sea $f:\{0,1\}^{n} \rightarrow \{0,1\}$, sea $\mathbf{s}=s_{0}s_{1}...s_{n-1}$, por hipótesis $f(\mathbf{x})=\mathbf{s}\cdot \mathbf{x}\: \text{mod}\:2 = s_{0}x_{0} \oplus s_{1}x_{1} \oplus ... \oplus s_{n-1}x_{n-1}$. Queremos obtener la cadena $\mathbf{s}$.\newline
@@ -362,6 +368,7 @@ El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umes
 
 
 \section{Simon}
+\label{Sec3.5:Simon}
  El algoritmo de Simon, o de periodicidad de Simon, va a ser el primero que no va a usar únicamente computación cuántica, si no que la combina con computación clásica al final del mismo. Veremos cual es el problema y la parte cuántica de la solución, para así ver como procedemos posteriormente hasta encontrar la solución buscada. \newline
 
  Sea $f:\{0,1\}^{n} \rightarrow\{0,1\}^{n}$, la cual no conocemos su definición, pero si sabemos es periódica en el sentido de que existe una cadena binaria $\mathbf{c}=c_{0}c_{1}...c_{n-1}$ tal que $\forall \mathbf{x},\mathbf{y} \in \{0,1\}^{n}$ entonces, $f(\mathbf{x})=f(\mathbf{y})$ si y solo si $\mathbf{x}=\mathbf{y}\oplus\mathbf{c}$ , donde $\oplus$ es la suma binaria bit a bit. Llamaremos $\mathbf{c}$ al \textbf{periodo} de $f$. \newline
@@ -424,8 +431,13 @@ El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umes
 
  \textbf{Simulaciones}:\newline
     
-\section{QFT}
-Este apartado va a tratar sobre la transformada cuántica de Fourier, QFT del inglés \textit{Quantum Fourier transform}. Si bien es cierto que todos los algoritmos anteriores tenían un problema a resolver, el estudio de este algoritmo así como su continuación, la estimación cuántica de fase, QEP del inglés \textit{Quantum phase estimation}, se basa en la gran utilidad que tienen estas transformadas en cualquier contexto. Aunque en este texto no se tratan algoritmos que necesitan de esta aparatología, podemos adelantar que dos de los algoritmos más importantes que hay actualmente en programación cuántica lo usan, hablamos del algoritmo de Grover o de búsqueda y del algoritmo de Shor o de factorización.
+\section{Transformada cuántica de Fourier}
+\label{Sec3.6:Fourier}
 
-\section{QPE}
-Algoritmo cuántico de estimación de fase \n
+Este apartado va a tratar sobre la transformada cuántica de Fourier, QFT del inglés \textit{Quantum Fourier transform} y una de sus aplicaciones más directas, la estimación cuántica de fase, QPE del inglés \textit{Quantum phase estimation}. Si bien es cierto que todos los algoritmos anteriores tenían un problema a resolver, el estudio de estos algoritmos se basan en la gran utilidad que tienen en cualquier contexto incluida la computación cuántica. Aunque en esta memoria no se tratarán algoritmos o técnicas que necesitan de estos materiales, podemos adelantar que dos de los algoritmos más importantes que se presentan actualmente en programación cuántica lo usan, como por ejemplo el algoritmo de Grover o de búsqueda y el algoritmo de Shor o de factorización.
+
+\subsection{QFT}
+Para introducir la transformada de Fourier vamos a ver como se comporta en el caso discreto, ya que nuestra versión cuántica partirá de aquí. 
+
+\subsection{QPE}
+ here
