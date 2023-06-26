@@ -5,7 +5,7 @@
 
 En este último capítulo antes de la conclusión queremos presentar al lector con el objetivo principal de este trabajo. Queremos finalmente unir las propiedades metamórficas con los algoritmos que hemos estudiado en el capítulo \ref{Cap3:Algoritmos}, si bien es cierto solo hemos conseguido estudiar los tres algoritmos que se presentan a continuación. Presentaremos cuales son las propiedades obtenidas, así como de donde las hemos obtenido, para luego pasar a la programación y los circuitos que hemos preparado para poder realizar dichas pruebas.
 
-\section{DJ}
+\section{Deutsch-Jozsa}
 \label{Sec4.1:DJ}
 En esta sección vamos a estudiar que reglas hemos obtenido del \hyperref[Sec3.3:Deutsch-Jozsa]{algoritmo de Deutsch-Jozsa} y como las hemos implementado en nuestro \href{https://github.com/rodelanu/TFG/blob/main/1_Deutsch_Jozsa_Rules.ipynb}{repositorio}. Recordamos brevemente el problema y el algoritmo obtenido:\newline
 
@@ -31,7 +31,7 @@ Suponemos $P$ la implementación del algoritmo de Deutsch-Jozsa a analizar, tal 
 
 \textbf{Regla II}: Sea $f:\{0,1\}^{n} \rightarrow\{0,1\}$ la función a analizar definida en problema y sea $h:\{0,1\}^{n} \rightarrow\{0,1\}$ tal que $h(x) = 1 - f(x)$. Entonces, $P(f)=|\mathbf{0}\rangle$ si y solo si $P(h)=|\mathbf{0}\rangle$. Estudiar si la inversión de 0's y 1's da el mismo ket.
 
-\section{BV}
+\section{Bernstein-Vazirani}
 \label{Sec4.2:BV}
 El algoritmo de Bernstein-Vazirani fue el primero presentado como ejemplo al introducir la \hyperref[Sec2.3:Qiskit]{programación cuántica} en el \hyperref[Cap2:Antecedentes]{capítulo 2}. Recapitulemos lo visto cuando se estudió el \hyperref[Sec3.4:BV]{algoritmo de BV}.\newline
 
@@ -66,8 +66,9 @@ Suponemos que tenemos una implementación $P$ con una MR tal que $f(k\times x)=k
 
 Ahora volvamos a nuestra regla I. Para programar este test, vamos a ejecutar por separado $P$ para cada cadena $\mathbf{s}$ y $\mathbf{\Bar{s}}$ y realizaremos la \hyperref[Sec3.1:Suma]{suma} de los resultados antes de realizar la medición. Se podría interpelar que la suma puede dar fallos a la hora de probar la corrección, es decir, que si detectamos un fallo este no sea de $P$, si no de la suma realizada a continuación. A partir de ahora supondremos que la suma cuántica es correcta, es más, tras el artículo \textit{Metamorphic testing of oracle quantum programs}\cite{metamorphicAdd:2022} podemos decir que ha sido incluso probada con el uso de estas mismas técnicas. \newline
 
-El circuito obtenido sería:
+El circuito obtenido sería: \newline
 
+ (FALTA IMAGEN DEL CIRCUITO)\newline
 
 La razón por la que esperamos el ket $|\mathbf{1}\rangle$ se debe a que si uno es el complementario binario del otro, su suma binaria es 1 en cada posición.\newline
 
@@ -82,13 +83,46 @@ La razón por la que esperamos el ket $|\mathbf{1}\rangle$ se debe a que si uno 
 
  \textbf{Regla III}: Sean $\mathbf{s}$ y $\mathbf{s}'$ cadenas binarias de longitud $n$. Si entendemos la composición como la concatenación de sus oráculos, entonces $P(f(\mathbf{s}) \circ f(\mathbf{s}'))= P(f_{\mathbf{s}})\oplus P(f_{\mathbf{s}'})$.\newline
 
- Esta regla se puede estudiar de dos maneras distintas, veamos cuales son ambas percepciones: \newline
+ La primera vez que se pensó en esta regla fue directamente desde las ecuaciones del algoritmo, en particular, la ecuación \ref{eq:BV:phi2}. Tras aplicar la primera $f$, en este caso $f_{\mathbf{s}}$, obtendríamos:
 
- La primera vez que se pensó en esta regla fue directamente desde las ecuaciones del algoritmo, 
+ \begin{equation} 
+    \mathbf{|\varphi_{2}\rangle} =\left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{f_{\mathbf{s}}(\mathbf{x})}|\mathbf{x}\rangle}{\sqrt{2^{n}}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right]\end{equation}\newline
 
+Veamos como quedaría el circuito con la concatenación, que incluye este estado:
 
+\vspace{10pt}
 
+ \begin{center}$\Qcircuit @C=1.5em @R=1em {
+ \lstick{|\mathbf{0}\rangle}& \qw {/^{n}} & \gate{H^{\otimes n}} & \qw  & \qw {/^{n}} & \multigate{1}{U_{f_{\mathbf{s}}}} & \qw {/^{n}} & \multigate{1}{U_{f_{\mathbf{s}'}}} & \qw {/^{n}} & \gate{H^{\otimes n}} & \qw {/^{n}} & \meter & \qw \\ \lstick{|0\rangle} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{0}\rangle \end{matrix}} \qw & \gate{H} & \gate{Z} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{1}\rangle \end{matrix}} \qw &\ghost{U_{f}} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{2}\rangle \end{matrix}} \qw &\ghost{U_{f_{\mathbf{s}'}}} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{3}\rangle \end{matrix}} \qw & \qw & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{4}\rangle \end{matrix}} \qw  & \qw & \qw}$ \end{center}
 
+ \vspace{30pt}
+
+ Desde aquí podemos desarrollar $|\varphi_{3}\rangle$:
+
+ \begin{equation}
+    \begin{split}
+     \mathbf{|\varphi_{3}\rangle} &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{f_{\mathbf{s}}(\mathbf{x})}(-1)^{f_{\mathbf{s}'}(\mathbf{x})}|\mathbf{x}\rangle}{\sqrt{2^{n}}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right] \\ &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{f_{\mathbf{s}}(\mathbf{x})\oplus f_{\mathbf{s}'}(\mathbf{x})}|\mathbf{x}\rangle}{\sqrt{2^{n}}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right] \\ &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{\langle\mathbf{s},\mathbf{x}\rangle\oplus \langle\mathbf{s}',\mathbf{x}\rangle}|\mathbf{x}\rangle}{\sqrt{2^{n}}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right] \\ &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{\langle\mathbf{s}\oplus\mathbf{s}',\mathbf{x}\rangle}|\mathbf{x}\rangle}{\sqrt{2^{n}}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right] \\ &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{f_{\mathbf{s}\oplus\mathbf{s}'}(\mathbf{x})}|\mathbf{x}\rangle}{\sqrt{2^{n}}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right]
+     \end{split}
+ \end{equation}\newline
+
+ Con este desarrollo obtenemos directamente la regla III, ya que llegamos exactamente a la misma ecuación desde el circuito definido para $f_{\mathbf{s}\oplus\mathbf{s}'}$, donde $|\varphi_{3}\rangle=|\varphi_{2}'\rangle$ .
+
+ \vspace{10pt}
+
+ \begin{center}$\Qcircuit @C=1.5em @R=1em {
+ \lstick{|\mathbf{0}\rangle}& \qw {/^{n}} & \gate{H^{\otimes n}} & \qw  & \qw {/^{n}} & \multigate{1}{U_{f_{\mathbf{s}\oplus\mathbf{s}'}}} & \qw {/^{n}} & \gate{H^{\otimes n}} & \qw {/^{n}} & \meter & \qw \\ \lstick{|0\rangle} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{0}'\rangle \end{matrix}} \qw & \gate{H} & \gate{Z} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{1}'\rangle \end{matrix}} \qw &\ghost{U_{f_{\mathbf{s}\oplus\mathbf{s}'}}} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{2}'\rangle \end{matrix}} \qw & \qw & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{3}'\rangle \end{matrix}} \qw  & \qw & \qw}$ \end{center}
+
+ \vspace{30pt} 
+
+ Para la implementación de esta regla, hemos reducido la complejidad de las comparaciones, para así evitar un uso excesivo de qubits. Hay que recordar que las matrices que usan los simuladores crecen de manera exponencial, ya que la base de $n$ qubits tiene $2^{n}$ elementos. Además en IBM, el máximo sistema cuántico de acceso libre tiene sólo 7 qubits.\newline
+
+ Por lo que implementamos $P(f(\mathbf{s}) \circ f(\mathbf{s}'))$, ya que la suma por separado sería análoga a las reglas anteriores. De esta manera el circuito que utilizaremos a la hora de realizar MT será, \newline
+
+ (FALTA IMAGEN DEL CIRCUITO)\newline
+
+ Los circuitos y pruebas realizadas se puede encontrar en el \href{https://github.com/rodelanu/TFG/blob/main/2_Bernstein_Vazirani_Rules.ipynb}{archivo de BV} del \href{https://github.com/rodelanu/TFG}{repositorio común}.
+
+ 
 \section{Simon}
 \label{Sec4.3:Simon}
 \n
