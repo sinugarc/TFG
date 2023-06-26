@@ -13,7 +13,7 @@ Lista de acciones por hacer:
 - [x] TFG redacción: Introducción
 - [x] TFG redacción: Preliminares: Matematicas-Fisica (Comprobado por Adrian)
 - [x] TFG redacción: Preliminares: Quiskit-PropMetamorficas (Añadir los comentarios)
-- [ ] TFG redacción: Algoritmos cuánticos
-- [ ] TFG redacción: Propiedades Cuánticas
+- [x] TFG redacción: Algoritmos cuánticos (Falta suma y si da tiempo QEP y QFT)
+- [ ] TFG redacción: Propiedades metamórficas (acabar Simon, aclarar DJ)
 - [ ] TFG redacción: Conclusiones-Trabajo futuro
-- [ ] TFG organizar: Bibliografía (Anotaciones de bibliografia durante todo el texto)
+- [x] TFG organizar: Bibliografía (Aclarar sobre los [])
