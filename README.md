@@ -14,5 +14,5 @@ Lista de acciones por hacer:
 - [x] TFG redacción: Preliminares: Quiskit-PropMetamorficas (Añadir los comentarios)
 - [x] TFG redacción: Algoritmos cuánticos (Falta suma, imagenes DJ/BV y si da tiempo QEP y QFT)
 - [x] TFG redacción: Propiedades metamórficas (aclarar y acabar DJ)
-- [ ] TFG redacción: Conclusiones-Trabajo futuro
+- [x] TFG redacción: Conclusiones-Trabajo futuro
 - [x] TFG organizar: Bibliografía (Aclarar sobre los [])
