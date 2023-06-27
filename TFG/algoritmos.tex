@@ -13,7 +13,15 @@ Esta sección va a seguir prácticamente la misma estructura para cada apartado,
 \label{Sec3.1:Suma}
  Este primer algoritmo nos va a servir como primera toma de contacto con la programación cuántica, las puertas que podemos utilizar y el uso de \textit{Qiskit}. Veamos cual es el problema a resolver:\newline
 
- \textbf{Problema}: Dadas dos cadenas binarias, queremos obtener la suma binaria de ambas.\newline
+ \textbf{Problema 1}: Dadas dos cadenas binarias de igual longitud, queremos obtener la suma bit a bit de ambas.\newline
+
+ Esta operación se va a realizar posteriormente y se usará $\oplus$ como notación. La implementación de este problema es muy simple, bastará con incluir tantos bit ancilla como longitud tenga la cadena que almacene el resultado, así nos aseguramos que no se modifiquen los valores originales y bastará con utilizar la puerta $CNOT$ para ir modificando los valores ancilla correspondientes. Dando lugar en los valores ancilla al resultado de la suma bit a bit de ambas cadenas.\newline
+
+ (PONER CIRCUITO)
+
+ \textbf{Problema 2}: Dadas dos cadenas binarias, queremos obtener la suma de ambas, como si estas fueran representación de número naturales.\newline
+
+ (EXPLICAR Y PONER EL PRIMER CIRCUITO PROGRAMADO)
 
 \section{Deutsch}
 \label{Sec3.2:Deutsch}
@@ -228,13 +236,13 @@ Por lo que hemos conseguido nuestro objetivo. Tras una única evaluación de $f$
 
  \begin{equation*}
      \begin{split}
-     \langle\mathbf{x},\mathbf{y}\rangle &= \langle x_{0}x_{1}...x_{n-1},y_{0}y_{1}...y_{n-1}\rangle \\ &= (x_{0}\land y_{0})\oplus(x_{1}\land y_{1})\oplus...\oplus(x_{n-1}\land y_{n-1})
+     \langle\mathbf{x},\mathbf{y}\rangle &= \langle x_{0}x_{1}...x_{n-1},y_{0}y_{1}...y_{n-1}\rangle \\ &= (x_{0}\land y_{0})\oplus(x_{1}\land y_{1})\oplus...\oplus(x_{n-1}\land y_{n-1}) \\ &= x_{0}y_{0}\oplus x_{1}y_{1}\oplus ... \oplus x_{n-1}y_{n-1}
      \end{split}
  \end{equation*}
 
- Donde $\land$ es la operación lógica AND.\newline
+ Donde $\land$ es la operación lógica AND y $\oplus$ la operación lógica XOR.\newline
 
- También definimos, $\mathbf{x}\oplus\mathbf{y}=x_{0}\oplus y_{0},x_{1}\oplus y_{1},...,x_{n-1}\oplus y_{n-1}$ .\newline
+ También definimos, $\mathbf{x}\oplus\mathbf{y}=x_{0}\oplus y_{0},x_{1}\oplus y_{1},...,x_{n-1}\oplus y_{n-1}$ como la suma binaria bit a bit.\newline
 
  Con esto obtenemos las siguiente propiedades del producto interno:
 
@@ -302,21 +310,19 @@ Por lo que hemos conseguido nuestro objetivo. Tras una única evaluación de $f$
 
  Por lo que podemos concluir que este algoritmo resuelve nuestro problema con una única evaluación de $f$. Si el resultado es $|\mathbf{0}\rangle$, $f$ es constante y si es otro cualquiera, $f$ es balanceada. \newline
 
- \textbf{REVISAR}\newline
- \textbf{Observación}: Hay que tener en cuenta, que si la función no es ni balanceada ni constante, este algoritmo no soluciona el problema y los resultados no son concluyentes.\newline
+ \textbf{Observación}: Hay que tener en cuenta, que si la función no es ni balanceada ni constante, este algoritmo no soluciona el problema y los resultados no son concluyentes. Esto se debe a que cualquier valor que nos devuelva el algoritmo tiene un interpretación $|\textbf{0}\rangle$ $f$ constante y si no, $f$ es balanceada. Es decir, si tenemos una función $f$ que no es ni constante ni balanceada, el resultado sea el que sea va a ser erróneo. Y esto explica porque es una de nuestras hipótesis. \newline
 
- Por esta razón la observación que realizamos anteriormente, ya que nos sería imposible identificar si la función no es ni constante ni balanceada. Y esto explica porque es una de nuestras hipótesis. \newline
-
-\textbf{Oráculo}:
+\textbf{Oráculo}: El oráculo que utilizamos para este algoritmo puede venir de dos sitios distintos. Podemos programarlo con ayuda de qiskit\footnote{\url{https://learn.qiskit.org/course/ch-algorithms/deutsch-jozsa-algorithm}}, ya que nos explica como crear el oráculo de DJ, sea la función balanceada o constante. O bien, una vez definida la función crear la matriz que representa al operador.\newline
  
-\textbf{Simulaciones}: En el repositorio podemos encontrar este algoritmo programado con ayuda de \textit{Qiskit}. Una de las peculiaridades que encontramos es la forma en la que \textit{Qiskit} nos presenta los qubits. Las cadenas se presentan al revés. Veamos un ejemplo:
+\textbf{Simulaciones}: En el repositorio podemos encontrar este algoritmo programado con ayuda de \textit{Qiskit}. Una de las peculiaridades que encontramos es la forma en la que \textit{Qiskit} nos presenta los qubits, más bien hay una permutación en la base respecto a la generalmente utilizamos al formalizar matrices. Esto puede ser un problema cuando las puertas las creamos como un operador a partir de la matriz que las determina. El ejemplo de esta situación esta programado (en el test del repositorio), así como pruebas del algoritmo de DJ con la misma matriz. \newline
 
-\textbf{FALTA EJEMPLO DE PROGRAMACION}
+Si bien es cierto que todos aquellos algoritmos que tiene programado el oráculo con el procedimiento de Qiskit de forma balanceada su resultado es el ket $|\mathbf{1}\rangle$, esto no tiene porque ser cierto. Si recordamos el análisis final del algoritmo, si obtenemos $|\textbf{0}\rangle$ entonces $f$ es constante y si no, $f$ es balanceada. Por lo que si miramos el algoritmo programado con un operador matricial, podemos observar como el resultado no es ni $|\textbf{0}\rangle$, ni $|\textbf{1}\rangle$, si no que obtenemos $|01\rangle$.
+
 
 \section{Bernstein-Vazirani}
 \label{Sec3.4:BV}
 
-El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umesh Vazirani\cite{ARP:BV:1997}. Se puede entender que este algoritmo es una generalización más del algoritmo de Deutsch-Jozsa \footnote{https://learn.qiskit.org/course/ch-algorithms/bernstein-vazirani-algorithm}. \newline
+El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umesh Vazirani\cite{AR:BV:1997}. Se puede entender que este algoritmo es una generalización más del algoritmo de Deutsch-Jozsa \footnote{https://learn.qiskit.org/course/ch-algorithms/bernstein-vazirani-algorithm}. \newline
 
 \textbf{Problema}: Sea $f:\{0,1\}^{n} \rightarrow \{0,1\}$, sea $\mathbf{s}=s_{0}s_{1}...s_{n-1}$, por hipótesis $f(\mathbf{x})=\mathbf{s}\cdot \mathbf{x}\: \text{mod}\:2 = s_{0}x_{0} \oplus s_{1}x_{1} \oplus ... \oplus s_{n-1}x_{n-1}$. Queremos obtener la cadena $\mathbf{s}$.\newline
 
@@ -331,7 +337,7 @@ El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umes
 
  \vspace{30pt}
 
- Matricialmente: $(H^{\otimes n} \otimes I)\: U_{f}\:(I\otimes Z)\:(H^{\otimes n} \otimes H) |\mathbf{0},0\rangle$ \newline
+ De forma matricial: $(H^{\otimes n} \otimes I)\: U_{f}\:(I\otimes Z)\:(H^{\otimes n} \otimes H) |\mathbf{0},0\rangle$ \newline
 
  Veamos ahora los estados alcanzados, similares al circuito anterior:
 
@@ -370,11 +376,29 @@ El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umes
  ¿Qué está ocurriendo aquí?, lo que hemos observado es que la amplitud de $|\mathbf{s}\rangle$ es 1, y si recordamos la teoría de los sistemas cuánticos, la suma de los cuadrados de las amplitudes es 1. Es decir, las amplitudes del resto de posibles valores de $|\mathbf{z}\rangle$ es 0. Por lo que al hacer la medición sobre el primer bloque de qubits nos devolverá la cadena $\mathbf{s}$ deseada, al ser su probabilidad de aparición 1. Podemos concluir entonces que hemos obtenido la cadena $\mathbf{s}$ con una única ejecución de $f$, mejorando así la solución clásica para este algoritmo.\newline
 
  
- \textbf{Oráculo}: Antes de presentar las simulaciones realizadas, vamos a estudiar como a partir de una cadena $\mathbf{s}$ podemos construir un oráculo funcione como $f_{s}$. \newline
+ \textbf{Oráculo}: Antes de presentar las simulaciones realizadas, vamos a estudiar como a partir de una cadena $\mathbf{s}$ podemos construir un oráculo funcione como $f_{s}$. Según el valor en la cadena se ejecuta una puerta y otra. Sí el valor es 0, entonces pondremos una puerta identidad en la linea del qubit de esa posición para indicar que no se hace nada y si el valor es 1, pondremos una puerta CNOT entre el qubit de la posición y el qubit ancilla, donde el qubit de control es el de la posición del valor. Estos ejemplo se pueden encontrar en el archivo de BV sin puertas, la función \textit{$bv\_fgenerator(qc,n0,s)$}, veamos un par de ejemplos ahora:
+ 
+ \begin{figure}[H]
+    \centering
+    \begin{subfigure}[H]{0.35\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{TFG/imagenes/BVgate1.png}
+        \caption{Oráculo para la cadena $\mathbf{s}=101$}
+        \label{sFig:BVgate1}
+    \end{subfigure}
+    \hspace{10pt}
+    \begin{subfigure}[H]{0.35\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{TFG/imagenes/BVgate2.png}
+        \caption{Oráculo para la cadena $\mathbf{s}=10101$}
+        \label{sFig:BVgate2}
+    \end{subfigure}
+        \caption{Ejemplo de oráculos para el algoritmo de BV}
+    \label{FIG:BVOraculo}
+ \end{figure}
 
- (FALTA LA INF DEL ORACULO)\newline
 
- \textbf{Simulaciones}:\newline
+ \textbf{Simulaciones}: Las simulaciones de este algoritmo ya han sido presentadas a lo largo del texto como ejemplo cuando se explicaban las distintas partes de la programación cuántica. Para ampliar estos ejemplos así como revisar el código, se pueden ver en el repositorio.\newline
 
 
 \section{Simon}
@@ -433,27 +457,35 @@ El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umes
     \end{split}
  \end{equation}
 
- Por lo que si $\langle \mathbf{z}, \mathbf{c}\rangle=1$, entonces los sumandos se cancelan. Por otra parte, si $\langle \mathbf{z}, \mathbf{c}\rangle=0$ el coeficiente será $(\pm 1)$, es decir, al realizar la medición sobre el primer bloque de qubits, solo obtendremos aquellos tales que $\langle \mathbf{z}, \mathbf{c}\rangle=0$. \newline
+ Por lo que si $\langle \mathbf{z}, \mathbf{c}\rangle=1$, entonces los sumandos se cancelan. Por otra parte, si $\langle \mathbf{z}, \mathbf{c}\rangle=0$ el coeficiente será $(\pm 1)$, es decir, al realizar la medición sobre el primer bloque de qubits, solo obtendremos aquellos tales que $\langle \mathbf{z}, \mathbf{c}\rangle=0$.
 
- Pero, ¿proporciona esto una solución esto nuestro algoritmo? Visto así directamente puede parecer que no, debido a que cada vez que lo ejecutemos nos proporcionará una cadena distinta que tiene esa característica. Pero tras obtener n cadenas, obtenemos un sistema de ecuaciones a partir del cual obtenemos la cadena $\mathbf{c}$ deseada. Aquí es donde entraría la computación clásica para acabar de resolver el problema.\newline
+ \vspace{14pt}
 
- Se puede ver la mejora respecto a la solución clásica, ya que al ser todas las cadenas equiprobables, obtendremos $n$ cadenas distintas en menos ejecuciones que $2^{n-1}+1$, para $n$ suficientemente grande, que necesitaba el algoritmo clásico. Se puede ver un ejemplo concreto del desarrollo completo del algoritmo con $f:\{0,1\}^{3} \rightarrow\{0,1\}^{3}$ en \textit{Quantum computing for computer scientists, page 190}\cite{B:QuantumScientist:2008}. \newline
+ Pero, ¿proporciona esto una solución esto nuestro algoritmo? Visto así directamente puede parecer que no, debido a que cada vez que lo ejecutemos nos proporcionará una cadena distinta que tiene esa característica. Pero tras obtener n cadenas, obtenemos un sistema de ecuaciones a partir del cual obtenemos la cadena $\mathbf{c}$ deseada. Aquí es donde entraría la computación clásica para acabar de resolver el problema.
+
+ \vspace{14pt}
+
+ Se puede ver la mejora respecto a la solución clásica, ya que al ser todas las cadenas equiprobables, obtendremos $n$ cadenas distintas en menos ejecuciones que $2^{n-1}+1$, para $n$ suficientemente grande. Se puede ver un ejemplo concreto del desarrollo completo del algoritmo con $f:\{0,1\}^{3} \rightarrow\{0,1\}^{3}$ en \textit{Quantum computing for computer scientists, 190}\cite{B:QuantumScientist:2008}.
+
+ \vspace{14pt}
 
  \textbf{Oráculo}: Debido a su complejidad se importa directamente desde Qiskit.\newline
 
- \textbf{Simulaciones}: Debido a que utilizamos este circuito, sin ninguna modificación, al comprobar nuestras MR, las simulaciones se encuentran en el \href{https://github.com/rodelanu/TFG/tree/main}{repositorio común}, en el archivo \href{https://github.com/rodelanu/TFG/blob/main/3_Simon_Rules.ipynb}{sobre las reglas del algoritmo de Simon}.\newline
+ \textbf{Simulaciones}: Debido a que utilizamos este circuito, sin ninguna modificación, al comprobar nuestras MR, las simulaciones se encuentran en el \href{https://github.com/rodelanu/TFG/tree/main}{repositorio común}, en el archivo \href{https://github.com/rodelanu/TFG/blob/main/3_Simon_Rules.ipynb}{sobre las reglas del algoritmo de Simon}.
 
- El circuito, análogo al teórico presentado anteriormente, para el algoritmo de Simon, con una cadena $\mathbf{c}$ de longitud 3 es:\newline
+ \vspace{10pt}
+
+ El circuito, análogo al teórico presentado anteriormente, para el algoritmo de Simon, con una cadena $\mathbf{c}$ de longitud 3 es:
 
  
  \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{TFG/imagenes/simon1.png}
+    \includegraphics[width=0.7\textwidth]{TFG/imagenes/simon1.png}
     \caption{Circuito, algoritmo Simon con $\mathbf{c}=100$}
     \label{Fig:CircuitoSimon1}
  \end{figure}
 
- Lo hemos simulado y ejecutado en un sistema cuántico de IBM y estos son los resultados. Además de observar el ruido del sistema cuántico, se va a poder apreciar ambas formas de realizar el histograma, ya sea con conteo o probabilidades.\newline
+ Lo hemos simulado y ejecutado en un sistema cuántico de IBM y estos son los resultados. Además de observar el ruido del sistema cuántico, se va a poder apreciar ambas formas de realizar el histograma, ya sea con conteo o probabilidades.
 
  \begin{figure}[H]
     \centering
