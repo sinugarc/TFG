@@ -367,6 +367,11 @@ El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umes
 
  ¿Qué está ocurriendo aquí?, lo que hemos observado es que la amplitud de $|\mathbf{s}\rangle$ es 1, y si recordamos la teoría de los sistemas cuánticos, la suma de los cuadrados de las amplitudes es 1. Es decir, las amplitudes del resto de posibles valores de $|\mathbf{z}\rangle$ es 0. Por lo que al hacer la medición sobre el primer bloque de qubits nos devolverá la cadena $\mathbf{s}$ deseada, al ser su probabilidad de aparición 1. Podemos concluir entonces que hemos obtenido la cadena $\mathbf{s}$ con una única ejecución de $f$, mejorando así la solución clásica para este algoritmo.\newline
 
+ 
+ \textbf{Oráculo}: Antes de presentar las simulaciones realizadas, vamos a estudiar como a partir de una cadena $\mathbf{s}$ podemos construir un oráculo funcione como $f_{s}$. \newline
+
+ (FALTA LA INF DEL ORACULO)\newline
+
  \textbf{Simulaciones}:\newline
 
 
@@ -430,9 +435,42 @@ El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umes
 
  Pero, ¿proporciona esto una solución esto nuestro algoritmo? Visto así directamente puede parecer que no, debido a que cada vez que lo ejecutemos nos proporcionará una cadena distinta que tiene esa característica. Pero tras obtener n cadenas, obtenemos un sistema de ecuaciones a partir del cual obtenemos la cadena $\mathbf{c}$ deseada. Aquí es donde entraría la computación clásica para acabar de resolver el problema.\newline
 
- Se puede ver la mejora respecto a la solución clásica, ya que al ser todas las cadenas equiprobables, obtendremos $n$ cadenas distintas en menos ejecuciones que $2^{n-1}+1$, para $n$ suficientemente grande, que necesitaba el algoritmo clásico. Se puede ver un ejemplo concreto del desarrollo completo del algoritmo con $f:\{0,1\}^{3} \rightarrow\{0,1\}^{3}$ en \citealp[\textit{Quantum computing for computer scientists, page 190}]{B:QuantumScientist:2008}
+ Se puede ver la mejora respecto a la solución clásica, ya que al ser todas las cadenas equiprobables, obtendremos $n$ cadenas distintas en menos ejecuciones que $2^{n-1}+1$, para $n$ suficientemente grande, que necesitaba el algoritmo clásico. Se puede ver un ejemplo concreto del desarrollo completo del algoritmo con $f:\{0,1\}^{3} \rightarrow\{0,1\}^{3}$ en \textit{Quantum computing for computer scientists, page 190}\cite{B:QuantumScientist:2008}. \newline
 
- \textbf{Simulaciones}:\newline
+ \textbf{Oráculo}: Debido a su complejidad se importa directamente desde Qiskit.\newline
+
+ \textbf{Simulaciones}: Debido a que utilizamos este circuito, sin ninguna modificación, al comprobar nuestras MR, las simulaciones se encuentran en el \href{https://github.com/rodelanu/TFG/tree/main}{repositorio común}, en el archivo \href{https://github.com/rodelanu/TFG/blob/main/3_Simon_Rules.ipynb}{sobre las reglas del algoritmo de Simon}.\newline
+
+ El circuito, análogo al teórico presentado anteriormente, para el algoritmo de Simon, con una cadena $\mathbf{c}$ de longitud 3 es:\newline
+
+ 
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{TFG/imagenes/simon1.png}
+    \caption{Circuito, algoritmo Simon con $\mathbf{c}=100$}
+    \label{Fig:CircuitoSimon1}
+ \end{figure}
+
+ Lo hemos simulado y ejecutado en un sistema cuántico de IBM y estos son los resultados. Además de observar el ruido del sistema cuántico, se va a poder apreciar ambas formas de realizar el histograma, ya sea con conteo o probabilidades.\newline
+
+ \begin{figure}[H]
+    \centering
+    \begin{subfigure}[H]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{TFG/imagenes/simonSim.png}
+        \caption{Simulador}
+        \label{sFig:SimonSim}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[H]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{TFG/imagenes/simonReal.png}
+        \caption{Sistema cuántico}
+        \label{sFig:SimonIBM}
+    \end{subfigure}
+        \caption{Resultados del algoritmo Simon para la cadena $\mathbf{c}=100$. }
+    \label{FIG:SimonRes}
+ \end{figure}
     
 \section{Transformada cuántica de Fourier}
 \label{Sec3.6:Fourier}
