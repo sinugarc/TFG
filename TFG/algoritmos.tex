@@ -181,10 +181,6 @@ Analizamos ahora todos los estados $|\varphi_{i}\rangle$:
 
 Por lo que hemos conseguido nuestro objetivo. Tras una única evaluación de $f$ según la medición del primer qubit, sabremos si $f$ es constante con medición $|0\rangle$ o balanceada, $|1\rangle$. Consiguiendo así nuestro objetivo.\newline
 
-\textbf{Simulaciones}: En el repositorio podemos encontrar este algoritmo programado con ayuda de \textit{Qiskit}. Una de las peculiaridades que encontramos es la forma en la que \textit{Qiskit} nos presenta los qubits. Las cadenas se presentan al revés. Veamos un ejemplo:
-
-\textbf{FALTA EJEMPLO DE PROGRAMACION}
-
 \section{Deutsch-Jozsa}
 \label{Sec3.3:Deutsch-Jozsa}
  El algoritmo de Deutsch-Jozsa\cite{B:QuantumScientist:2008} es una generalización del algoritmo de Deutsch del apartado anterior, pero ahora trabajamos con $f:\{0,1\}^{n} \rightarrow\{0,1\}$. El domino se puede entender como los números escrito en binario de 0 a $2^{n}-1$. En este caso vamos a redefinir los conceptos anteriores:
@@ -309,7 +305,13 @@ Por lo que hemos conseguido nuestro objetivo. Tras una única evaluación de $f$
  \textbf{REVISAR}\newline
  \textbf{Observación}: Hay que tener en cuenta, que si la función no es ni balanceada ni constante, este algoritmo no soluciona el problema y los resultados no son concluyentes.\newline
 
- Por esta razón la observación que realizamos anteriormente, ya que nos sería imposible identificar si la función no es ni constante ni balanceada. Y esto explica porque es una de nuestras hipótesis.
+ Por esta razón la observación que realizamos anteriormente, ya que nos sería imposible identificar si la función no es ni constante ni balanceada. Y esto explica porque es una de nuestras hipótesis. \newline
+
+\textbf{Oráculo}:
+ 
+\textbf{Simulaciones}: En el repositorio podemos encontrar este algoritmo programado con ayuda de \textit{Qiskit}. Una de las peculiaridades que encontramos es la forma en la que \textit{Qiskit} nos presenta los qubits. Las cadenas se presentan al revés. Veamos un ejemplo:
+
+\textbf{FALTA EJEMPLO DE PROGRAMACION}
 
 \section{Bernstein-Vazirani}
 \label{Sec3.4:BV}
