@@ -1,16 +1,14 @@
 \documentclass[final, 12pt,oneside]{class_diss}
 
-\bibliographystyle{unsrt}
-
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[spanish]{babel}
 \usepackage{pdfpages}
 
-\usepackage{caption} % Customize captions a bit more
+\usepackage{caption} % Customizehttps://www.overleaf.com/project/647efb98488f03988144b89a captions a bit more
 \usepackage{float}
 \usepackage[labelformat=simple]{subcaption}
-\usepackage{subfigure}
+%\usepackage{subfigure}
 \usepackage{subfig}
 \usepackage{      amsmath} % American Mathematics Society standards
 \usepackage{      wrapfig} % Wraps text around a figure or table
@@ -38,9 +36,9 @@
 \definecolor{Maroon}{rgb}{0.8, 0.0, 0.0}
 \definecolor{formalshade}{rgb}{0.95,0.95,1}
 
-\usepackage[sort&compress]{natbib}
-\bibpunct{}{}{,}{s}{}{}
-\usepackage{hypernat}
+%\usepackage[sort&compress]{natbib}
+%\bibpunct{}{}{,}{s}{}{}
+%\usepackage{hypernat}
 
 \usepackage{hyperref}
 %[pdftex, plainpages=false, pdfpagelabels]
@@ -105,9 +103,10 @@
 
 \end{spacing}
 
-\bibdata{TFG/references}
-\bibliography{TFG/references}
-\addcontentsline{toc}{chapter}{Bibliography}
+%\bibdata{TFG/references}
+\bibliographystyle{plain}
+\bibliography{references}
+\addcontentsline{toc}{chapter}{Bibliografía}
 
 
 \end{document}
