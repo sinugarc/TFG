@@ -202,7 +202,11 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
 
  Pero este sistema de ecuaciones no tiene solución, por lo que $(Bell\:state)\sqrt{2}$ no se puede expresar como producto tensorial y en particular, $Bell\:state$ tampoco.\newline
  
- Ahora queremos realizar una medición con base $\{|0\rangle,|1\rangle\}$, pero sabemos que sólo podemos obtener los resultados $|00\rangle$ o $|11\rangle$. Es decir, cuando se mida el primer qubit ya tendremos el valor del segundo sin haberlo medido \footnote{\url{https://jcc.dcc.fceia.unr.edu.ar/2006/slides/2006-diazcaro-samborskiforlese.pdf}}. Podemos encontrar otros ejemplos y preguntas muy interesantes sobre \textit{entanglement} en la \href{https://quantum-computing.ibm.com/composer/docs/iqx/guide/entanglement}{página de IBM}, donde estudia distintas posibilidades con la puerta CNOT, que presentaremos a continuación, y estados interesantes como \textit{Bell state}, \textit{GHZ states} and \textit{W states}.
+ Ahora queremos realizar una medición con base $\{|0\rangle,|1\rangle\}$, pero sabemos que sólo podemos obtener los resultados $|00\rangle$ o $|11\rangle$. Es decir, cuando se mida el primer qubit ya tendremos el valor del segundo sin haberlo medido \footnote{\url{https://jcc.dcc.fceia.unr.edu.ar/2006/slides/2006-diazcaro-samborskiforlese.pdf}}. Podemos encontrar otros ejemplos y preguntas muy interesantes sobre \textit{entanglement} en la \href{https://quantum-computing.ibm.com/composer/docs/iqx/guide/entanglement}{página de IBM}, donde estudia distintas posibilidades con la puerta CNOT, que presentaremos a continuación, y estados interesantes como \textit{Bell state}, \textit{GHZ states} and \textit{W states}.\newline
+
+ Otro de los resultados interesantes es el Teorema de no Clonación, por el cual nos indica que no podemos copiar el estado de un qubit desconocido a otro qubit. Esto se puede entender, ya que si observáramos el qubit estaríamos realizando una medición y el estado colapsaría.\newline
+
+ \textbf{Teorema 2.1 (No clonación)} \cite{B:Nielsen:2002}: Sea $\mathcal{H}$ un espacio de Hilbert en $\mathbb{C}$ y sean $|\varphi\rangle, |\psi\rangle \in \mathcal{H}$. Entonces, $\nexists U$ unitario sobre $\mathcal{H}\otimes\mathcal{H}$ talque $U|\varphi\rangle|\psi\rangle=|\varphi\rangle|\varphi\rangle$.\footnote{\url{https://es.wikipedia.org/wiki/Teorema_de_no_clonaci\%C3\%B3n}}
 
 
 \subsection{Puertas y circuitos cuánticos}
@@ -261,7 +265,7 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
 
  La idea de introducir al lector con esta puerta de rotación, además de su utilidad, se debe a que nos va a permitir presentar el siguiente teorema. Como se mencionó anteriormente, cualquier matriz unitaria 2 x 2, puede definir un operador sobre un qubit, veamos que relación hay con las rotaciones. \newline
  
- \textbf{Teorema 2.1: Descomposición Z-Y para un único qubit}\cite{B:Nielsen:2002}: Sea $U$ un operador unitario sobre un qubit. Entonces, existen números reales $\alpha,\beta,\gamma$ y $\delta$ tal que:
+ \textbf{Teorema 2.2: Descomposición Z-Y para un único qubit}\cite{B:Nielsen:2002}: Sea $U$ un operador unitario sobre un qubit. Entonces, existen números reales $\alpha,\beta,\gamma$ y $\delta$ tal que:
  \begin{center}
      $U = e^{i\alpha} R_{z}(\beta)R_{y}(\gamma)R_{z}(\delta)$
  \end{center}
@@ -289,6 +293,8 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
      SWAP = \begin{bmatrix}
          1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1
      \end{bmatrix} \end{equation*}
+
+     Hay que aclarar que esta puerta no copia los estados de los qubits, si no que los intercambia. Por lo que no contradice el teorma de no clonación introducido anteriormente.
      
      \item \textbf{Toffoli, CCNOT}. Puerta de control sobre 2 qubits $q_{1}, q_{2}$ aplicando la puerta X a $q_{3}$. \\ \\ Usaremos como notación \raisebox{12pt}{$\;\;\;\;\;\;\Qcircuit @C=1em @R=.7em {\lstick{q_{1}}&  \ctrl{1} &\qw \\ \lstick{q_{2}} &\ctrl{1} & \qw  \\ \lstick{q_{3}} & \targ & \qw}$} . Queda determinada por,
      
@@ -301,11 +307,32 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
      Esta puerta, al igual que CNOT, podría generalizarse para un operador unitario U.
  \end{itemize}
 
- \vspace{10pt}
+ \newpage
 
+ Existe un concepto que se utiliza a menudo que es el de \textbf{conjunto de puertas universales}\footnote{\url{https://en.wikipedia.org/wiki/Quantum_logic_gate\#Universal_quantum_gates}}que se define como el conjunto de puertas al que toda operación unitaria se puede reducir. Aunque, esto teóricamente es imposible debido a que el número de puertas que se pueden construir es no numerable, y cualquier conjunto finito que definamos, si lo es. Para solucionar este problema, nos apoyamos en el teorema de \textit{Solovay–Kitaev} \footnote{\url{https://en.wikipedia.org/wiki/Solovay\%E2\%80\%93Kitaev_theorem}}, que garantiza que esta reducción se puede hacer de forma eficiente, es decir, aproximándola con la precisión necesaria. Los ejemplos más conocidos son:
+
+ \begin{itemize}
+     \item $\{R_{\hat{x}},R_{\hat{y}},R_{\hat{z}},P,CNOT\}$
+     \item $\{CCNOT, H\}$
+ \end{itemize}
+
+ Esto se debe a que existen diversas relaciones entre las puertas que hemos presentado como por ejemplo, los subíndices indicarán a que qubit se aplican en caso de ser necesario:
+
+ \begin{itemize}
+     \item $ZX=iY=-XZ$
+     \item $CNOT=exp\left( i\frac{\pi}{4}(I-Z_{1})(I-X_{3})\right)$
+     \item $HZH=X$
+     \item $SWAP=\dfrac{I\otimes I + X \otimes X + Y\otimes Y + Z\otimes Z}{2}$
+     \item $CCNOT=exp\left( i\frac{\pi}{8}(I-Z_{1})(I-Z_{2})(I-X_{3})\right)=exp\left( -i\frac{\pi}{8}(I-Z_{1})(I-Z_{2})(I-X_{3})\right)$
+ \end{itemize}
+
+ Alguna de estas relaciones serán observadas al implementar los algoritmos.\newline
+ 
  Ahora bien, todavía no hemos observado el sistema, solo hemos ido realizando operaciones unitarias, es decir, seguimos en un sistema determinista pero sin conocer realmente lo que está ocurriendo. Si recordamos otro postulado de la física cuántica, en particular el cuarto, se refería a la evolución dinámica del sistema cuando era observado. Aquí dejaremos la evolución determinista y pasaremos a la probabilística. Para poder entender que ha ocurrido en nuestro sistema y obtener resultados, vamos a necesitar medir.\newline
 
- Esta será la última operación que presentar, $\Qcircuit @C=1em @R=.7em {& \meter &\qw}$ , la \textbf{medición} de un qubit. Si bien es cierto que podemos medir sobre distintas base, vamos a tomar como referencia $\{|0\rangle,|1\rangle\}$. Pero, ¿qué va a ser realmente la medición de un qubit? \newline
+ Esta será la última operación que presentar, $\Qcircuit @C=1em @R=.7em {& \meter &\qw}$ , la \textbf{medición} de un qubit. Si bien es cierto que podemos medir sobre distintas base, vamos a tomar como referencia $\{|0\rangle,|1\rangle\}$. \newline
+ 
+ Pero, ¿qué va a ser realmente la medición de un qubit? \newline
 
  Esta medición viene totalmente determinada por el \hyperref[Postulado4]{postulado 4}, obtendrá uno de los elementos donde proyectamos con cierta probabilidad. Que interpretando la fórmula vista anteriormente, esta probabilidad va a ser el cuadrado de su amplitud. Es decir, si $|\varphi \rangle = a |0\rangle + b |1\rangle$ es el estado de un qubit antes de la medición, la probabilidad de que el resultado obtenido sea $|0\rangle$ es $|a|^{2}$ y para $|1\rangle$ será $|b|^{2}$. Lo que hay que tener en cuenta, es que una vez realizada una medición, \hyperref[Postulado4.3]{apartado 3}, hemos modificado el qubit y a partir de entonces $|\varphi\rangle = |0\rangle$ o $|\varphi\rangle = |1\rangle$. \newline 
 
@@ -321,6 +348,8 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
     \caption{Circuito, algoritmo BV para s de longitud 4}
     \label{Fig:CircuitoBV}
  \end{figure}
+ 
+\newpage
 
  Detallemos brevemente los elementos principales de este circuito:
  \begin{itemize}
@@ -353,6 +382,13 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
 
  Ambas opciones utilizan el mismo mecanismo, repiten el proceso tantas veces como les sea requerido y muestran la frecuencia acumulada de los resultados (mediciones) o directamente las probabilidades sobre el número total de ejecuciones. \newline
 
+
+
+ Veamos un ejemplo para entender la diferencia de resultados de utilizar un opción u otra. Para ello vamos a usar los resultados del circuito presentado en la figura \ref{Fig:CircuitoBV} del algoritmo de Bernstein-Vazirani que se presentará en el siguiente capítulo. Este algoritmo nos debería dar un resultado único, pero veamos lo que ocurre. \newline
+
+
+Se puede observar en la figura \ref{FIG:ComparacionRealSim} la diferencia entre la simulación teórica (a) y la ejecución con el sistema ibmq\_lima (b). Nuestra simulación nos ha dado únicamente el resultado querido, pero al ejecutarlo en sistema cuántico nos ha dado una variedad de resultados, aunque no todos los posibles. Si bien es cierto que el más probable, con suficiente diferencia, es idéntico al obtenido con la simulación. Cabe destacar de la figura \ref{sFig:Comp_b} que los de mayor probabilidad, una vez eliminada la solución, son aquellos en los cuales solo varía 1 dígito y por el contrario, el complementario binario no ha aparecido como resultado en ninguna de las ejecuciones realizadas.
+
   \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{TFG/imagenes/system_error_manhattan.png}
@@ -360,21 +396,18 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
     \label{FIG:MapaErrores}
  \end{figure}
 
- Veamos un ejemplo para entender la diferencia de resultados de utilizar un opción u otra. Para ello vamos a usar los resultados del circuito presentado en la figura \ref{Fig:CircuitoBV} del algoritmo de Bernstein-Vazirani que se presentará en el siguiente capítulo. Este algoritmo nos debería dar un resultado único, pero veamos lo que ocurre. \newline
-
-
-Se puede observar en la figura \ref{FIG:ComparacionRealSim} la diferencia entre la simulación teórica (a) y la ejecución con el sistema ibmq\_quito (b). Nuestra simulación nos ha dado únicamente el resultado querido, pero al ejecutarlo en sistema cuántico nos ha dado una variedad de resultados, aunque no todos los posibles. Si bien es cierto que el más probable, con suficiente diferencia, es idéntico al obtenido con la simulación. Cabe destacar de la figura \ref{sFig:Comp_b} que los de mayor probabilidad, una vez eliminada la solución, son aquellos en los cuales solo varía 1 dígito y por el contrario, el complementario binario no ha aparecido como resultado en ninguna de las ejecuciones realizadas.
+ \vspace{20pt}
 
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[H]{0.48\textwidth}
+    \begin{subfigure}[H]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{TFG/imagenes/BV_simulación.png}
         \caption{Simulación}
         \label{sFig:Comp_a}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[H]{0.48\textwidth}
+    \begin{subfigure}[H]{0.49\textwidth}
         \centering
         \includegraphics[width=\textwidth]{TFG/imagenes/BV_ruido.png}
         \caption{Sistema cuántico}
@@ -384,15 +417,23 @@ Se puede observar en la figura \ref{FIG:ComparacionRealSim} la diferencia entre 
     \label{FIG:ComparacionRealSim}
  \end{figure}
 
-Para acabar con esta sección, como curiosidad y por completitud, hemos mencionado antes que \textit{Qiskit} traduce a \textit{qasm} a la hora de ejecutar. La función utilizada en \textit{Qiskit} para ensamblar el programa es \textit{assemble} que devuelve un objeto de clase \textit{QasmQobj} \footnote{\url{https://qiskit.org/documentation/stubs/qiskit.compiler.assemble.html}}. El código que utilizaría \textit{Qiskit} para la ejecución del circuito presentado anteriormente lo podemos encontrar en \textit{GitHub}, archivo (link y nombre).\newline
+ \newpage
 
+Para acabar con esta sección, como curiosidad y por completitud, hemos mencionado antes que \textit{Qiskit} traduce a \textit{qasm} a la hora de ejecutar. La función utilizada en \textit{Qiskit} para ensamblar el programa es \textit{assemble} que devuelve un objeto de clase \textit{QasmQobj} \footnote{\url{https://qiskit.org/documentation/stubs/qiskit.compiler.assemble.html}}. El código que utilizaría \textit{Qiskit} para la ejecución del circuito presentado anteriormente lo podemos encontrar en el trabajo generado en el sistema cuántico de IBM\footnote{\url{https://quantum-computing.ibm.com/}}. Además, vamos a poder observar en la Figura \ref{FIG:IBMCircBV} el circuito transformado acorde a las puertas de las que dispone el sistema cuántico preparado para la ejecución. Este circuito es el análogo a la Figura \ref{Fig:CircuitoBV} con resultados en la Figura \ref{sFig:Comp_b}.\newline
 
-\vspace{10pt}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{TFG/imagenes/IBMCircuitBV.png}
+    \caption{Circuito del sistema ibmq\_lima para BV, Figura 2.2} 
+    \label{FIG:IBMCircBV}
+ \end{figure}
+
 
 \section{Propiedades Metamórficas / \textit{Testing} metamórfico}
 \label{Sec2.4:Metamorfico}
 
 Informalmente entendemos como propiedad metamórfica, en adelante MR del inglés \textit{metamorphic rule}, aquella que podemos derivar de forma lógica de una definición o especificación. Empecemos con un ejemplo para ponernos en situación, nos vamos a fijar en la función seno, $f(x)=sin(x)$.\newline
+
 
 La definición que aprendemos cuando empezamos a ver trigonometría es que el seno es la proporción entre el cateto opuesto y la hipotenusa en un triángulo rectángulo. Teniendo esta imagen la cabeza es muy fácil darse cuenta que $sin(x)=sin(x + 2\pi)=sin(\pi-x)$. Estas son dos propiedades metamórficas de la función seno. \newline
 
@@ -412,6 +453,7 @@ Veamos ahora que es lo que consideramos formalmente una MR y como llegamos a los
     \end{itemize}
 \end{itemize}
 
+\newpage
 La estrategia presentada anteriormente para MT, será la que se siga en la implementación de las propiedades que se obtendrán a lo largo de este documento. \newline
 
 Para finalizar con esta introducción vamos a revisar brevemente un par de ventajas y retos que presenta el camino que estamos tomando para probar la corrección, o más bien la no corrección, de un algoritmo. \newline

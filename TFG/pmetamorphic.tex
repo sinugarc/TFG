@@ -29,9 +29,21 @@ En esta sección vamos a estudiar que reglas hemos obtenido del \hyperref[Sec3.3
 Suponemos $P$ la implementación del algoritmo de Deutsch-Jozsa a analizar, veamos que reglas hemos obtenido y como las vamos a aplicar: \newline
 
 
-\textbf{Regla I}: Sea $f:\{0,1\}^{n} \rightarrow\{0,1\}$ la función a analizar definida en problema y sea $g : \{0,1\}^{n} -> \{0,1\}^{n}$ un automorfismo. Entonces, $P(f)=|\mathbf{0}\rangle$ si y solo si $P(f\circ g)=|\mathbf{0}\rangle$.\newline
+\textbf{Regla I}: Sea $f:\{0,1\}^{n} \rightarrow\{0,1\}$ la función a analizar definida en problema y sea $g : \{0,1\}^{n} \rightarrow \{0,1\}^{n}$ un automorfismo. Entonces, $P(f)=|\mathbf{0}\rangle$ si y solo si $P(f\circ g)=|\mathbf{0}\rangle$.\newline
 
-\textbf{Regla II}: Sea $f:\{0,1\}^{n} \rightarrow\{0,1\}$ la función a analizar definida en problema y sea $h:\{0,1\}^{n} \rightarrow\{0,1\}$ tal que $h(x) = 1 - f(x)$. Entonces, $P(f)=|\mathbf{0}\rangle$ si y solo si $P(h)=|\mathbf{0}\rangle$.
+Al aplicar el automorfismo $g$, $f \circ g$ no varía el número de 1 y 0 de la imagen y por lo tanto no cambia la característica de la función, por lo que es directo decir que la MR es correcta.\newline
+
+\textbf{Implementación}: Vamos a comparar los resultados entre la simulación $P(f)$ con $P(f\circ g)$. En este caso hemos decidido utilizar un automorfismo particular a la hora de realizar las pruebas. Sea $g: \{0,1\}^{n} \rightarrow \{0,1\}^{n}$ talque aplica la puerta $X$ a cada componente, es decir, $g(\mathbf{x})=\mathbf{1}-\mathbf{x}$ que es el complementario binario de $\mathbf{x}$.\newline
+
+
+
+\textbf{Regla II}: Sea $f:\{0,1\}^{n} \rightarrow\{0,1\}$ la función a analizar definida en problema y sea $h:\{0,1\}^{n} \rightarrow\{0,1\}$ tal que $h(x) = 1 - f(x)$. Entonces, $P(f)=|\mathbf{0}\rangle$ si y solo si $P(h)=|\mathbf{0}\rangle$. \newline
+
+Al igual que con la regla I, no se varía la condición de $f$ ya que si esta es balanceada mantiene el número de 0 y 1, ya que tienen el mismo. Y si fuera constante, simplemente cambiaría el valor de la constante.\newline
+
+\textbf{Implementación}: Este caso es análogo al anterior, simplemente cambiamos la condición del qubit ancilla le aplicamos una puerta $X$ tras el oráculo.\newline
+
+Es cierto que en repositorio, así como en la programación realizada de acuerdo a MT, consideramos que el resultado de $P$ es un valor binario, esto lo obtenemos haciendo el máximo de los bit obtenidos. Cabe recordar que si una función es balanceada el resultado solo implica que no es $|\mathbf{0}\rangle$, es decir en nuestros bits tendremos al menos un uno, que nos determinará el máximo a 1. Por lo que podríamos concluir que a nivel de programación en MT $P \rightarrow 0$ si es constante y $P \rightarrow 1$ si es balanceada. Las reglas expresadas de forma matemáticamente exacta de acorde en al algoritmo en este documento son equivalentes a la expresadas en el repositorio, tras la transformación explicada en este mismo párrafo. 
 
 \section{Bernstein-Vazirani}
 \label{Sec4.2:BV}

@@ -303,7 +303,7 @@ Por lo que hemos conseguido nuestro objetivo. Tras una única evaluación de $f$
     \item Ahora tenemos que superponer la superposición, pero en este caso no es la inversa ya que se aplica sobre otros estados $|\mathbf{z}\rangle$:
 
     \begin{equation}
-        \begin{split}\mathbf{|\varphi_{3}\rangle} &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}\sum_{\mathbf{z} \in \{0,1\}^{n}}(-1)^{\langle\mathbf{z},\mathbf{x}\rangle}|\mathbf{z}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{2^{n}}\right] \\ &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}\sum_{\mathbf{z} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}(-1)^{\langle\mathbf{z},\mathbf{x}\rangle}|\mathbf{z}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{2^{n}}\right] \\ &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}\sum_{\mathbf{z} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})\oplus\langle\mathbf{z},\mathbf{x}\rangle}|\mathbf{z}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{2^{n}}\right]
+        \begin{split}\mathbf{|\varphi_{3}\rangle} &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}\sum_{\mathbf{z} \in \{0,1\}^{n}}(-1)^{\langle\mathbf{z},\mathbf{x}\rangle}|\mathbf{z}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right] \\ &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}\sum_{\mathbf{z} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}(-1)^{\langle\mathbf{z},\mathbf{x}\rangle}|\mathbf{z}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right] \\ &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}\sum_{\mathbf{z} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})\oplus\langle\mathbf{z},\mathbf{x}\rangle}|\mathbf{z}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right]
         \end{split}
     \end{equation}
  \end{itemize}
@@ -530,14 +530,3 @@ El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umes
         \caption{Resultados del algoritmo Simon para la cadena $\mathbf{c}=100$. }
     \label{FIG:SimonRes}
  \end{figure}
-    
-\section{Transformada cuántica de Fourier}
-\label{Sec3.6:Fourier}
-
-Este apartado va a tratar sobre la transformada cuántica de Fourier, QFT del inglés \textit{Quantum Fourier transform} y una de sus aplicaciones más directas, la estimación cuántica de fase, QPE del inglés \textit{Quantum phase estimation}. Si bien es cierto que todos los algoritmos anteriores tenían un problema a resolver, el estudio de estos algoritmos se basan en la gran utilidad que tienen en cualquier contexto incluida la computación cuántica. Aunque en esta memoria no se tratarán algoritmos o técnicas que necesitan de estos materiales, podemos adelantar que dos de los algoritmos más importantes que se presentan actualmente en programación cuántica lo usan, como por ejemplo el algoritmo de Grover o de búsqueda y el algoritmo de Shor o de factorización.
-
-\subsection{QFT}
-Para introducir la transformada de Fourier vamos a ver como se comporta en el caso discreto, ya que nuestra versión cuántica partirá de aquí. 
-
-\subsection{QPE}
- here
