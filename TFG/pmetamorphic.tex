@@ -18,18 +18,20 @@ En esta sección vamos a estudiar que reglas hemos obtenido del \hyperref[Sec3.3
  \begin{center}$\Qcircuit @C=1.5em @R=1em {
  \lstick{|\mathbf{0}\rangle}& \qw {/^{n}} & \gate{H^{\otimes n}} & \qw {/^{n}} & \multigate{1}{U_{f}} & \qw {/^{n}} & \gate{H^{\otimes n}} & \qw {/^{n}} & \meter & \qw \\ \lstick{|1\rangle} & \qw & \gate{H} & \qw &\ghost{U_{f}} & \qw & \qw & \qw  & \qw & \qw}$ \end{center}
 
- \vspace{30pt}
+\vspace{12pt}
 
-\textbf{Resultado}: Se obtiene $|\mathbf{0}\rangle$ si $f$ es constante y cualquier otro resultado si $f$ es balanceada.\newline
+\textbf{Resultado}: Se obtiene $|\mathbf{0}\rangle$ si $f$ es constante y cualquier otro resultado si $f$ es balanceada.
+
+\vspace{12pt}
 
 \textbf{Observación}: No hay que olvidar la importancia de tener como hipótesis que $f$ es constante o balanceada. Pero en este caso, debido a que esta va a formar parte de nuestro \textit{source input}, podemos asegurar esta propiedad. \newline
 
-Suponemos $P$ la implementación del algoritmo de Deutsch-Jozsa a analizar, tal que $P(f)=0$ si $f$ es constante y $P(f)=1$ si $f$ es balanceada., veamos que reglas hemos obtenido y como las vamos a aplicar: \newline
+Suponemos $P$ la implementación del algoritmo de Deutsch-Jozsa a analizar, veamos que reglas hemos obtenido y como las vamos a aplicar: \newline
 
 
-\textbf{Regla I}: Sea $f:\{0,1\}^{n} \rightarrow\{0,1\}$ la función a analizar definida en problema y sea $g : \{0,1\}^{n} -> \{0,1\}^{n}$ un automorfismo. Entonces, $P(f)=|\mathbf{0}\rangle$ si y solo si $P(f\circ g)=|\mathbf{0}\rangle$???? Estudiar a fondo en comparación a lo subido.\newline
+\textbf{Regla I}: Sea $f:\{0,1\}^{n} \rightarrow\{0,1\}$ la función a analizar definida en problema y sea $g : \{0,1\}^{n} -> \{0,1\}^{n}$ un automorfismo. Entonces, $P(f)=|\mathbf{0}\rangle$ si y solo si $P(f\circ g)=|\mathbf{0}\rangle$.\newline
 
-\textbf{Regla II}: Sea $f:\{0,1\}^{n} \rightarrow\{0,1\}$ la función a analizar definida en problema y sea $h:\{0,1\}^{n} \rightarrow\{0,1\}$ tal que $h(x) = 1 - f(x)$. Entonces, $P(f)=|\mathbf{0}\rangle$ si y solo si $P(h)=|\mathbf{0}\rangle$. Estudiar si la inversión de 0's y 1's da el mismo ket.
+\textbf{Regla II}: Sea $f:\{0,1\}^{n} \rightarrow\{0,1\}$ la función a analizar definida en problema y sea $h:\{0,1\}^{n} \rightarrow\{0,1\}$ tal que $h(x) = 1 - f(x)$. Entonces, $P(f)=|\mathbf{0}\rangle$ si y solo si $P(h)=|\mathbf{0}\rangle$.
 
 \section{Bernstein-Vazirani}
 \label{Sec4.2:BV}
@@ -75,7 +77,7 @@ La razón por la que esperamos el ket $|\mathbf{1}\rangle$ se debe a que si uno 
 
  Las reglas anteriores han sido obtenidas de forma directa por la naturaleza del problema, donde si el resultado es la cadena con la que hemos generado el oráculo, entonces la suma binaria se debe conservar tanto en el \textit{source input} como en el \textit{output}.\newline
 
- El circuito utilizado es idéntico al que se muestra en la \hyperref[Fig:BVRule1]{Figura } que se empleó en el caso particular de esta regla. \newline
+ El circuito utilizado es idéntico al que se muestra en la {Figura } que se empleó en el caso particular de esta regla. \newline
 
  \textbf{Regla III}\label{RIII:BV}: Sean $\mathbf{s}$ y $\mathbf{s}'$ cadenas binarias de longitud $n$. Si entendemos la composición como la concatenación de sus oráculos, entonces $P(f(\mathbf{s}) \circ f(\mathbf{s}'))= P(f_{\mathbf{s}}) \oplus P(f_{\mathbf{s}'})$.\newline
 

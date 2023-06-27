@@ -116,7 +116,7 @@ Para empezar, en mecánica clásica, un sistema de N partículas queda definido 
 
 \vspace{5pt}
 
-Por otra parte, en física cuántica, el estado y evolución de un sistema viene determinado por sus postulados\cite{B:Nielsen:2002}\cite{Note:Martin} que veremos a continuación \footnote{\url{https://en.wikipedia.org/wiki/Mathematical_formulation_of_quantum_mechanics#Postulates_of_quantum_mechanics}}, así como una de las posibles interpretaciones que cada uno podría tener. Estos postulados nos ayudaran posteriormente a fijar la base de nuestros programas cuánticos.
+Por otra parte, en física cuántica, el estado y evolución de un sistema viene determinado por sus postulados\cite{B:Nielsen:2002}\cite{Note:Martin} que veremos a continuación \footnote{\url{https://en.wikipedia.org/wiki/Mathematical_formulation_of_quantum_mechanics\#Postulates_of_quantum_mechanics}}, así como una de las posibles interpretaciones que cada uno podría tener. Estos postulados nos ayudaran posteriormente a fijar la base de nuestros programas cuánticos.
 \vspace{10pt}
 
 \textbf{Postulados cinemáticos o de representación:}
@@ -164,7 +164,7 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
  
  Si recordamos el \hyperref[Postulado1]{postulado 1} de la mecánica cuántica, vamos a definir \textbf{qubit} como el sistema cuántico más simple, que va a ser nuestra base en la programación cuántica. Un \textbf{qubit} es un espacio bidimensional, donde vamos a suponer que tomamos la base ortonormal $|0 \rangle = \begin{bmatrix} 1\\0 \end{bmatrix}$ y $|1 \rangle = \begin{bmatrix} 0\\1 \end{bmatrix}$. De aquí podemos obtener la combinación lineal de cualquier vector de estado del qubit, aunque los vectores de estado deben de cumplir la condición de normalización, es decir, si $|\varphi \rangle = a |0\rangle + b |1\rangle = \begin{bmatrix} a\\b \end{bmatrix}$ con $a,b \in \mathbb{C}$, entonces $|a|^{2}+|b|^{2}=1$. Esta condición se impone debido a que el cuadrado de los coeficientes determinan la probabilidad de aparición y por lo tanto la suma de todas la probabilidad de todas las posibilidades debe ser 1. Además, llamaremos estado de \textbf{superposición} a los estados del qubit que se encuentran en el continuo entre $|0\rangle$ y $|1\rangle$.\newline
 
- Estos estados de un qubit se entienden muy bien utilizando la \textbf{esfera de Bloch}, que observaremos en la Figura \ref{Fig:Bloch} \footnote{\url{https://en.wikipedia.org/wiki/Bloch\_sphere#/media/File:Bloch\_sphere.svg}}. Debido a que si $|\Psi \rangle = a |0\rangle + b |1\rangle$, $|a|^{2}+|b|^{2}=1$. Podemos representar $|\Psi \rangle = e^{i\gamma}\left( cos\:\dfrac{\theta}{2} \:|0\rangle +\; e^{i\varphi}\;sin\:\dfrac{\theta}{2}\:|1\rangle\right)$, donde $\theta,\varphi,\gamma \in \mathbb{R}$. Si bien es cierto, podemos ignorar el factor $e^{i\gamma}$, ya que no tiene efectos observables. Hay que tener en cuenta que esta representación está limitada a un qubit, porque no hay manera simple de generalizarla.
+ Estos estados de un qubit se entienden muy bien utilizando la \textbf{esfera de Bloch}, que observaremos en la Figura \ref{Fig:Bloch} \footnote{\url{https://en.wikipedia.org/wiki/Bloch\_sphere\#/media/File:Bloch\_sphere.svg}}. Debido a que si $|\Psi \rangle = a |0\rangle + b |1\rangle$, $|a|^{2}+|b|^{2}=1$. Podemos representar $|\Psi \rangle = e^{i\gamma}\left( cos\:\dfrac{\theta}{2} \:|0\rangle +\; e^{i\varphi}\;sin\:\dfrac{\theta}{2}\:|1\rangle\right)$, donde $\theta,\varphi,\gamma \in \mathbb{R}$. Si bien es cierto, podemos ignorar el factor $e^{i\gamma}$, ya que no tiene efectos observables. Hay que tener en cuenta que esta representación está limitada a un qubit, porque no hay manera simple de generalizarla.
 
   \begin{figure}[H]
     \centering
@@ -195,7 +195,7 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
  \vspace{3pt}
      
  \begin{center}
- $(a_{0}|0\rangle+a_{1}|1\rangle)\otimes(a_{0}'|0\rangle+a_{1}'|1\rangle) =a_{0}a_{0}'|00\rangle + a_{0}a_{1}'|01\rangle + a_{1}a_{0}'|10\rangle + a_{1}a_{1}'|11\rangle \Rightarrow \\ \Rightarrow a_{0}a_{0}'=a_{1}a_{1}'=1\:\text{y}\:a_{0}a_{1}'=a_{1}a_{0}'=0$
+ $(a_{0}|0\rangle+a_{1}|1\rangle)\otimes(a_{0}'|0\rangle+a_{1}'|1\rangle) =a_{0}a_{0}'|00\rangle + a_{0}a_{1}'|01\rangle + a_{1}a_{0}'|10\rangle + a_{1}a_{1}'|11\rangle \Rightarrow$ \\ $\Rightarrow a_{0}a_{0}'=a_{1}a_{1}'=1$ y $a_{0}a_{1}'=a_{1}a_{0}'=0$
  \end{center}
  
  \vspace{3pt}

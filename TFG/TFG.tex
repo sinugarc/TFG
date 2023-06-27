@@ -30,11 +30,7 @@
 \usepackage{bm}
 
 
-\usepackage[usenames]{color}
-
-\definecolor{  Pink}{rgb}{1.0, 0.5, 0.5}
-\definecolor{Maroon}{rgb}{0.8, 0.0, 0.0}
-\definecolor{formalshade}{rgb}{0.95,0.95,1}
+\usepackage{color}
 
 %\usepackage[sort&compress]{natbib}
 %\bibpunct{}{}{,}{s}{}{}
@@ -44,18 +40,32 @@
 %[pdftex, plainpages=false, pdfpagelabels]
 
 \hypersetup{
-    linktocpage=black,
-    colorlinks=black,
-    bookmarks=black,
+    linktocpage=false,
+    colorlinks=false,
+%    bookmarks=black,
     citecolor=black,
     urlcolor=black,
     linkcolor=blue,
     citebordercolor=black,
     urlbordercolor=black,
     linkbordercolor=black,
-    breaklinks=black,
-    pdfpagelabels=black,
+    breaklinks=false,
+%    pdfpagelabels=false,
     }
+
+%\hypersetup{
+ %   linktocpage=black,
+  %  colorlinks=black,
+   % bookmarks=black,
+%    citecolor=black,
+ %   urlcolor=black,
+  %  linkcolor=blue,
+   % citebordercolor=black,
+%    urlbordercolor=black,
+ %   linkbordercolor=black,
+  %  breaklinks=black,
+   % pdfpagelabels=black,
+    %}
 
 \hypersetup{hidelinks}
 
@@ -63,7 +73,6 @@
 \textheight     =  8.60in
 \textwidth      =  6.46in
 \oddsidemargin  =  0.02in
-
 
 
 
@@ -104,9 +113,9 @@
 \end{spacing}
 
 %\bibdata{TFG/references}
-\bibliographystyle{plain}
+\bibliographystyle{unsrt}
 \bibliography{references}
-\addcontentsline{toc}{chapter}{Bibliografía}
+%\addcontentsline{toc}{chapter}{Bibliografía}
 
 
 \end{document}

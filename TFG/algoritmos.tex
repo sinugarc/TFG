@@ -13,15 +13,32 @@ Esta sección va a seguir prácticamente la misma estructura para cada apartado,
 \label{Sec3.1:Suma}
  Este primer algoritmo nos va a servir como primera toma de contacto con la programación cuántica, las puertas que podemos utilizar y el uso de \textit{Qiskit}. Veamos cual es el problema a resolver:\newline
 
- \textbf{Problema 1}: Dadas dos cadenas binarias de igual longitud, queremos obtener la suma bit a bit de ambas.\newline
+ \textbf{Problema 1}: Dadas dos cadenas binarias de igual longitud, queremos obtener su suma bit a bit. Esta operación se utilizará posteriormente y se toma $\oplus$ como notación. \newpage
 
- Esta operación se va a realizar posteriormente y se usará $\oplus$ como notación. La implementación de este problema es muy simple, bastará con incluir tantos bit ancilla como longitud tenga la cadena que almacene el resultado, así nos aseguramos que no se modifiquen los valores originales y bastará con utilizar la puerta $CNOT$ para ir modificando los valores ancilla correspondientes. Dando lugar en los valores ancilla al resultado de la suma bit a bit de ambas cadenas.\newline
+ La implementación de este problema es muy simple, bastará con incluir tantos bit ancilla como longitud tenga la cadena, para que almacene el resultado, así nos aseguramos que no se modifiquen los valores originales de entrada y bastará con utilizar la puerta $CNOT$ para ir modificando los valores ancilla correspondientes. Dando lugar en los valores ancilla al resultado de la suma bit a bit de ambas cadenas.\newline
 
- (PONER CIRCUITO)
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{TFG/imagenes/sumaBtB.png}
+    \caption{Suma binaria bit a bit, para cadenas $\mathbf{s}$ y $\mathbf{t}$ de longitud 3} 
+    \label{FIG:SumaBtB}
+ \end{figure}
 
- \textbf{Problema 2}: Dadas dos cadenas binarias, queremos obtener la suma de ambas, como si estas fueran representación de número naturales.\newline
+ Solo se ha representado la parte en la que se realiza la suma sin definir $\mathbf{s}$ o $\mathbf{t}$ y la medición a realizar. \newline
 
- (EXPLICAR Y PONER EL PRIMER CIRCUITO PROGRAMADO)
+ \textbf{Problema 2}: Dadas dos cadenas binarias, queremos obtener la suma de ambas, interpretando estas cadenas como si fueran la representación de dos números naturales.\newline
+
+ El problema ahora se complica un poco más, ya que cuando realizamos la suma de números naturales tenemos que ser capaces de programar si necesitamos llevarnos 1 o no, para esto vamos a utilizar la puerta $CCNOT$, que nos va a permitir modificar el siguiente ancilla qubit si fuera necesario. De esta maneras nos aseguramos de realizar la suma correctamente junto al uso de la puerta $CNOT$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{TFG/imagenes/sumaNat.png}
+    \caption{Suma de las cadenas $111$ y $101$ de longitud 3} 
+    \label{FIG:SumaNat}
+ \end{figure}
+
+Aquí se puede apreciar la suma completa, las puertas $X$ antes de las primera barrera codifican las cadenas binarias y luego se sigue el procedimiento explicado, excepto por 2 casos. El primero es que la primera puerta $CCNOT$ no está, esto se debe a que no es necesaria ya que $q_{9}$ se inicializa en 0, y por lo tanto la puerta no realizaría ningún cambio sobre $q_{8}$. El segundo es la inversión en la medición de los qubits, esta decisión se debe a una característica que tiene Qiskit con los qubits, en especial con la base que utiliza. De esta manera nos aseguramos el orden de los bits correctos, como se puede ver en el documento del repositorio. Esta peculiaridad se estudiará más a fondo con el \hyperref[A:DJ]{algoritmo de Deutsch-Jozsa}.
+
 
 \section{Deutsch}
 \label{Sec3.2:Deutsch}
@@ -75,7 +92,7 @@ Esta sección va a seguir prácticamente la misma estructura para cada apartado,
         $\mathbf{|01\rangle}$ & 1 & 0 & 0 & 0 \\
         $\mathbf{|10\rangle}$ & 0 & 0 & 1 & 0 \\
         $\mathbf{|11\rangle}$ & 0 & 0 & 0 & 1
-     \end{block}
+        \end{block}
 \end{blockarray}
 \end{center}
 
@@ -97,7 +114,7 @@ Se podría comprobar que esta matriz es su propia adjunta, por lo que es inverti
 
 Donde cada $\varphi_{i}$ va a representar el estado del sistema en cada momento, esto nos va a ayudar a analizar de forma determinista lo que ocurre en nuestro circuito.\newline
 
-Podemos resumir el circuito como  $U_{f}(H\otimesI)|0,0\rangle$, veamos ahora que estados tenemos en cada instante $i$:
+Podemos resumir el circuito como $U_{f}(H\otimes I)|0,0\rangle$, veamos ahora que estados tenemos en cada instante $i$:
 
 \begin{itemize}
     \item $\mathbf{|\varphi_{0}\rangle} = |0\rangle \otimes |0\rangle = |0,0\rangle$
@@ -210,7 +227,7 @@ Por lo que hemos conseguido nuestro objetivo. Tras una única evaluación de $f$
 
  \vspace{7pt}
 
- Hay que destacar que $|\mathbf{x}\rangle=|x_{0}x_{1}...x_{n-1}\rangle$, por eso posteriormente escribimos $/^{n}$, para indicar que son n qubits.\newline
+ Hay que destacar que $|\mathbf{x}\rangle=|x_{0}x_{1}...x_{n-1}\rangle$, por eso posteriormente escribimos $/^{n}$, para indicar que son n qubits.\newpage
 
  \textbf{Algoritmo de Deutsch-Jozsa\label{A:DJ}}:
 
@@ -225,24 +242,22 @@ Por lo que hemos conseguido nuestro objetivo. Tras una única evaluación de $f$
 
  Antes de analizar los estados en cada $|\varphi_{i}\rangle$, vamos a estudiar que ocurre cuando tenemos la puerta $H^{\otimes n}$ y como se comporta sobre los diferentes estados, así como la notación que utilizamos, ya que esta será necesaria en el análisis de los $|\varphi_{i}\rangle$. \newline
 
- El estudio sobre las características de $H^{\otimes n}$ se pueden estudiar en profundidad en \citealp[\textit{Quantum computing for computer scientists}]{B:QuantumScientist:2008}, aquí resumiremos los resultados principales que nos van a permitir profundizar en los circuitos cuánticos, ya que la aplicación de esta puerta es muy común.\newline
+ El estudio sobre las características de $H^{\otimes n}$ se pueden estudiar en profundidad en \textit{Quantum computing for computer scientists}\cite{B:QuantumScientist:2008}, aquí resumiremos los resultados principales que nos van a permitir profundizar en los circuitos cuánticos, ya que la aplicación de esta puerta es muy común.\newline
 
- Antes de meternos en $H^{\otimes n}$, vamos a definir un producto interno en $\mathbb{Z}_{2}$:\newline
+ Antes de meternos en $H^{\otimes n}$, vamos a definir un producto interno en $\mathbb{Z}_{2}$:
 
  \begin{equation*}
      \langle\:,\:\rangle\::\{0,1\}^{n} \times \{0,1\}^{n} \rightarrow \{0,1\}\end{equation*}
 
  Si $\mathbf{x}=x_{0}x_{1}...x_{n-1}$ e $\mathbf{y}=y_{0}y_{1}...y_{n-1}$, entonces:
 
- \begin{equation*}
+ \begin{equation}
      \begin{split}
      \langle\mathbf{x},\mathbf{y}\rangle &= \langle x_{0}x_{1}...x_{n-1},y_{0}y_{1}...y_{n-1}\rangle \\ &= (x_{0}\land y_{0})\oplus(x_{1}\land y_{1})\oplus...\oplus(x_{n-1}\land y_{n-1}) \\ &= x_{0}y_{0}\oplus x_{1}y_{1}\oplus ... \oplus x_{n-1}y_{n-1}
      \end{split}
- \end{equation*}
+ \end{equation}
 
- Donde $\land$ es la operación lógica AND y $\oplus$ la operación lógica XOR.\newline
-
- También definimos, $\mathbf{x}\oplus\mathbf{y}=x_{0}\oplus y_{0},x_{1}\oplus y_{1},...,x_{n-1}\oplus y_{n-1}$ como la suma binaria bit a bit.\newline
+ Donde $\land$ es la operación lógica AND y $\oplus$ la operación lógica XOR. También definimos, con la misma notación,  $\mathbf{x}\oplus\mathbf{y}=x_{0}\oplus y_{0},x_{1}\oplus y_{1},...,x_{n-1}\oplus y_{n-1}$ que tal y como se estudió en la Sección \ref{Sec3.1:Suma} es la suma binaria bit a bit.\newline
 
  Con esto obtenemos las siguiente propiedades del producto interno:
 
@@ -299,7 +314,9 @@ Por lo que hemos conseguido nuestro objetivo. Tras una única evaluación de $f$
      \mathbf{|\varphi_{3}\rangle}=\left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}|\mathbf{0}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right]
  \end{equation}
 
- Veamos cual sería el estado del primer qubit dependiendo de de nuestras posibilidades:
+ \vspace{10pt}
+
+ Veamos cual sería el estado del primer qubit dependiendo de de nuestras posibilidades:\newline
 
  \begin{itemize}
      \item $f$ es constante:  $\dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}|\mathbf{0}\rangle}{2^{n}}=\dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}|\mathbf{0}\rangle}{2^{n}}=\dfrac{(\pm1)2^{n}|\mathbf{0}\rangle}{2^{n}}=(\pm1)|\mathbf{0}\rangle$
@@ -307,6 +324,8 @@ Por lo que hemos conseguido nuestro objetivo. Tras una única evaluación de $f$
      \item $f$ es balanceada: 
      $\dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}|\mathbf{0}\rangle}{2^{n}}=\dfrac{0|\mathbf{0}\rangle}{2^{n}}=0|\mathbf{0}\rangle$
  \end{itemize}
+
+ \vspace{5pt}
 
  Por lo que podemos concluir que este algoritmo resuelve nuestro problema con una única evaluación de $f$. Si el resultado es $|\mathbf{0}\rangle$, $f$ es constante y si es otro cualquiera, $f$ es balanceada. \newline
 
@@ -335,10 +354,12 @@ El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umes
  \begin{center}$\Qcircuit @C=1.5em @R=1em {
  \lstick{|\mathbf{0}\rangle}& \qw {/^{n}} & \gate{H^{\otimes n}} & \qw  & \qw {/^{n}} & \multigate{1}{U_{f}} & \qw {/^{n}} & \gate{H^{\otimes n}} & \qw {/^{n}} & \meter & \qw \\ \lstick{|0\rangle} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{0}\rangle \end{matrix}} \qw & \gate{H} & \gate{Z} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{1}\rangle \end{matrix}} \qw &\ghost{U_{f}} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{2}\rangle \end{matrix}} \qw & \qw & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{3}\rangle \end{matrix}} \qw  & \qw & \qw}$ \end{center}
 
- \vspace{30pt}
+ \vspace{40pt}
 
  De forma matricial: $(H^{\otimes n} \otimes I)\: U_{f}\:(I\otimes Z)\:(H^{\otimes n} \otimes H) |\mathbf{0},0\rangle$ \newline
 
+
+\newpage
  Veamos ahora los estados alcanzados, similares al circuito anterior:
 
  \begin{itemize}
@@ -365,13 +386,15 @@ El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umes
     \end{equation}
  \end{itemize}
 
- Veamos que esta ocurriendo en ese primer bloque de qubits, que será al que apliquemos la medición, si bien en el algoritmo anterior nos interesaba medir cuando $|\mathbf{z}\rangle=|\mathbf{0}\rangle$, pero ahora queremos obtener la cadena $\mathbf{s}$, por lo que vamos a ver que sucede cuando $|\mathbf{z}\rangle=|\mathbf{s}\rangle$.
+ \vspace{10pt}
+
+ Veamos que esta ocurriendo en ese primer bloque de qubits, que será al que apliquemos la medición, si bien en el algoritmo anterior nos interesaba medir cuando $|\mathbf{z}\rangle=|\mathbf{0}\rangle$, pero ahora queremos obtener la cadena $\mathbf{s}$, por lo que vamos a ver que sucede cuando $|\mathbf{z}\rangle=|\mathbf{s}\rangle$. Es decir, queremos analizar la amplitud del estado.\newline
 
  \begin{equation}
     \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{\langle\mathbf{s}\oplus \mathbf{s},\mathbf{x}\rangle}|\mathbf{s}\rangle}{2^{n}} = \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{\langle\mathbf{0},\mathbf{x}\rangle}|\mathbf{s}\rangle}{2^{n}}= \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}|\mathbf{s}\rangle}{2^{n}} = |\mathbf{s}\rangle
  \end{equation}
 
- \vspace{5pt}
+ \newpage
 
  ¿Qué está ocurriendo aquí?, lo que hemos observado es que la amplitud de $|\mathbf{s}\rangle$ es 1, y si recordamos la teoría de los sistemas cuánticos, la suma de los cuadrados de las amplitudes es 1. Es decir, las amplitudes del resto de posibles valores de $|\mathbf{z}\rangle$ es 0. Por lo que al hacer la medición sobre el primer bloque de qubits nos devolverá la cadena $\mathbf{s}$ deseada, al ser su probabilidad de aparición 1. Podemos concluir entonces que hemos obtenido la cadena $\mathbf{s}$ con una única ejecución de $f$, mejorando así la solución clásica para este algoritmo.\newline
 
@@ -380,14 +403,14 @@ El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umes
  
  \begin{figure}[H]
     \centering
-    \begin{subfigure}[H]{0.35\textwidth}
+    \begin{subfigure}[H]{0.4\textwidth}
         \centering
         \includegraphics[width=\textwidth]{TFG/imagenes/BVgate1.png}
         \caption{Oráculo para la cadena $\mathbf{s}=101$}
         \label{sFig:BVgate1}
     \end{subfigure}
     \hspace{10pt}
-    \begin{subfigure}[H]{0.35\textwidth}
+    \begin{subfigure}[H]{0.4\textwidth}
         \centering
         \includegraphics[width=\textwidth]{TFG/imagenes/BVgate2.png}
         \caption{Oráculo para la cadena $\mathbf{s}=10101$}
@@ -398,7 +421,7 @@ El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umes
  \end{figure}
 
 
- \textbf{Simulaciones}: Las simulaciones de este algoritmo ya han sido presentadas a lo largo del texto como ejemplo cuando se explicaban las distintas partes de la programación cuántica. Para ampliar estos ejemplos así como revisar el código, se pueden ver en el repositorio.\newline
+ \textbf{Simulaciones}: Las simulaciones de este algoritmo ya han sido presentadas a lo largo del texto como ejemplo cuando se explicaban las distintas partes de la programación cuántica. Para ampliar estos ejemplos así como revisar el código, se pueden ver en el repositorio.\newpage
 
 
 \section{Simon}
@@ -426,9 +449,9 @@ El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umes
  \begin{center}$\Qcircuit @C=1.5em @R=1em {
  \lstick{|\mathbf{0}\rangle}& \qw {/^{n}} & \gate{H^{\otimes n}} & \qw {/^{n}} & \multigate{1}{U_{f}} & \qw {/^{n}} & \gate{H^{\otimes n}} & \qw {/^{n}} & \meter & \qw \\ \lstick{|\mathbf{0}\rangle} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{0}\rangle \end{matrix}} \qw & \qw {/^{n}} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{1}\rangle \end{matrix}} \qw &\ghost{U_{f}} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{2}\rangle \end{matrix}} \qw & \qw {/^{n}} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{3}\rangle \end{matrix}} \qw  & \qw & \qw}$ \end{center}
 
- \vspace{30pt}
+ \vspace{50pt}
 
- Si lo observamos como operación matricial: $(H^{\otimes n}\otimes I)\:U_{f}\:(H^{\otimes n}\otimes I)\:|\mathbf{0},\mathbf{0}\rangle$\newline
+ Si lo observamos como operación matricial: $(H^{\otimes n}\otimes I)\:U_{f}\:(H^{\otimes n}\otimes I)\:|\mathbf{0},\mathbf{0}\rangle$\newpage
 
  Análogamente al algoritmo de Deutsch-Jozsa, analizamos los estados del circuito:
 
@@ -449,6 +472,8 @@ El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umes
 
  \end{itemize}
 
+ \vspace{5pt}
+
  Si bien antes era algo más directo que nos proporcionaba el resultado, aquí tenemos que analizarlo un poco más, ver hasta donde llega nuestro algoritmo cuántico y que es lo que obtenemos de él. La propiedad principal es la periodicidad de $f$, por lo que por definición  $|\mathbf{z},f(\mathbf{x})\rangle=|\mathbf{z},f(\mathbf{x}\oplus \mathbf{c})\rangle$. Vamos a estudiar el coeficiente al agruparlos, al ser mismo ket:
 
  \begin{equation}
@@ -459,21 +484,21 @@ El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umes
 
  Por lo que si $\langle \mathbf{z}, \mathbf{c}\rangle=1$, entonces los sumandos se cancelan. Por otra parte, si $\langle \mathbf{z}, \mathbf{c}\rangle=0$ el coeficiente será $(\pm 1)$, es decir, al realizar la medición sobre el primer bloque de qubits, solo obtendremos aquellos tales que $\langle \mathbf{z}, \mathbf{c}\rangle=0$.
 
- \vspace{14pt}
+ \vspace{8pt}
 
  Pero, ¿proporciona esto una solución esto nuestro algoritmo? Visto así directamente puede parecer que no, debido a que cada vez que lo ejecutemos nos proporcionará una cadena distinta que tiene esa característica. Pero tras obtener n cadenas, obtenemos un sistema de ecuaciones a partir del cual obtenemos la cadena $\mathbf{c}$ deseada. Aquí es donde entraría la computación clásica para acabar de resolver el problema.
 
- \vspace{14pt}
+ \vspace{8pt}
 
  Se puede ver la mejora respecto a la solución clásica, ya que al ser todas las cadenas equiprobables, obtendremos $n$ cadenas distintas en menos ejecuciones que $2^{n-1}+1$, para $n$ suficientemente grande. Se puede ver un ejemplo concreto del desarrollo completo del algoritmo con $f:\{0,1\}^{3} \rightarrow\{0,1\}^{3}$ en \textit{Quantum computing for computer scientists, 190}\cite{B:QuantumScientist:2008}.
 
- \vspace{14pt}
+ \vspace{8pt}
 
- \textbf{Oráculo}: Debido a su complejidad se importa directamente desde Qiskit.\newline
+ \textbf{Oráculo}: Se importa directamente desde Qiskit.\newline
 
  \textbf{Simulaciones}: Debido a que utilizamos este circuito, sin ninguna modificación, al comprobar nuestras MR, las simulaciones se encuentran en el \href{https://github.com/rodelanu/TFG/tree/main}{repositorio común}, en el archivo \href{https://github.com/rodelanu/TFG/blob/main/3_Simon_Rules.ipynb}{sobre las reglas del algoritmo de Simon}.
 
- \vspace{10pt}
+ \vspace{8pt}
 
  El circuito, análogo al teórico presentado anteriormente, para el algoritmo de Simon, con una cadena $\mathbf{c}$ de longitud 3 es:
 
@@ -489,14 +514,14 @@ El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umes
 
  \begin{figure}[H]
     \centering
-    \begin{subfigure}[H]{0.48\textwidth}
+    \begin{subfigure}[H]{0.47\textwidth}
         \centering
         \includegraphics[width=\textwidth]{TFG/imagenes/simonSim.png}
         \caption{Simulador}
         \label{sFig:SimonSim}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[H]{0.48\textwidth}
+    \begin{subfigure}[H]{0.47\textwidth}
         \centering
         \includegraphics[width=\textwidth]{TFG/imagenes/simonReal.png}
         \caption{Sistema cuántico}
