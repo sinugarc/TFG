@@ -5,14 +5,14 @@ La implementación de las reglas metamórficas se pueden encontrar en el [reposi
 <br>
 
 Lista de acciones por hacer:
-- [ ] Pasar todos los algoritmos programados de jupyter a github y organizarlos
+- [x] Pasar todos los algoritmos programados de jupyter a github y organizarlos
 - [ ] README.md
 - [x] Terminar el repositorio común, solo falta revisar el README.md
 - [x] TFG redacción: Resumen/Abstract
 - [x] TFG redacción: Introducción
 - [x] TFG redacción: Preliminares: Matematicas-Fisica (Comprobado por Adrian)
 - [x] TFG redacción: Preliminares: Quiskit-PropMetamorficas
-- [x] TFG redacción: Algoritmos cuánticos (Si da tiempo QEP y QFT)
+- [x] TFG redacción: Algoritmos cuánticos
 - [x] TFG redacción: Propiedades metamórficas
 - [x] TFG redacción: Conclusiones-Trabajo futuro
 - [x] TFG organizar: Bibliografía
