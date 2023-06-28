@@ -43,40 +43,40 @@ Para finalizar con esta sección vamos a ver una manera de combinar dos espacios
 Sean $\mathscr{H}$ y $\mathscr{H}'$ dos espacios de Hilbert,
 
 \vspace{5pt}
-\begin{equation*}
+\begin{equation}
     F(\mathscr{H} \times \mathscr{H}') = \left\lbrace \sum_{i=1}^{n}z_{i} (h_{i},h_{i}')\:|\:n \in \mathbb{N},\: z_{i} \in \mathbb{C},\:(h_{i},h_{i}') \in \mathscr{B}(\mathscr{H} \times \mathscr{H}') \right\rbrace
-\end{equation*}
+\end{equation}
 
 \vspace{5pt}
-\begin{equation*}
+\begin{equation}
 \begin{split}
     \mathscr{R} =  (h_{1}+h_{2},h') \sim (h_{1},h') + (h_{2},h') \\ 
     (h,h_{1}'+h_{2}') \sim (h,h_{1}') + (h,h_{2}') \\
     z(h,h') \sim (z h,h') \sim (h,z h')
 \end{split}
-\end{equation*}
+\end{equation}
 
 \vspace{5pt}
 Definimos el \textbf{producto tensorial} de $\mathscr{H}$ y $\mathscr{H}'$ , $\mathscr{H} \otimes \mathscr{H}'$, como el espacio cociente entre $F(\mathscr{H} \times \mathscr{H}')$ y $\mathscr{R}$, es decir, $\mathscr{H} \otimes \mathscr{H}' = F(\mathscr{H} \times \mathscr{H}')/\mathscr{R}$. Partiendo directamente desde la definición de la relación obtenemos:
 
 \begin{itemize}
     \item \textbf{Linealidad}: Sea $z\in\mathbb{C}$, $|h\rangle\in\mathscr{H}$ y $|h'\rangle\in\mathscr{H}'$. Entonces:
-        \begin{equation*}
+        \begin{equation}
             z\:(|h\rangle \otimes |h'\rangle) = (\:z|h\rangle) \otimes |h'\rangle = |h\rangle \otimes (\:z|h'\rangle)
-        \end{equation*}
+        \end{equation}
         
     \newpage
     \item \textbf{Asociatividad}:
     \begin{itemize}
         \item Sea $|h_{1}\rangle\in\mathscr{H}$, $|h_{2}\rangle\in\mathscr{H}$ y $|h'\rangle\in\mathscr{H}'$. Entonces:
-            \begin{equation*}
+            \begin{equation}
                 (|h_{1}\rangle + |h_{2}\rangle)\otimes|h'\rangle = |h_{1}\rangle \otimes|h'\rangle + |h_{2}\rangle \otimes|h'\rangle
-            \end{equation*}
+            \end{equation}
 
         \item Sea $|h\rangle\in\mathscr{H}$, $|h_{1}'\rangle\in\mathscr{H}'$ y $|h_{2}'\rangle\in\mathscr{H}'$. Entonces:
-            \begin{equation*}
+            \begin{equation}
                 |h\rangle \otimes (|h_{1}'\rangle) + |h_{2}'\rangle) = |h\rangle \otimes|h_{1}'\rangle + |h\rangle \otimes|h_{2}'\rangle
-            \end{equation*}
+            \end{equation}
     \end{itemize}
 \end{itemize}
 
@@ -88,14 +88,16 @@ Además alcanzamos los siguiente resultados sobre el producto tensorial:
     
     \item \textbf{Producto de Kronecker}, se corresponde con el producto tensorial de aplicaciones lineales. Nos será de gran utilidad a lo largo de este trabajo y nos ayuda a visualizar el producto tensorial. Veamos un ejemplo, si $A$ y $B$ son 2 matrices, entonces:\newline
 
-        \begin{equation*}
+        \begin{equation}
         A\otimes B = \begin{bmatrix}
         a_{11}B & a_{12}B & ... & a_{1n}B\\
         a_{21}B & a_{22}B & ... & a_{2n}B\\
         \vdots & \vdots & \ddots & \vdots\\
         a_{m1}B & a_{m2}B & ... & a_{mn}B
         \end{bmatrix}
-        \end{equation*}
+        \end{equation}
+
+    Además, si $A$ y $B$ unitarias, entonces $A\otimes B$ es unitaria.
 
     \vspace{5pt}
     \item \textbf{Dimensión}: $dim(\mathscr{H} \otimes \mathscr{H}')=dim(\mathscr{H})\cdot dim(\mathscr{H}')$
@@ -139,24 +141,30 @@ Por otra parte, en física cuántica, el estado y evolución de un sistema viene
     \item \textbf{Cuarto postulado:}\label{Postulado4} Evolución probabilística, tenemos observador.
     \begin{itemize}
         \item \textbf{Primer apartado}:\label{Postulado4.1} Cada medida $\mathscr{A}$ esta descrita por un operador hermitiano A que actúa sobre $\mathscr{H}$, decimos que este operador es observable, debido a que sus autovectores forman una base de $\mathscr{H}$. El resultado de medir una cantidad $\mathscr{A}$ debe ser uno de los autovalores correspondientes al observable A.
-        \vspace{10pt}
+        \vspace{5pt}
         \item \textbf{Segundo apartado}:\label{Postulado4.2} $Prob(\lambda_{i}) =  \dfrac{||\:P_{|v_{i}\rangle} | \varphi (t) \rangle\:||^{2}}{||\:| \varphi (t) \rangle\:||^{2}} = \dfrac{|\: \langle  v_{i}  |\: \varphi (t)  \rangle\:|^{2}}{||\:| \varphi (t) \rangle\:||^{2}}$
-        \vspace{10pt}
+        \vspace{5pt}
         \item \textbf{Tercer apartado}:\label{Postulado4.3} Si tras realizar una medición $\mathscr{A}$ del estado $|\varphi(t) \rangle$ da como resultado $a_{n}$, entonces el estado del sistema colapsa a la proyección normal de $|\varphi(t) \rangle$ en el subespacio de autovectores asociado a $a_{n}$,  $P_{|v_{n} \rangle} | \varphi (t) \rangle$.
     \end{itemize}
 \end{itemize}
 
-Todos estos postulados van a ser clave en los distintos aspectos de la computación cuántica, desde la definición del sistema más simple como el \textit{qubit} hasta las probabilidades en las simulaciones (observaciones).
+Todos estos postulados van a ser clave en los distintos aspectos de la computación cuántica, como la definición del sistema más simple como el \textit{qubit}.
 
-\vspace{15pt}
+\vspace{10pt}
 \section{Programación cuántica, Qiskit}
 \label{Sec2.3:Qiskit}
 
- La programación cuántica se basa en la creación de un circuito o algoritmo cuántico, normalmente representado geométricamente, donde se realizan operaciones (operadores unitarios) sobre los distintos qubits, así como sus mediciones\cite{B:QuantumScientist:2008}.\newline
+ La programación cuántica se basa en la creación de un circuito o algoritmo cuántico, normalmente representado geométricamente, donde se realizan operaciones (operadores unitarios) sobre los distintos qubits, así como sus mediciones\cite{B:QuantumScientist:2008}.
 
- Para realizar nuestros programas cuánticos y simulaciones nos vamos a apoyar en \textit{Qiskit}, es un paquete de desarrollo libre creado por IBM para crear y manipular programas cuánticos así como realizar simulaciones\footnote{\url{https://qiskit.org/}}. Ya sean teóricas o conectando nuestros programas con los ordenadores cuánticos de IBM. Esto nos dará unos resultados más realistas donde podremos apreciar el ruido que hay actualmente en estos ordenadores. (ref apartado ruido) \newline
+ \vspace{8pt} 
+
+ Para realizar nuestros programas cuánticos y simulaciones nos vamos a apoyar en \textit{Qiskit}, es un paquete de desarrollo libre creado por IBM para crear y manipular programas cuánticos así como realizar simulaciones\footnote{\url{https://qiskit.org/}}. Ya sean teóricas o conectando nuestros programas con los ordenadores cuánticos de IBM. Esto nos dará unos resultados más realistas donde podremos apreciar el ruido que hay actualmente en estos ordenadores.
+
+ \vspace{8pt} 
  
- La programación en Qiskit es una libreria de Python, en el que se permite definir y utilizar los circuitos. Además, para una mejor visualización de lo que representa el código utilizaré jupyter notebook. Existiría otra opción, que sería generar los circuitos directamente en la página de IBM de forma geométrica\footnotemark[1].\newline
+ Se programará en Qiskit, una libreria de Python, en el que se permite definir y utilizar los circuitos. Además, para una mejor visualización de lo que representa el código utilizaré jupyter notebook. Otra opción sería generar los circuitos de forma geométrica en IBM \footnotemark[1].
+
+ \vspace{8pt} 
 
  Además, exisitirían otras opciones como \textit{Azure Quantum}\footnote{\url{https://azure.microsoft.com/en-us/services/quantum/}} en \textit{C\#} de Microsoft, \textit{Cirq}\footnote{\url{https://quantumai.google/cirq}} en \textit{Python} de Google o \textit{Pyket}\footnote{\url{https://cqcl.github.io/tket/pytket/api/index.html}} también en \textit{Python} entre otros. \newline
  
@@ -307,8 +315,6 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
      Esta puerta, al igual que CNOT, podría generalizarse para un operador unitario U.
  \end{itemize}
 
- \newpage
-
  Existe un concepto que se utiliza a menudo que es el de \textbf{conjunto de puertas universales}\footnote{\url{https://en.wikipedia.org/wiki/Quantum_logic_gate\#Universal_quantum_gates}}que se define como el conjunto de puertas al que toda operación unitaria se puede reducir. Aunque, esto teóricamente es imposible debido a que el número de puertas que se pueden construir es no numerable, y cualquier conjunto finito que definamos, si lo es. Para solucionar este problema, nos apoyamos en el teorema de \textit{Solovay–Kitaev} \footnote{\url{https://en.wikipedia.org/wiki/Solovay\%E2\%80\%93Kitaev_theorem}}, que garantiza que esta reducción se puede hacer de forma eficiente, es decir, aproximándola con la precisión necesaria. Los ejemplos más conocidos son:
 
  \begin{itemize}
@@ -348,8 +354,6 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
     \caption{Circuito, algoritmo BV para s de longitud 4}
     \label{Fig:CircuitoBV}
  \end{figure}
- 
-\newpage
 
  Detallemos brevemente los elementos principales de este circuito:
  \begin{itemize}
@@ -377,6 +381,7 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
      \item \textbf{Ordenador cuántico}, utilizaremos los ordenadores de IBM. La tecnología para la creación de ordenadores cuánticos más fieles sigue avanzando. Esta intenta mitigar los errores que tiene cada operación, así como los errores relacionados con el ruido del entorno que influyen en el estado del sistema modificándolo. Cada ordenador tiene su propia estructura y sus estudios sobre los errores que se cometen en cada qubit, así como calibraciones. Se puede ver en la figura 2.3, los errores de cada qubit así como la estructura del ordenador, además de observar que no todos los qubits tienen relación entre sí, por ejemplo, los qubit 2 y 15 no tienen relación. Qiskit analizará el circuito que le proponemos y lo adaptará a la arquitectura del sistema elegido para la ejecución, con el objetivo de minimizar los errores cometidos.
      
  \end{itemize}
+ \vspace{10pt}
 
 
 
@@ -417,13 +422,11 @@ Se puede observar en la figura \ref{FIG:ComparacionRealSim} la diferencia entre 
     \label{FIG:ComparacionRealSim}
  \end{figure}
 
- \newpage
-
 Para acabar con esta sección, como curiosidad y por completitud, hemos mencionado antes que \textit{Qiskit} traduce a \textit{qasm} a la hora de ejecutar. La función utilizada en \textit{Qiskit} para ensamblar el programa es \textit{assemble} que devuelve un objeto de clase \textit{QasmQobj} \footnote{\url{https://qiskit.org/documentation/stubs/qiskit.compiler.assemble.html}}. El código que utilizaría \textit{Qiskit} para la ejecución del circuito presentado anteriormente lo podemos encontrar en el trabajo generado en el sistema cuántico de IBM\footnote{\url{https://quantum-computing.ibm.com/}}. Además, vamos a poder observar en la Figura \ref{FIG:IBMCircBV} el circuito transformado acorde a las puertas de las que dispone el sistema cuántico preparado para la ejecución. Este circuito es el análogo a la Figura \ref{Fig:CircuitoBV} con resultados en la Figura \ref{sFig:Comp_b}.\newline
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{TFG/imagenes/IBMCircuitBV.png}
+    \includegraphics[width=0.7\textwidth]{TFG/imagenes/IBMCircuitBV.png}
     \caption{Circuito del sistema ibmq\_lima para BV, Figura 2.2} 
     \label{FIG:IBMCircBV}
  \end{figure}
@@ -453,7 +456,6 @@ Veamos ahora que es lo que consideramos formalmente una MR y como llegamos a los
     \end{itemize}
 \end{itemize}
 
-\newpage
 La estrategia presentada anteriormente para MT, será la que se siga en la implementación de las propiedades que se obtendrán a lo largo de este documento. \newline
 
 Para finalizar con esta introducción vamos a revisar brevemente un par de ventajas y retos que presenta el camino que estamos tomando para probar la corrección, o más bien la no corrección, de un algoritmo. \newline

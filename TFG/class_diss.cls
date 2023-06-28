@@ -675,10 +675,12 @@
 \newcommand\subitem{\@idxitem \hspace*{20\p@}}
 \newcommand\subsubitem{\@idxitem \hspace*{30\p@}}
 \newcommand\indexspace{\par \vskip 10\p@ \@plus5\p@ \@minus3\p@\relax}
-\renewcommand\footnoterule{%
-  \kern-3\p@
-  \hrule\@width.4\columnwidth
-  \kern2.6\p@}
+%\renewcommand\footnoterule{%
+%  \kern-3\p@
+%  \hrule\@width.4\columnwidth
+%  \kern2.6\p@}
+
+\renewcommand{\footnoterule}{\vfill\kern -3pt \hrule width 0.4\columnwidth \kern 2.6pt}
 \@addtoreset{footnote}{chapter}
 \newcommand\@makefntext[1]{%
     \parindent 1em%
