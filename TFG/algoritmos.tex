@@ -5,9 +5,9 @@
 
 El siguiente paso en este camino hacia la unión entre la computación cuántica y el \textit{testing} metamórfico es la creación de algoritmos o programas cuánticos que nos ayuden a resolver problemas propuestos o avanzar. \newline
 
-Todo el desarrollo de estos algoritmos se pueden encontrar en los libros principales \cite{B:Nielsen:2002}\cite{B:QuantumScientist:2008}. Presentaremos a continuación todos los algoritmos finales que nos permiten obtener nuestros objetivos, si bien es cierto, solo vamos a presentar el camino completo de creación del algoritmo de Deutsch por su simplicidad. Esto se debe a que para alcanzar nuestro objetivo debemos ir haciendo modificaciones y cálculos sobre nuestros algoritmos hasta dar con la combinación correcta de puertas que nos permita resolverlo.\newline
+Todo el desarrollo de estos algoritmos se pueden encontrar en los libros principales\cite{B:Nielsen:2002}\cite{B:QuantumScientist:2008}. A continuación, presentaremos todos los algoritmos finales que nos permitan alcanzar nuestros objetivos. Sin embargo, solo vamos a mostrar el proceso completo de creación del algoritmo de Deutsch por su simplicidad. Esto se debe a que, para alcanzar nuestro objetivo, debemos realizar modificaciones y cálculos en nuestros algoritmos hasta encontrar la combinación correcta de puertas que nos permita resolverlo.\newline
 
-Esta sección va a seguir prácticamente la misma estructura para cada apartado, a excepción de la suma. Empezará con una introducción, seguida de la exposición del problema a resolver. Entonces nos dispondremos a presentar el algoritmo que lo resuelve, o como lo creamos, y las pruebas realizadas. Es necesario recordar que toda la programación realizada sobre estos algoritmos se encuentra en el repositorio de GitHub \url{https://github.com/sinugarc/TFG.git}
+Esta sección seguirá prácticamente la misma estructura para cada apartado. Comenzará con una introducción, seguida de la exposición del problema a resolver. Luego presentaremos el algoritmo que resuelve el problema y su creación en el caso de Deutsch, además de las pruebas realizadas. Es importante recordar que toda la programación realizada con estos algoritmos se encuentra en el repositorio de GitHub \url{https://github.com/sinugarc/TFG.git}
 
 \section{Suma}
 \label{Sec3.1:Suma}
@@ -15,7 +15,7 @@ Esta sección va a seguir prácticamente la misma estructura para cada apartado,
 
  \textbf{Problema 1}: Dadas dos cadenas binarias de igual longitud, queremos obtener su suma bit a bit. Esta operación se utilizará posteriormente y se toma $\oplus$ como notación. \newpage
 
- La implementación de este problema es muy simple, bastará con incluir tantos bit ancilla como longitud tenga la cadena, para que almacene el resultado, así nos aseguramos que no se modifiquen los valores originales de entrada y bastará con utilizar la puerta $CNOT$ para ir modificando los valores ancilla correspondientes. Dando lugar en los valores ancilla al resultado de la suma bit a bit de ambas cadenas.\newline
+ La implementación de este problema es muy simple, bastará con incluir tantos bit ancilla como longitud tenga la cadena para almacenar el resultado. De esta manera nos aseguramos que no se modifiquen los valores originales de entrada. Bastará con utilizar la puerta $CNOT$ para ir modificando los valores ancilla correspondientes, dando lugar en los valores ancilla al resultado de la suma bit a bit de ambas cadenas.\newline
 
  \begin{figure}[H]
     \centering
@@ -28,7 +28,7 @@ Esta sección va a seguir prácticamente la misma estructura para cada apartado,
 
  \textbf{Problema 2}: Dadas dos cadenas binarias, queremos obtener la suma de ambas, interpretando estas cadenas como si fueran la representación de dos números naturales.\newline
 
- El problema ahora se complica un poco más, ya que cuando realizamos la suma de números naturales tenemos que ser capaces de programar si necesitamos llevarnos 1 o no, para esto vamos a utilizar la puerta $CCNOT$, que nos va a permitir modificar el siguiente ancilla qubit si fuera necesario. De esta maneras nos aseguramos de realizar la suma correctamente junto al uso de la puerta $CNOT$.
+ El problema ahora se complica un poco más, ya que cuando realizamos la suma de números naturales tenemos que ser capaces de programar si necesitamos llevarnos 1 o no. Para solucionarlo vamos a utilizar la puerta $CCNOT$, que nos va a permitir modificar el siguiente qubit ancilla si fuera necesario. De esta manera nos aseguramos de realizar la suma correctamente junto al uso de la puerta $CNOT$.
 
 \begin{figure}[H]
     \centering
@@ -86,23 +86,24 @@ Aquí se puede apreciar la suma completa, las puertas $X$ antes de las primera b
  Esto se debe a que $f(x)\oplus f(x) = 0$. Pero claro, ¿qué matriz realmente representa a $U_{f}$? Veamos como quedaría respecto a la base:
 
  \vspace{5pt}
+ 
  \begin{center}
- \begin{blockarray}{ccccc}
+    \begin{blockarray}{ccccc}
          & $\mathbf{|00\rangle}$ & $\mathbf{|01\rangle}$ & $\mathbf{|10\rangle}$ & $\mathbf{|11\rangle}$\\
-    \begin{block}{c[cccc]}
-        $\mathbf{|00\rangle}$ & 0 & 1 & 0 & 0 \\
-        $\mathbf{|01\rangle}$ & 1 & 0 & 0 & 0 \\
-        $\mathbf{|10\rangle}$ & 0 & 0 & 1 & 0 \\
-        $\mathbf{|11\rangle}$ & 0 & 0 & 0 & 1
+        \begin{block}{c[cccc]}
+            $\mathbf{|00\rangle}$ & 0 & 1 & 0 & 0 \\
+            $\mathbf{|01\rangle}$ & 1 & 0 & 0 & 0 \\
+            $\mathbf{|10\rangle}$ & 0 & 0 & 1 & 0 \\
+            $\mathbf{|11\rangle}$ & 0 & 0 & 0 & 1 \\
         \end{block}
-\end{blockarray}
+    \end{blockarray}
 \end{center}
 
 \vspace{5pt}
 
-Se podría comprobar que esta matriz es su propia adjunta, por lo que es invertible y unitaria. Por lo que cumple las características necesarias para ser una puerta de un circuito cuántico.\newline
+Se podría comprobar que esta matriz es su propia adjunta, por lo que es invertible y unitaria. Es decir, cumple las características necesarias para ser una puerta de un circuito cuántico.\newline
 
- Ahora que ya tenemos la caja negra deseada, determinada por una matriz unitaria, nos queremos poner a resolver el problema. Como comenté en la introducción de este capítulo, esta va a ser el único algoritmo al que le vamos a seguir la pista de razonamiento de principio a final, es decir, partiremos de una idea inicial y acabaremos en el algoritmo de Deutsch que resuelve este problema.\newline
+ Ahora que ya tenemos la caja negra deseada, determinada por una matriz unitaria, nos queremos poner a resolver el problema. Como comenté en la introducción de este capítulo, este será el único algoritmo al que le seguiremos la pista de razonamiento de principio a final, es decir, partiremos de una idea inicial y acabaremos en el algoritmo de Deutsch que resuelve este problema.\newline
 
  Nuestro objetivo es mejorar la complejidad de la solución del problema respecto a la solución clásica. Recordamos que necesitamos evaluar $f$ dos veces, por lo que nuestro objetivo va a ser obtener el resultado evaluando $f$ una única vez. Para ello nos vamos a sustentar en la superposición, para así analizar que ocurre en el $|0\rangle$ y en el $|1\rangle$ al mismo tiempo, es decir, vamos a tener que utilizar la puerta de Hadamard. \newline
  
@@ -167,7 +168,7 @@ Esto lo podemo resumir como:
 
 Pero al igual que en intento anterior, al intentar medir en cualquiera de ambos qubits no obtendríamos ningún resultado concluyente. Esto nos va a llevar al último intento.\newline
 
-\textbf{Tercer intento}, \textbf{Algoritmo de Deutsch}: Al no ser capaces de obtener un resultado poniendo sólo un qubit en superposición, esta vez vamos a poner ambos en estado de superposición, con  el \textit{input} $|0,1\rangle$. Además, vamos a medir sobre el qubit superior tras aplicar una puerta de Hadamard, que recordamos es su propia inversa. Este es el circuito final que representa al algoritmo de Deutsch:
+\textbf{Tercer intento}, \textbf{Algoritmo de Deutsch}: Al no ser capaces de obtener un resultado poniendo sólo un qubit en superposición, esta vez ponemos ambos en estado de superposición, con  el \textit{input} $|0,1\rangle$. Además, medimos sobre el qubit superior tras aplicar una puerta de Hadamard, que recordamos es su propia inversa. Este es el circuito final que representa al algoritmo de Deutsch:
 
  \vspace{5pt}
 
@@ -190,7 +191,7 @@ Analizamos ahora todos los estados $|\varphi_{i}\rangle$:
 
     \item $\mathbf{|\varphi_{2}\rangle} = \left[ \dfrac{(-1)^{f(0)}\:|0\rangle + (-1)^{f(1)}\:|1\rangle}{\sqrt{2}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right]$\newline 
     
-    Hemos obtenido este resultado substituyendo $|x\rangle$ en el la ecuación 3.3 (link). Pero veamos que ocurre separando $(-1)^{f(0)}\:|0\rangle + (-1)^{f(1)}\:|1\rangle$ según nuestras posibilidades:
+    Hemos obtenido este resultado substituyendo $|x\rangle$ en el la ecuación 3.3. Pero veamos que ocurre separando $(-1)^{f(0)}\:|0\rangle + (-1)^{f(1)}\:|1\rangle$ según nuestras posibilidades:
     \begin{itemize}
         \item $f$ es constante: $\dfrac{(-1)^{f(0)}\:|0\rangle + (-1)^{f(1)}\:|1\rangle}{\sqrt{2}} = (\pm 1)\left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right]$
 
@@ -210,7 +211,7 @@ Por lo que hemos conseguido nuestro objetivo. Tras una única evaluación de $f$
 
 \vspace{5pt}
 
-\textbf{Oráculo}: El oráculo lo creo como operador a partir de matriz.
+\textbf{Oráculo}: El oráculo se crea como operador a partir de matriz que representa la función.
 
 \vspace{5pt}
 
@@ -256,7 +257,7 @@ Por lo que hemos conseguido nuestro objetivo. Tras una única evaluación de $f$
 
  El estudio sobre las características de $H^{\otimes n}$ se pueden estudiar en profundidad en \textit{Quantum computing for computer scientists}\cite{B:QuantumScientist:2008}, aquí resumiremos los resultados principales que nos van a permitir profundizar en los circuitos cuánticos, ya que la aplicación de esta puerta es muy común.\newline
 
- Antes de meternos en $H^{\otimes n}$, vamos a definir un producto interno en $\mathbb{Z}_{2}$:
+ Antes de meternos en $H^{\otimes n}$, vamos a definir un producto interno:
 
  \begin{equation*}
      \langle\:,\:\rangle\::\{0,1\}^{n} \times \{0,1\}^{n} \rightarrow \{0,1\}\end{equation*}
@@ -312,7 +313,7 @@ Por lo que hemos conseguido nuestro objetivo. Tras una única evaluación de $f$
 
     \vspace{5pt}
 
-    \item Ahora tenemos que superponer la superposición, pero en este caso no es la inversa ya que se aplica sobre otros estados $|\mathbf{z}\rangle$:
+    \item Ahora tenemos que superponer la superposición, pero en este caso se aplica sobre otros estados $|\mathbf{z}\rangle$:
 
     \begin{equation}\label{Eq:phi3:DJ}
         \begin{split}\mathbf{|\varphi_{3}\rangle} &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}\sum_{\mathbf{z} \in \{0,1\}^{n}}(-1)^{\langle\mathbf{z},\mathbf{x}\rangle}|\mathbf{z}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right] \\ &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}\sum_{\mathbf{z} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}(-1)^{\langle\mathbf{z},\mathbf{x}\rangle}|\mathbf{z}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right] \\ &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}\sum_{\mathbf{z} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})\oplus\langle\mathbf{z},\mathbf{x}\rangle}|\mathbf{z}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right]
@@ -320,7 +321,7 @@ Por lo que hemos conseguido nuestro objetivo. Tras una única evaluación de $f$
     \end{equation}
  \end{itemize}
 
- El último paso a analizar y que nos determinará la validez o el que esperamos de este algoritmo es al medición de los primeros n-qubits. Otra manera de estudiar la medición es directamente preguntarnos cual es la probabilidad de que $|\varphi_{3}\rangle$ colapse a $|\mathbf{0}\rangle$ al realizar la medición. Esto es análogo a si bien en el algoritmo anterior nos interesaba medir cuando $|\mathbf{z}\rangle=|\mathbf{0}\rangle$, que por las propiedades estudiadas anteriormente $\langle\mathbf{z},\mathbf{x}\rangle=\langle\mathbf{0},\mathbf{x}\rangle=0$. Con este resultado, si volvemos a la ecuación \ref{Eq:phi3:DJ}:
+ El último paso a analizar y que nos determinará la validez o el que esperamos de este algoritmo es al medición de los primeros n-qubits. Otra manera de estudiar la medición es directamente preguntarnos cual es la probabilidad de que $|\varphi_{3}\rangle$ colapse a $|\mathbf{0}\rangle$. Esto es análogo a $|\mathbf{z}\rangle=|\mathbf{0}\rangle$, que por las propiedades estudiadas anteriormente $\langle\mathbf{z},\mathbf{x}\rangle=\langle\mathbf{0},\mathbf{x}\rangle=0$. Con este resultado, si volvemos a la ecuación \ref{Eq:phi3:DJ}:
 
  \begin{equation}
      \mathbf{|\varphi_{3}\rangle}=\left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}|\mathbf{0}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right]
@@ -341,7 +342,7 @@ Por lo que hemos conseguido nuestro objetivo. Tras una única evaluación de $f$
 
  Por lo que podemos concluir que este algoritmo resuelve nuestro problema con una única evaluación de $f$. Si el resultado es $|\mathbf{0}\rangle$, $f$ es constante y si es otro cualquiera, $f$ es balanceada. \newline
 
- \textbf{Observación}: Hay que tener en cuenta, que si la función no es ni balanceada ni constante, este algoritmo no soluciona el problema y los resultados no son concluyentes. Esto se debe a que cualquier valor que nos devuelva el algoritmo tiene un interpretación $|\textbf{0}\rangle$ $f$ constante y si no, $f$ es balanceada. Es decir, si tenemos una función $f$ que no es ni constante ni balanceada, el resultado sea el que sea va a ser erróneo. Y esto explica porque es una de nuestras hipótesis. \newline
+ \textbf{Observación}: Hay que tener en cuenta, que si la función no es ni balanceada ni constante, este algoritmo no soluciona el problema y el resultado no es concluyente. Esto se debe a que cualquier valor que nos devuelva el algoritmo tiene un interpretación, $|\textbf{0}\rangle$ si $f$ constante y si no, $f$ es balanceada. Es decir, si $f$ no es ni constante ni balanceada, el resultado sea el que sea va a ser erróneo. Y esto explica porque es una de nuestras hipótesis. \newline
 
 \textbf{Oráculo}: El oráculo que utilizamos para este algoritmo puede venir de dos sitios distintos. Podemos programarlo con ayuda de qiskit\footnote{\url{https://learn.qiskit.org/course/ch-algorithms/deutsch-jozsa-algorithm}}, ya que nos explica como crear el oráculo de DJ, sea la función balanceada o constante. O bien, una vez definida la función crear la matriz que representa al operador.\newline
  
@@ -353,15 +354,11 @@ Si bien es cierto que todos aquellos algoritmos que tiene programado el oráculo
 \section{Bernstein-Vazirani}
 \label{Sec3.4:BV}
 
-El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umesh Vazirani\cite{AR:BV:1997}. Se puede entender que este algoritmo es una generalización más del algoritmo de Deutsch-Jozsa \footnote{\url{https://learn.qiskit.org/course/ch-algorithms/bernstein-vazirani-algorithm}}. 
+El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umesh Vazirani\cite{AR:BV:1997}. Se puede entender que este algoritmo es una generalización más del algoritmo de Deutsch-Jozsa\footnote{\url{https://learn.qiskit.org/course/ch-algorithms/bernstein-vazirani-algorithm}}.\newline
 
-\vspace{5pt}
+\textbf{Problema}: Sean  $f:\{0,1\}^{n} \rightarrow \{0,1\}$  y  $\mathbf{s}=s_{0}s_{1}...s_{n-1} \in \{0,1\}^{n}$, sabemos por hipótesis que  $f(\mathbf{x})=\mathbf{s}\cdot \mathbf{x}\:\; \text{mod} \; 2 = s_{0}x_{0} \oplus s_{1}x_{1} \oplus ... \oplus s_{n-1}x_{n-1}$. Queremos obtener la cadena $\mathbf{s}$.\newline
 
-\textbf{Problema}: Sea $f:\{0,1\}^{n} \rightarrow \{0,1\}$, sea $\mathbf{s}=s_{0}s_{1}...s_{n-1}$, por hipótesis $f(\mathbf{x})=\mathbf{s}\cdot \mathbf{x}\: \text{mod}\:2 = s_{0}x_{0} \oplus s_{1}x_{1} \oplus ... \oplus s_{n-1}x_{n-1}$. Queremos obtener la cadena $\mathbf{s}$.
-
-\vspace{5pt}
-
-\textbf{Solución clásica}: Ejecutamos la función $f$ $n$ veces una con cada elemento de la base canónica. Esto nos permitirá obtener los $n$ elementos de $\mathbf{s}$.\newline
+\textbf{Solución clásica}: Ejecutamos la función $f$ $n$ veces una con cada elemento de la base canónica. Esto nos permitirá obtener los $n$ elementos de $\mathbf{s}$.\newpage
 
 \textbf{Algoritmo de Bernstein-Vazirani}:
 
@@ -386,7 +383,7 @@ El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umes
 
     \vspace{5pt}
 
-    \item Aplicamos las función $f$:
+    \item Aplicamos la función $f$:
     
     \begin{equation} \label{eq:BV:phi2}
     \mathbf{|\varphi_{2}\rangle} =\left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}|\mathbf{x}\rangle}{\sqrt{2^{n}}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right]\end{equation}
@@ -403,19 +400,19 @@ El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umes
 
  \vspace{10pt}
 
- Veamos que esta ocurriendo en ese primer bloque de qubits, que será al que apliquemos la medición, si bien en el algoritmo anterior nos interesaba medir cuando $|\mathbf{z}\rangle=|\mathbf{0}\rangle$, pero ahora queremos obtener la cadena $\mathbf{s}$, por lo que vamos a ver que sucede cuando $|\mathbf{z}\rangle=|\mathbf{s}\rangle$. Es decir, queremos analizar la amplitud del estado.
+ Tenemos que observar lo que ocurre en ese primer bloque de qubits, que será al que apliquemos la medición, si bien en el algoritmo anterior nos interesaba medir cuando $|\mathbf{z}\rangle=|\mathbf{0}\rangle$, ahora queremos $|\mathbf{z}\rangle=|\mathbf{s}\rangle$. Es decir, queremos analizar la amplitud del estado $|\mathbf{s}\rangle$.
 
  \begin{equation}
     \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{\langle\mathbf{s}\oplus \mathbf{s},\mathbf{x}\rangle}|\mathbf{s}\rangle}{2^{n}} = \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{\langle\mathbf{0},\mathbf{x}\rangle}|\mathbf{s}\rangle}{2^{n}}= \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}|\mathbf{s}\rangle}{2^{n}} = |\mathbf{s}\rangle
  \end{equation}
 
- \vspace{3pt}
+ \vspace{5pt}
 
  ¿Qué está ocurriendo aquí?, lo que hemos observado es que la amplitud de $|\mathbf{s}\rangle$ es 1, y si recordamos la teoría de los sistemas cuánticos, la suma de los cuadrados de las amplitudes es 1. Es decir, las amplitudes del resto de posibles valores de $|\mathbf{z}\rangle$ es 0. Por lo que al hacer la medición sobre el primer bloque de qubits nos devolverá la cadena $\mathbf{s}$ deseada, al ser su probabilidad de aparición 1. Podemos concluir entonces que hemos obtenido la cadena $\mathbf{s}$ con una única ejecución de $f$, mejorando así la solución clásica para este algoritmo.
 
- \vspace{7pt}
+ \vspace{10pt}
 
- \textbf{Oráculo}: Antes de presentar las simulaciones realizadas, vamos a estudiar como a partir de una cadena $\mathbf{s}$ podemos construir un oráculo funcione como $f_{s}$. Según el valor en la cadena se ejecuta una puerta y otra. Sí el valor es 0, entonces pondremos una puerta identidad en la linea del qubit de esa posición para indicar que no se hace nada y si el valor es 1, pondremos una puerta CNOT entre el qubit de la posición y el qubit ancilla, donde el qubit de control es el de la posición del valor. Estos ejemplo se pueden encontrar en el archivo de BV sin puertas, la función \textit{$bv\_fgenerator(qc,n0,s)$}, veamos un par de ejemplos ahora:
+ \textbf{Oráculo}: Antes de presentar las simulaciones realizadas, vamos a estudiar como a partir de una cadena $\mathbf{s}$ podemos construir un oráculo funcione como $f_{s}$. Según el valor en la cadena se ejecuta una puerta y otra. Primero invertiremos los valores de $\mathbf{s}$ y a continuación, si el valor es 0, entonces pondremos una puerta identidad en la linea del qubit de esa posición y si el valor es 1, pondremos una puerta CNOT entre el qubit de la posición y el qubit ancilla, donde el qubit de control es el de la posición del valor. Los generará la función \textit{$bv\_fgenerator(qc,n0,s)$}, veamos un par de ejemplos ahora:
  
  \begin{figure}[H]
     \centering
@@ -518,7 +515,7 @@ El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umes
 
  \vspace{8pt}
 
- El circuito, análogo al teórico presentado anteriormente, para el algoritmo de Simon, con una cadena $\mathbf{c}$ de longitud 3 es:
+ El circuito, análogo al teórico, para el algoritmo de Simon con una cadena $\mathbf{c}$ de longitud 3 es:
 
  
  \begin{figure}[H]
@@ -528,7 +525,7 @@ El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umes
     \label{Fig:CircuitoSimon1}
  \end{figure}
 
- Lo hemos simulado y ejecutado en un sistema cuántico de IBM y estos son los resultados. Además de observar el ruido del sistema cuántico, se va a poder apreciar ambas formas de realizar el histograma, ya sea con conteo o probabilidades.
+ Lo hemos simulado y ejecutado en un sistema cuántico de IBM y los resultados son equivalentes. Además de observar el ruido del sistema cuántico, se va a poder apreciar ambas formas de realizar el histograma, ya sea con conteo o probabilidades.
 
  \begin{figure}[H]
     \centering
