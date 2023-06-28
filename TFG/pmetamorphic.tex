@@ -3,7 +3,7 @@
 \chapter{Propiedades metamórficas}
 \label{Cap4:PMetamorficas}
 
-En este último capítulo antes de la conclusión queremos presentar al lector con el objetivo principal de este trabajo. Queremos finalmente unir las propiedades metamórficas con los algoritmos que hemos estudiado en el capítulo \ref{Cap3:Algoritmos}, si bien es cierto solo hemos conseguido estudiar los tres algoritmos que se presentan a continuación. Presentaremos cuales son las propiedades obtenidas, así como de donde las hemos obtenido, para luego pasar a la programación y los circuitos que hemos preparado para poder realizar dichas pruebas.
+En este último capítulo antes de la conclusión queremos presentar al lector con el objetivo principal de este trabajo. Queremos finalmente unir las propiedades metamórficas con los algoritmos del capítulo \ref{Cap3:Algoritmos}, de los cuales se estudiarán únicamente los tres últimos. A continuación, presentaremos cuales son las propiedades obtenidas, así como de donde proceden, para luego pasar a la programación y los circuitos que hemos preparado para poder realizar las pruebas necesarias.
 
 \section{Deutsch-Jozsa}
 \label{Sec4.1:DJ}
@@ -33,7 +33,7 @@ Suponemos $P$ la implementación del algoritmo de Deutsch-Jozsa a analizar, veam
 
 Al aplicar el automorfismo $g$, $f \circ g$ no varía el número de 1 y 0 de la imagen y por lo tanto no cambia la característica de la función, por lo que es directo decir que la MR es correcta.\newline
 
-\textbf{Implementación}: Vamos a comparar los resultados entre la simulación $P(f)$ con $P(f\circ g)$. En este caso hemos decidido utilizar un automorfismo particular a la hora de realizar las pruebas. Sea $g: \{0,1\}^{n} \rightarrow \{0,1\}^{n}$ talque aplica la puerta $X$ a cada componente, es decir, $g(\mathbf{x})=\mathbf{1}-\mathbf{x}$ que es el complementario binario de $\mathbf{x}$. Este será el circuito para la g definida\newline
+\textbf{Implementación}: Comparamos los resultados entre la simulación $P(f)$ y $P(f\circ g)$. En este caso hemos decidido utilizar un automorfismo particular a la hora de realizar las pruebas. Sea $g: \{0,1\}^{n} \rightarrow \{0,1\}^{n}$ talque aplica la puerta $X$ a cada componente, es decir, $g(\mathbf{x})=\mathbf{1}-\mathbf{x}$ que es el complementario binario de $\mathbf{x}$.\newline
 
 
 
@@ -47,9 +47,9 @@ Es cierto que en el repositorio\footnote{\url{https://github.com/rodelanu/TFG/bl
 
 \section{Bernstein-Vazirani}
 \label{Sec4.2:BV}
-El algoritmo de Bernstein-Vazirani fue el primero presentado como ejemplo al introducir la \hyperref[Sec2.3:Qiskit]{programación cuántica} en el \hyperref[Cap2:Antecedentes]{capítulo 2}. Recapitulemos lo visto cuando se estudió el \hyperref[Sec3.4:BV]{algoritmo de BV}.\newline
+El algoritmo de Bernstein-Vazirani fue el primero presentado como ejemplo al introducir la \hyperref[Sec2.3:Qiskit]{programación cuántica} en el \hyperref[Cap2:Antecedentes]{capítulo 2}. Recapitulemos sobre lo estudiado del \hyperref[Sec3.4:BV]{algoritmo de BV}.\newline
 
-\textbf{Problema}: Sea $f:\{0,1\}^{n} \rightarrow \{0,1\}$, sea $\mathbf{s}=s_{0}s_{1}...s_{n-1}$, por hipótesis sabemos que $ f(\mathbf{x})=(\mathbf{s}\cdot \mathbf{x})\: \text{mod}\:2 = s_{0}x_{0} \oplus s_{1}x_{1} \oplus ... \oplus s_{n-1}x_{n-1}$. Queremos obtener la cadena $\mathbf{s}$.\newline
+\textbf{Problema}: Sea $f:\{0,1\}^{n} \rightarrow \{0,1\}$, sea $\mathbf{s}=s_{0}s_{1}...s_{n-1} \in \{0,1\}^{n}$, por hipótesis sabemos que $ f(\mathbf{x})=(\mathbf{s}\cdot \mathbf{x})\: \text{mod}\:2 = s_{0}x_{0} \oplus s_{1}x_{1} \oplus ... \oplus s_{n-1}x_{n-1}$. Queremos obtener la cadena $\mathbf{s}$.\newline
 
 \textbf{Algoritmo de Bernstein-Vazirani}:
 
@@ -68,13 +68,13 @@ El algoritmo de Bernstein-Vazirani fue el primero presentado como ejemplo al int
 
  Esta regla se ha obtenido como un caso particular de la regla general que se presentará a continuación. Ahora bien, ¿Es trascendente el particularizar una regla ya obtenida? Hagamos un pequeño inciso para aclarar este tema.\newline
 
- La respuesta a esta pregunta es sí, ya que aunque una regla más general cubre muchos más casos, pero eso no nos asegura que encontrar un fallo sea más fácil, por el contrario, puede ser incluso más complejo programar un regla general. Es cierto que este caso es muy simple, aunque la comprobación para este caso es directa, ya que queremos obtener el ket $|\mathbf{1}\rangle$. \newline
+ La respuesta a esta pregunta es sí, ya que aunque una regla más general cubre muchos más casos, esto no nos asegura que encontrar un fallo sea más fácil. Sin embargo, puede ser incluso más complejo programar un regla general. Es cierto que este caso es muy simple y la comprobación para es directa, ya que queremos obtener el ket $|\mathbf{1}\rangle$. \newline
 
- El ejemplo básico que se usa para explicar esta diferencia es el siguiente \cite{AR:MTmain:2008}:\newline
+ El ejemplo básico que se usa para explicar esta diferencia es el siguiente\cite{AR:MTmain:2008}:\newline
 
-Suponemos que tenemos una implementación $P$ con una MR tal que $f(k\times x)=k\times f(x)$, donde $k \in \mathbb{Z} \setminus \{0\}$. De esta manera se puede extrapolar fácilmente de un \textit{source input} a infinitos casos al fijar un $x$ y variar $k in \mathbb{N}$. Pero en realidad sigue dejando muchísimos casos sin comprobar y tiene cierta dificultad para confirmar todos los \textit{follow-up inputs} en $P$, debido a la cantidad de comprobaciones a realizar para un mismo \textit{source input}. Por otra parte, si tomamos $k=-1$ tenemos otra MR, que aún siendo más débil que la anterior es más fácil de verificar. Y evidentemente, cualquier fallo que se dé con $f(-x)=-f(x)$ es tan efectivo como uno encontrado con la regla general.\newline
+Suponemos que tenemos una implementación $P$ con una MR tal que $f(k\times x)=k\times f(x)$, donde $k \in \mathbb{Z} \setminus \{0\}$. De esta manera se puede extrapolar fácilmente de un \textit{source input} a infinitos casos al fijar un $x$ y variar $k \in \mathbb{N}$. Pero en realidad, sigue dejando muchísimos casos sin comprobar y tiene cierta dificultad para confirmar todos los \textit{follow-up inputs} en $P$, debido a la cantidad de comprobaciones a realizar para un mismo \textit{source input}. Por otra parte, si tomamos $k=-1$ tenemos otra MR, que aún siendo más débil que la anterior es más fácil de verificar. Y evidentemente, cualquier fallo que se dé con $f(-x)=-f(x)$ es tan efectivo como uno encontrado con la regla general.\newline
 
-Ahora volvamos a nuestra regla I. Para programar este test, vamos a ejecutar por separado $P$ para cada cadena $\mathbf{s}$ y $\mathbf{\Bar{s}}$ y realizaremos la \hyperref[Sec3.1:Suma]{suma bit a bit} de los resultados antes de realizar la medición. La razón por la que esperamos el ket $|\mathbf{1}\rangle$ se debe a que si uno es el complementario binario del otro, su suma binaria es 1 en cada posición.\newline
+Ya nos podemos centrar en nuestra regla I. Para programar este test, vamos a ejecutar por separado $P$ para cada cadena $\mathbf{s}$ y $\mathbf{\Bar{s}}$ y realizaremos la \hyperref[Sec3.1:Suma]{suma bit a bit} de los resultados antes de realizar la medición. La razón por la que esperamos el ket $|\mathbf{1}\rangle$ se debe a que si uno es el complementario binario del otro, su suma binaria es 1 en cada posición.\newline
 
  El circuito utilizado es idéntico a la Figura \ref{Fig:CircuitoBVReglaII}, simplemente $\mathbf{s}1$ cumplirá que $\mathbf{s}\oplus\mathbf{s}1=|\mathbf{1}\rangle$.
 
@@ -128,7 +128,7 @@ Veamos como quedaría el circuito con la concatenación, que incluye este estado
 
  \vspace{50pt} 
 
- Para la implementación de esta regla, hemos reducido la complejidad de las comparaciones, para así evitar un uso excesivo de qubits. Hay que recordar que las matrices que usan los simuladores crecen de manera exponencial, ya que la base de $n$ qubits tiene $2^{n}$ elementos. Además en IBM, el máximo sistema cuántico de acceso libre tiene sólo 7 qubits, por lo que quizás para esta regla no tuviéramos problemas, pero para la regla I y II, seguramente no podríamos ejecutarlos.\newline
+ Para la implementación de esta regla, hemos querido reducir la complejidad de las comparaciones y así evitar un uso excesivo de qubits. Hay que recordar que las matrices que usan los simuladores crecen de manera exponencial, ya que la base de $n$ qubits tiene $2^{n}$ elementos. Además en IBM, el máximo sistema cuántico de acceso libre tiene sólo 7 qubits, por lo que quizás para esta regla no tuviéramos problemas, pero para la regla I y II, seguramente no podríamos ejecutarlos.\newline
 
  Por lo que implementamos $P(f(\mathbf{s}) \circ f(\mathbf{s}'))$, ya que la suma por separado sería análoga a las reglas anteriores. De esta manera el circuito que utilizaremos a la hora de realizar MT será, \newline
 
@@ -184,14 +184,14 @@ Por último vamos a terminar de estudiar el algoritmo de Simon y como vamos a ob
 
  Por lo que ya hemos probado que $\forall\;\mathbf{c}\in \{0,1\}^{n}$, $(S_{\mathbf{c}},\oplus)$ es un grupo.\newline
 
- \textbf{Implementación}: Para la implementación de esta regla hemos creado dos circuitos separados, una vez elegido un $\mathbf{c}\in \{0,1\}^{n}$, hemos creado el oráculo para esa cadena que nosotros hemos tomado $\mathbf{c}=|001\rangle$ para dibujar los circuitos y $\mathbf{c}=|0001\rangle$ para la obtención de soluciones, queríamos evitar que el circuito fuera demasiado grande a la hora de mostrarlo.\newline
+ \textbf{Implementación}: Para la implementación de esta regla hemos creado dos circuitos separados, una vez elegido un $\mathbf{c}\in \{0,1\}^{n}$, hemos creado el oráculo para esa cadena, nosotros hemos tomado $\mathbf{c}=|001\rangle$ para dibujar los circuitos y $\mathbf{c}=|0001\rangle$ para la obtención de soluciones, ya que queríamos evitar que el circuito fuera demasiado grande a la hora de mostrarlo.\newline
 
  El primer circuito, Figura \ref{Fig:CircuitoSimon1}, es el mismo que se presentó en el \hyperref[Sec3.5:Simon]{algoritmo de Simon}, donde obtenemos la cadenas $\mathbf{z}$. El segundo circuito, Figura \ref{Fig:CircuitoSimonR1}, lo que hacemos es aplicar en paralelo el algoritmo y sumar bit a bit ambos resultados antes de medir, de esta manera solo nos quedaría comprobar que los resultados son iguales. Que como se podrá observar en la Figura \ref{FIG:Simon1.resultado}, son idénticos al realizar ambas simulaciones.\newline
 
  
 \textbf{Regla II}: Si simulamos la implementación del algoritmo a una cadena $\mathbf{c}$ y se invierten las cadenas $\mathbf{z}\in S_{\mathbf{c}}$, equivale a aplicar el programa a $\mathbf{c}$ invertida.\newline
 
-Esto se debe a que si permutamos los bits para realizar la inversión tanto en el \textit{source input} como en el \textit{output}, no estamos variando el resultado. Se entiende de manera más sencilla de manera matemática. Sean $M$ la matriz que realiza la inversión, no hay que olvidar que $M=M^{-1}$ y $\mathbf{z} \in S_{\mathbf{c}}$:
+Esto se debe a que si permutamos los bits para realizar la inversión tanto en el \textit{source input} como en el \textit{output}, no estamos variando el resultado. Se entiende de forma más sencilla con una perspectiva más matemática. Sean $M$ la matriz que realiza la inversión, no hay que olvidar que $M=M^{-1}$, y $\mathbf{z} \in S_{\mathbf{c}}$:
 
 \begin{equation}
     \begin{split}
@@ -205,7 +205,7 @@ Esto se puede realizar de esta manera directa debido a que $\oplus$ es un operad
 
 Todas estas simulaciones, así como el código para ambas reglas se pueden encontrar en el \href{https://github.com/rodelanu/TFG/tree/main}{repositorio común}, específicamente en el archivo sobre las reglas del algoritmo de Simon\footnote{\url{https://github.com/rodelanu/TFG/blob/main/3_Simon_Rules.ipynb}}.
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{TFG/imagenes/simonregla.png}
     \caption{Circuito, algoritmo Simon para la regla I con $\mathbf{c}=|001\rangle$}
@@ -213,7 +213,7 @@ Todas estas simulaciones, así como el código para ambas reglas se pueden encon
  \end{figure}
 
  
- \begin{figure}[h]
+ \begin{figure}[H]
     \centering
     \begin{subfigure}[H]{0.48\textwidth}
         \centering
