@@ -33,7 +33,7 @@ Suponemos $P$ la implementación del algoritmo de Deutsch-Jozsa a analizar, veam
 
 Al aplicar el automorfismo $g$, $f \circ g$ no varía el número de 1 y 0 de la imagen y por lo tanto no cambia la característica de la función, por lo que es directo decir que la MR es correcta.\newline
 
-\textbf{Implementación}: Vamos a comparar los resultados entre la simulación $P(f)$ con $P(f\circ g)$. En este caso hemos decidido utilizar un automorfismo particular a la hora de realizar las pruebas. Sea $g: \{0,1\}^{n} \rightarrow \{0,1\}^{n}$ talque aplica la puerta $X$ a cada componente, es decir, $g(\mathbf{x})=\mathbf{1}-\mathbf{x}$ que es el complementario binario de $\mathbf{x}$.\newline
+\textbf{Implementación}: Vamos a comparar los resultados entre la simulación $P(f)$ con $P(f\circ g)$. En este caso hemos decidido utilizar un automorfismo particular a la hora de realizar las pruebas. Sea $g: \{0,1\}^{n} \rightarrow \{0,1\}^{n}$ talque aplica la puerta $X$ a cada componente, es decir, $g(\mathbf{x})=\mathbf{1}-\mathbf{x}$ que es el complementario binario de $\mathbf{x}$. Este será el circuito para la g definida\newline
 
 
 
@@ -43,7 +43,7 @@ Al igual que con la regla I, no se varía la condición de $f$ ya que si esta es
 
 \textbf{Implementación}: Este caso es análogo al anterior, simplemente cambiamos la condición del qubit ancilla le aplicamos una puerta $X$ tras el oráculo.\newline
 
-Es cierto que en repositorio, así como en la programación realizada de acuerdo a MT, consideramos que el resultado de $P$ es un valor binario, esto lo obtenemos haciendo el máximo de los bit obtenidos. Cabe recordar que si una función es balanceada el resultado solo implica que no es $|\mathbf{0}\rangle$, es decir en nuestros bits tendremos al menos un uno, que nos determinará el máximo a 1. Por lo que podríamos concluir que a nivel de programación en MT $P \rightarrow 0$ si es constante y $P \rightarrow 1$ si es balanceada. Las reglas expresadas de forma matemáticamente exacta de acorde en al algoritmo en este documento son equivalentes a la expresadas en el repositorio, tras la transformación explicada en este mismo párrafo. 
+Es cierto que en el repositorio\footnote{\url{https://github.com/rodelanu/TFG/blob/main/1_Deutsch_Jozsa_Rules.ipynb}}, así como en la programación realizada de acuerdo a MT, consideramos que el resultado de $P$ es un valor binario, esto lo obtenemos haciendo el máximo de los bit obtenidos. Cabe recordar que si una función es balanceada el resultado solo implica que no es $|\mathbf{0}\rangle$, es decir en nuestros bits tendremos al menos un uno, que nos determinará el máximo a 1. Por lo que podríamos concluir que a nivel de programación en MT $P \rightarrow 0$ si es constante y $P \rightarrow 1$ si es balanceada. Las reglas expresadas de forma matemáticamente exacta de acorde en al algoritmo en este documento son equivalentes a la expresadas en el repositorio, tras la transformación explicada en este mismo párrafo. 
 
 \section{Bernstein-Vazirani}
 \label{Sec4.2:BV}
@@ -74,13 +74,17 @@ El algoritmo de Bernstein-Vazirani fue el primero presentado como ejemplo al int
 
 Suponemos que tenemos una implementación $P$ con una MR tal que $f(k\times x)=k\times f(x)$, donde $k \in \mathbb{Z} \setminus \{0\}$. De esta manera se puede extrapolar fácilmente de un \textit{source input} a infinitos casos al fijar un $x$ y variar $k in \mathbb{N}$. Pero en realidad sigue dejando muchísimos casos sin comprobar y tiene cierta dificultad para confirmar todos los \textit{follow-up inputs} en $P$, debido a la cantidad de comprobaciones a realizar para un mismo \textit{source input}. Por otra parte, si tomamos $k=-1$ tenemos otra MR, que aún siendo más débil que la anterior es más fácil de verificar. Y evidentemente, cualquier fallo que se dé con $f(-x)=-f(x)$ es tan efectivo como uno encontrado con la regla general.\newline
 
-Ahora volvamos a nuestra regla I. Para programar este test, vamos a ejecutar por separado $P$ para cada cadena $\mathbf{s}$ y $\mathbf{\Bar{s}}$ y realizaremos la \hyperref[Sec3.1:Suma]{suma} de los resultados antes de realizar la medición. Se podría interpelar que la suma puede dar fallos a la hora de probar la corrección, es decir, que si detectamos un fallo este no sea de $P$, si no de la suma realizada a continuación. A partir de ahora supondremos que la suma cuántica es correcta, es más, tras el artículo \textit{Metamorphic testing of oracle quantum programs}\cite{metamorphicAdd:2022} podemos decir que ha sido incluso probada con el uso de estas mismas técnicas. \newline
+Ahora volvamos a nuestra regla I. Para programar este test, vamos a ejecutar por separado $P$ para cada cadena $\mathbf{s}$ y $\mathbf{\Bar{s}}$ y realizaremos la \hyperref[Sec3.1:Suma]{suma bit a bit} de los resultados antes de realizar la medición. La razón por la que esperamos el ket $|\mathbf{1}\rangle$ se debe a que si uno es el complementario binario del otro, su suma binaria es 1 en cada posición.\newline
 
-El circuito obtenido sería: \newline
+ El circuito utilizado es idéntico a la Figura \ref{Fig:CircuitoBVReglaII}, simplemente $\mathbf{s}1$ cumplirá que $\mathbf{s}\oplus\mathbf{s}1=|\mathbf{1}\rangle$.
 
- (FALTA IMAGEN DEL CIRCUITO)\newline
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{TFG/imagenes/BVReglaII.png}
+    \caption{Circuito para la regla II de BV}
+    \label{Fig:CircuitoBVReglaII}
+ \end{figure}
 
-La razón por la que esperamos el ket $|\mathbf{1}\rangle$ se debe a que si uno es el complementario binario del otro, su suma binaria es 1 en cada posición.\newline
 
 \textbf{Regla II}: Sean $\mathbf{s}$ y $\mathbf{s}'$ cadenas binarias de longitud $n$. Entonces $P(\mathbf{s})\oplus P(\mathbf{s}')=\mathbf{s} \oplus \mathbf{s}'$.\newline
 
@@ -89,7 +93,7 @@ La razón por la que esperamos el ket $|\mathbf{1}\rangle$ se debe a que si uno 
 
  Las reglas anteriores han sido obtenidas de forma directa por la naturaleza del problema, donde si el resultado es la cadena con la que hemos generado el oráculo, entonces la suma binaria se debe conservar tanto en el \textit{source input} como en el \textit{output}.\newline
 
- El circuito utilizado es idéntico al que se muestra en la {Figura } que se empleó en el caso particular de esta regla. \newline
+ El circuito utilizado se muestra en la Figura \ref{Fig:CircuitoBVReglaII}. Es el circuito creado para las cadenas $\mathbf{s}=011$ y $\mathbf{s}1=001$, las cuales se generan de manera aleatoria una vez determinada una longitud $n$ que se pasa como parámetro a la función.\newline
 
  \textbf{Regla III}\label{RIII:BV}: Sean $\mathbf{s}$ y $\mathbf{s}'$ cadenas binarias de longitud $n$. Si entendemos la composición como la concatenación de sus oráculos, entonces $P(f(\mathbf{s}) \circ f(\mathbf{s}'))= P(f_{\mathbf{s}}) \oplus P(f_{\mathbf{s}'})$.\newline
 
@@ -100,12 +104,12 @@ La razón por la que esperamos el ket $|\mathbf{1}\rangle$ se debe a que si uno 
 
 Veamos como quedaría el circuito con la concatenación, que incluye este estado:
 
-\vspace{10pt}
+\vspace{20pt}
 
  \begin{center}$\Qcircuit @C=1.5em @R=1em {
  \lstick{|\mathbf{0}\rangle}& \qw {/^{n}} & \gate{H^{\otimes n}} & \qw  & \qw {/^{n}} & \multigate{1}{U_{f_{\mathbf{s}}}} & \qw {/^{n}} & \multigate{1}{U_{f_{\mathbf{s}'}}} & \qw {/^{n}} & \gate{H^{\otimes n}} & \qw {/^{n}} & \meter & \qw \\ \lstick{|0\rangle} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{0}\rangle \end{matrix}} \qw & \gate{H} & \gate{Z} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{1}\rangle \end{matrix}} \qw &\ghost{U_{f}} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{2}\rangle \end{matrix}} \qw &\ghost{U_{f_{\mathbf{s}'}}} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{3}\rangle \end{matrix}} \qw & \qw & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{4}\rangle \end{matrix}} \qw  & \qw & \qw}$ \end{center}
 
- \vspace{30pt}
+ \newpage
 
  Desde aquí podemos desarrollar $|\varphi_{3}\rangle$:
 
@@ -117,20 +121,25 @@ Veamos como quedaría el circuito con la concatenación, que incluye este estado
 
  Con este desarrollo obtenemos directamente la regla III, ya que llegamos exactamente a la misma ecuación desde el circuito definido para $f_{\mathbf{s}\oplus\mathbf{s}'}$, donde $|\varphi_{3}\rangle=|\varphi_{2}'\rangle$ .
 
- \vspace{10pt}
+ \vspace{20pt}
 
  \begin{center}$\Qcircuit @C=1.5em @R=1em {
  \lstick{|\mathbf{0}\rangle}& \qw {/^{n}} & \gate{H^{\otimes n}} & \qw  & \qw {/^{n}} & \multigate{1}{U_{f_{\mathbf{s}\oplus\mathbf{s}'}}} & \qw {/^{n}} & \gate{H^{\otimes n}} & \qw {/^{n}} & \meter & \qw \\ \lstick{|0\rangle} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{0}'\rangle \end{matrix}} \qw & \gate{H} & \gate{Z} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{1}'\rangle \end{matrix}} \qw &\ghost{U_{f_{\mathbf{s}\oplus\mathbf{s}'}}} & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{2}'\rangle \end{matrix}} \qw & \qw & \dstick{\begin{matrix} \Uparrow \\ |\varphi_{3}'\rangle \end{matrix}} \qw  & \qw & \qw}$ \end{center}
 
- \vspace{30pt} 
+ \vspace{50pt} 
 
- Para la implementación de esta regla, hemos reducido la complejidad de las comparaciones, para así evitar un uso excesivo de qubits. Hay que recordar que las matrices que usan los simuladores crecen de manera exponencial, ya que la base de $n$ qubits tiene $2^{n}$ elementos. Además en IBM, el máximo sistema cuántico de acceso libre tiene sólo 7 qubits.\newline
+ Para la implementación de esta regla, hemos reducido la complejidad de las comparaciones, para así evitar un uso excesivo de qubits. Hay que recordar que las matrices que usan los simuladores crecen de manera exponencial, ya que la base de $n$ qubits tiene $2^{n}$ elementos. Además en IBM, el máximo sistema cuántico de acceso libre tiene sólo 7 qubits, por lo que quizás para esta regla no tuviéramos problemas, pero para la regla I y II, seguramente no podríamos ejecutarlos.\newline
 
  Por lo que implementamos $P(f(\mathbf{s}) \circ f(\mathbf{s}'))$, ya que la suma por separado sería análoga a las reglas anteriores. De esta manera el circuito que utilizaremos a la hora de realizar MT será, \newline
 
- (FALTA IMAGEN DEL CIRCUITO)\newline
+ \begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{TFG/imagenes/BVRegla3.png}
+    \caption{Circuito para la regla III de BV}
+    \label{Fig:CircuitoBVReglaIII}
+ \end{figure}
 
- Los circuitos y pruebas realizadas se puede encontrar en el \href{https://github.com/rodelanu/TFG/blob/main/2_Bernstein_Vazirani_Rules.ipynb}{archivo de BV} del \href{https://github.com/rodelanu/TFG}{repositorio común}.
+ Los circuitos y pruebas realizadas se puede encontrar en el archivo de BV\footnote{\url{https://github.com/rodelanu/TFG/blob/main/2_Bernstein_Vazirani_Rules.ipynb}} del \href{https://github.com/rodelanu/TFG}{repositorio común}.
 
  
 \section{Simon}
@@ -177,17 +186,34 @@ Por último vamos a terminar de estudiar el algoritmo de Simon y como vamos a ob
 
  \textbf{Implementación}: Para la implementación de esta regla hemos creado dos circuitos separados, una vez elegido un $\mathbf{c}\in \{0,1\}^{n}$, hemos creado el oráculo para esa cadena que nosotros hemos tomado $\mathbf{c}=|001\rangle$ para dibujar los circuitos y $\mathbf{c}=|0001\rangle$ para la obtención de soluciones, queríamos evitar que el circuito fuera demasiado grande a la hora de mostrarlo.\newline
 
- El primer \hyperref[Fig:CircuitoSimon1]{circuito} es el mismo que se presentó en el \hyperref[Sec3.5:Simon]{algoritmo de Simon}, donde obtenemos la cadenas $\mathbf{z}$. El segundo circuito, Figura \ref{Fig:CircuitoSimonR1}, lo que hacemos es aplicar en paralelo el algoritmo y sumar bit a bit ambos resultados antes de medir, Figura \ref{FIG:Simon1.resultado}, de esta manera solo nos quedaría comprobar que los resultados son iguales. Que como se podrá observar son idéntico al realizar ambas simulaciones.\newline
+ El primer circuito, Figura \ref{Fig:CircuitoSimon1}, es el mismo que se presentó en el \hyperref[Sec3.5:Simon]{algoritmo de Simon}, donde obtenemos la cadenas $\mathbf{z}$. El segundo circuito, Figura \ref{Fig:CircuitoSimonR1}, lo que hacemos es aplicar en paralelo el algoritmo y sumar bit a bit ambos resultados antes de medir, de esta manera solo nos quedaría comprobar que los resultados son iguales. Que como se podrá observar en la Figura \ref{FIG:Simon1.resultado}, son idénticos al realizar ambas simulaciones.\newline
 
- \begin{figure}[H]
+ 
+\textbf{Regla II}: Si simulamos la implementación del algoritmo a una cadena $\mathbf{c}$ y se invierten las cadenas $\mathbf{z}\in S_{\mathbf{c}}$, equivale a aplicar el programa a $\mathbf{c}$ invertida.\newline
+
+Esto se debe a que si permutamos los bits para realizar la inversión tanto en el \textit{source input} como en el \textit{output}, no estamos variando el resultado. Se entiende de manera más sencilla de manera matemática. Sean $M$ la matriz que realiza la inversión, no hay que olvidar que $M=M^{-1}$ y $\mathbf{z} \in S_{\mathbf{c}}$:
+
+\begin{equation}
+    \begin{split}
+    \langle \mathbf{z},\mathbf{c} \rangle &= z_{1}c_{1} \oplus z_{2}c_{2} \oplus ...  \oplus z_{n}c_{n} \\ &= z_{n}c_{n} \oplus ... \oplus z_{2}c_{2} \oplus z_{1}c_{1} \\ &= \langle M\mathbf{z}, M\mathbf{c} \rangle = 0 \Rightarrow M\mathbf{z} \in S_{M\mathbf{c}}
+    \end{split}
+\end{equation}\newline
+
+Esto se puede realizar de esta manera directa debido a que $\oplus$ es un operador conmutativo, por lo que incluso podríamos ampliar a que $(S_{\mathbf{c}},\oplus)$ es un grupo abeliano. Esto probaría la validez matemática de esta MR para el algoritmo de Simon. \newline
+
+\textbf{Implementación}: simulamos el \hyperref[Fig:CircuitoSimon1]{algoritmo original} sobre $\mathbf{c}$ y $M\mathbf{c}$, invirtiendo una de las listas de cadenas obtenidas para comparar resultados. Estos pueden ser representados directamente en forma de listas, tal y como está en el documento o con la representación en histograma tras hacer la modificación.\newline
+
+Todas estas simulaciones, así como el código para ambas reglas se pueden encontrar en el \href{https://github.com/rodelanu/TFG/tree/main}{repositorio común}, específicamente en el archivo sobre las reglas del algoritmo de Simon\footnote{\url{https://github.com/rodelanu/TFG/blob/main/3_Simon_Rules.ipynb}}.
+
+\begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{TFG/imagenes/simonregla.png}
+    \includegraphics[width=0.9\textwidth]{TFG/imagenes/simonregla.png}
     \caption{Circuito, algoritmo Simon para la regla I con $\mathbf{c}=|001\rangle$}
     \label{Fig:CircuitoSimonR1}
  \end{figure}
 
  
- \begin{figure}[H]
+ \begin{figure}[h]
     \centering
     \begin{subfigure}[H]{0.48\textwidth}
         \centering
@@ -205,19 +231,3 @@ Por último vamos a terminar de estudiar el algoritmo de Simon y como vamos a ob
         \caption{Resultados de la simulación del algoritmo Simon en el circuito original y en el circuito con la regla I implementada, para la cadena $\mathbf{c}=|0001\rangle$. }
     \label{FIG:Simon1.resultado}
  \end{figure}
-
-\textbf{Regla II}: Si simulamos la implementación del algoritmo a una cadena $\mathbf{c}$ y se invierten las cadenas $\mathbf{z}\in S_{\mathbf{c}}$, equivale a aplicar el programa a $\mathbf{c}$ invertida.\newline
-
-Esto se debe a que si permutamos los bits para realizar la inversión tanto en el \textit{source input} como en el \textit{output}, no estamos variando el resultado. Se entiende de manera más sencilla de manera matemática. Sean $M$ la matriz que realiza la inversión, no hay que olvidar que $M=M^{-1}$ y $\mathbf{z} \in S_{\mathbf{c}}$:
-
-\begin{equation}
-    \begin{split}
-    \langle \mathbf{z},\mathbf{c} \rangle &= z_{1}c_{1} \oplus z_{2}c_{2} \oplus ...  \oplus z_{n}c_{n} \\ &= z_{n}c_{n} \oplus ... \oplus z_{2}c_{2} \oplus z_{1}c_{1} \\ &= \langle M\mathbf{z}, M\mathbf{c} \rangle = 0 \Rightarrow M\mathbf{z} \in S_{M\mathbf{c}}
-    \end{split}
-\end{equation}\newline
-
-Esto se puede realizar de esta manera directa debido a que $\oplus$ es un operador conmutativo, por lo que incluso podríamos ampliar a que $(S_{\mathbf{c}},\oplus)$ es un grupo abeliano. Esto probaría la validez matemática de esta MR para el algoritmo de Simon. \newline
-
-\textbf{Implementación}: simulamos el \hyperref[Fig:CircuitoSimon1]{algoritmo original} sobre $\mathbf{c}$ y $M\mathbf{c}$, invirtiendo una de las listas de cadenas obtenidas para comparar resultados. Estos pueden ser representados directamente en forma de listas, tal y como está en el documento o con la representación en histograma tras hacer la modificación.\newline
-
-Todas estas simulaciones, así como el código para ambas reglas se pueden encontrar en el \href{https://github.com/rodelanu/TFG/tree/main}{repositorio común}, específicamente en el archivo sobre las \href{https://github.com/rodelanu/TFG/blob/main/3_Simon_Rules.ipynb}{reglas del algoritmo de Simon}.
