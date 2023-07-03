@@ -3,7 +3,7 @@
 \chapter{Antecedentes}
 \label{Cap2:Antecedentes}
 
-El principal objetivo de este apartado es exponer brevemente al lector las bases, tanto matemáticas como físicas, para comprender y trabajar con propiedades metamórficas, especialmente su aplicación a la computación cuántica. Para lograrlo, haremos un breve repaso a conceptos básicos de álgebra lineal en matemáticas, los postulados de la mecánica cuántica y una introducción a la computación cuántica y el testing metamórfico. 
+El principal objetivo de este apartado es exponer brevemente al lector las bases, tanto matemáticas como físicas, para comprender y trabajar con propiedades metamórficas, especialmente su aplicación a la computación cuántica. Para lograrlo, haremos un breve repaso a conceptos básicos de álgebra lineal en matemáticas, los postulados de la mecánica cuántica y una introducción a la computación cuántica y el \textit{testing} metamórfico. 
 
 \vspace{5pt}
 Esta sección, que podría ser una simple continuación de la introducción, será más extensa de lo que se podría esperar. Esto se debe a que, para trabajar de forma efectiva el tema a tratar, hemos necesitado adquirir un conjunto de conocimientos considerable.
@@ -436,7 +436,7 @@ Informalmente entendemos como propiedad metamórfica, en adelante MR del inglés
 
 La definición que aprendemos cuando se empieza a ver trigonometría, es que el seno es la proporción entre el cateto opuesto y la hipotenusa en un triángulo rectángulo. Teniendo esta imagen la cabeza es muy fácil darse cuenta que $sin(x)=sin(x + 2\pi)=sin(\pi-x)$. Estas son dos propiedades metamórficas de la función seno. \newline
 
-Veamos ahora que es lo que consideramos formalmente una MR y como llegamos a los pasos de testing metamórfico, en adelante MT del inglés \textit{metamorphic testing} \cite{AR:MTmain:2008}:\newline
+Veamos ahora que es lo que consideramos formalmente una MR y como llegamos a los pasos de \textit{testing} metamórfico, en adelante MT del inglés \textit{metamorphic testing} \cite{AR:MTmain:2008}:\newline
 
 \begin{itemize}
     \item \textbf{Relación metamórfica}, MR: Sea $f: X \rightarrow Y$ una función. Se considera que $\mathscr{R} \subseteq X^{n} \times Y^{n}$ es una \textbf{regla metamórfica} si es una relación entre una secuencia de entrada $\langle x_{1},x_{2},...,x_{n}\rangle$ con $n>1$ y sus salidas correspondientes $\langle f(x_{1}),f(x_{2}),...,f(x_{n})\rangle$. Es decir, es una propiedad necesaria de f.
@@ -458,7 +458,7 @@ Para finalizar con esta introducción vamos a revisar brevemente un par de venta
 
 \textbf{Ventajas}:
 \begin{itemize}
-    \item \textbf{Simplicidad}. El concepto e interpretación de una MR es bastante simple en comparación con otros conceptos que se utilizan dentro del campo del testing. Se ha visto en estudios, que incluso gente con poca experiencia, podrían utilizar estas técnicas en relativamente poco tiempo de forma efectiva \cite{AR:MTmain:2008}\cite{Note:MT55}\cite{Note:MT73}.
+    \item \textbf{Simplicidad}. El concepto e interpretación de una MR es bastante simple en comparación con otros conceptos que se utilizan dentro del campo del \textit{testing}. Se ha visto en estudios, que incluso gente con poca experiencia, podrían utilizar estas técnicas en relativamente poco tiempo de forma efectiva \cite{AR:MTmain:2008}\cite{Note:MT55}\cite{Note:MT73}.
     \item \textbf{Facilidad en la implementación}. Si partimos de la ventaja anterior como es la simplicidad de la definición, podemos continuar que la implementación de este test es prácticamente seguir los pasos explicados en la definición de \hyperref[Def:MT]{MT}.
 \end{itemize}
 
