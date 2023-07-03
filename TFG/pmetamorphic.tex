@@ -7,7 +7,7 @@ En este último capítulo antes de la conclusión queremos presentar al lector c
 
 \section{Deutsch-Jozsa}
 \label{Sec4.1:DJ}
-En esta sección vamos a estudiar que reglas hemos obtenido del \hyperref[Sec3.3:Deutsch-Jozsa]{algoritmo de Deutsch-Jozsa} y como las hemos implementado en nuestro \href{https://github.com/rodelanu/TFG/blob/main/1_Deutsch_Jozsa_Rules.ipynb}{repositorio}. Recordamos brevemente el problema y el algoritmo obtenido:\newline
+En esta sección vamos a estudiar qué reglas hemos obtenido del \hyperref[Sec3.3:Deutsch-Jozsa]{algoritmo de Deutsch-Jozsa} y cómo las hemos implementado en nuestro \href{https://github.com/rodelanu/TFG/blob/main/1_Deutsch_Jozsa_Rules.ipynb}{repositorio}. Recordamos brevemente el problema y el algoritmo obtenido:\newline
 
 \textbf{\hyperref[P:DJ]{Problema}}: Dada una función $f:\{0,1\}^{n} \rightarrow\{0,1\}$ balanceada o constante, la cual no podemos observar su definición. Queremos determinar si esta función es constante o balanceada.\newline
 
@@ -26,7 +26,7 @@ En esta sección vamos a estudiar que reglas hemos obtenido del \hyperref[Sec3.3
 
 \textbf{Observación}: No hay que olvidar la importancia de tener como hipótesis que $f$ es constante o balanceada. Pero en este caso, debido a que esta va a formar parte de nuestro \textit{source input}, podemos asegurar esta propiedad. \newline
 
-Suponemos $P$ la implementación del algoritmo de Deutsch-Jozsa a analizar, veamos que reglas hemos obtenido y como las vamos a aplicar: \newline
+Suponemos $P$ la implementación del algoritmo de Deutsch-Jozsa a analizar, veamos qué reglas hemos obtenido y su implementación: \newline
 
 
 \textbf{Regla I}: Sea $f:\{0,1\}^{n} \rightarrow\{0,1\}$ la función a analizar definida en problema y sea $g : \{0,1\}^{n} \rightarrow \{0,1\}^{n}$ un automorfismo. Entonces, $P(f)=|\mathbf{0}\rangle$ si y solo si $P(f\circ g)=|\mathbf{0}\rangle$.\newline
@@ -41,7 +41,7 @@ Al aplicar el automorfismo $g$, $f \circ g$ no varía el número de 1 y 0 de la 
 
 Al igual que con la regla I, no se varía la condición de $f$ ya que si esta es balanceada mantiene el número de 0 y 1, ya que tienen el mismo. Y si fuera constante, simplemente cambiaría el valor de la constante.\newline
 
-\textbf{Implementación}: Este caso es análogo al anterior, simplemente cambiamos la condición del qubit ancilla le aplicamos una puerta $X$ tras el oráculo.\newline
+\textbf{Implementación}: Este caso es análogo al anterior, simplemente cambiamos la condición del qubit ancilla: le aplicamos una puerta $X$ tras el oráculo.\newline
 
 Es cierto que en el repositorio\footnote{\url{https://github.com/rodelanu/TFG/blob/main/1_Deutsch_Jozsa_Rules.ipynb}}, así como en la programación realizada de acuerdo a MT, consideramos que el resultado de $P$ es un valor binario, esto lo obtenemos haciendo el máximo de los bit obtenidos. Cabe recordar que si una función es balanceada el resultado solo implica que no es $|\mathbf{0}\rangle$, es decir en nuestros bits tendremos al menos un uno, que nos determinará el máximo a 1. Por lo que podríamos concluir que a nivel de programación en MT $P \rightarrow 0$ si es constante y $P \rightarrow 1$ si es balanceada. Las reglas expresadas de forma matemáticamente exacta de acorde en al algoritmo en este documento son equivalentes a la expresadas en el repositorio, tras la transformación explicada en este mismo párrafo. 
 
@@ -70,7 +70,7 @@ El algoritmo de Bernstein-Vazirani fue el primero presentado como ejemplo al int
 
  La respuesta a esta pregunta es sí, ya que aunque una regla más general cubre muchos más casos, esto no nos asegura que encontrar un fallo sea más fácil. Sin embargo, puede ser incluso más complejo programar un regla general. Es cierto que este caso es muy simple y la comprobación para es directa, ya que queremos obtener el ket $|\mathbf{1}\rangle$. \newline
 
- El ejemplo básico que se usa para explicar esta diferencia es el siguiente\cite{AR:MTmain:2008}:\newline
+ El ejemplo básico que se usa para explicar esta diferencia es el siguiente \cite{AR:MTmain:2008}:\newline
 
 Suponemos que tenemos una implementación $P$ con una MR tal que $f(k\times x)=k\times f(x)$, donde $k \in \mathbb{Z} \setminus \{0\}$. De esta manera se puede extrapolar fácilmente de un \textit{source input} a infinitos casos al fijar un $x$ y variar $k \in \mathbb{N}$. Pero en realidad, sigue dejando muchísimos casos sin comprobar y tiene cierta dificultad para confirmar todos los \textit{follow-up inputs} en $P$, debido a la cantidad de comprobaciones a realizar para un mismo \textit{source input}. Por otra parte, si tomamos $k=-1$ tenemos otra MR, que aún siendo más débil que la anterior es más fácil de verificar. Y evidentemente, cualquier fallo que se dé con $f(-x)=-f(x)$ es tan efectivo como uno encontrado con la regla general.\newline
 
@@ -89,7 +89,7 @@ Ya nos podemos centrar en nuestra regla I. Para programar este test, vamos a eje
 \textbf{Regla II}: Sean $\mathbf{s}$ y $\mathbf{s}'$ cadenas binarias de longitud $n$. Entonces $P(\mathbf{s})\oplus P(\mathbf{s}')=\mathbf{s} \oplus \mathbf{s}'$.\newline
 
  Se puede entender que esta es la generalización de la \hyperref[R:BV:1]{regla I}, si bien es cierto podría incluso generalizarse para 2 cadenas que no tengan que tener la misma longitud o incluso se podría interpretar como $P(f_{\mathbf{s}
-}\oplus f_{\mathbf{s}'})=P(f_{\mathbf{s}})\oplus P(f_{\mathbf{s}'})$, relacionando así dos \textit{output} del \textit{source input} con uno del \textit{follow-up input}.\newline
+}\oplus f_{\mathbf{s}'})=P(f_{\mathbf{s}})\oplus P(f_{\mathbf{s}'})$, relacionando así dos \textit{output} del \textit{source input} con uno del \textit{follow-up output}.\newline
 
  Las reglas anteriores han sido obtenidas de forma directa por la naturaleza del problema, donde si el resultado es la cadena con la que hemos generado el oráculo, entonces la suma binaria se debe conservar tanto en el \textit{source input} como en el \textit{output}.\newline
 
@@ -164,10 +164,10 @@ Por último vamos a terminar de estudiar el algoritmo de Simon y como vamos a ob
 
  \textbf{Regla I}: Al efectuar la suma bit a bit con los posibles resultados del programa que resuelve el algoritmo de Simon, obtenemos de nuevo el conjunto inicial. Es decir, forma un grupo con la suma bit a bit. \newline
 
- Vamos a comprobar que es cierto que forma un grupo con esa operación interna, de esta manera ya habremos fundamentado de forma teórica la base de esta regla. Sea $S$ el conjunto de las $\mathbf{z}$ cadenas que se puede obtener con la implementación $P$ del algoritmo de Simon para una cierta cadena $\mathbf{c}$ y $\oplus$ la suma bit a bit:
+ Vamos a comprobar que es cierto que forma un grupo con esa operación interna, de esta manera ya habremos fundamentado de forma teórica la base de esta regla. Sea $S_{\mathbf{c}}$ el conjunto de las $\mathbf{z}$ cadenas que se puede obtener con la implementación $P$ del algoritmo de Simon para una cierta cadena $\mathbf{c}$ y $\oplus$ la suma bit a bit:
 
  \begin{itemize}
-     \item $\mathbf{S_{\mathbf{c}} \neq \varnothing}$: Veamos que $\mathbf{0} \in S_{\mathbf{c}}$, $\forall\: \mathbf{c} \in \{0,1\}^{n}$. Sea $\mathbf{c} \in \{0,1\}^{n}$, $\langle\mathbf{0},\mathbf{c}\rangle=0 \Rightarrow \mathbf{0} \in S_{\mathbf{c}}$
+     \item $S_{\mathbf{c}} \neq \varnothing$: Veamos que $\mathbf{0} \in S_{\mathbf{c}}$, $\forall\: \mathbf{c} \in \{0,1\}^{n}$. Sea $\mathbf{c} \in \{0,1\}^{n}$, $\langle\mathbf{0},\mathbf{c}\rangle=0 \Rightarrow \mathbf{0} \in S_{\mathbf{c}}$
 
      \item $\oplus$ \textbf{es una operación interna}: Sean $\mathbf{c} \in \{0,1\}^{n}$ y $\mathbf{z}$, $\mathbf{z}' \in S_{\mathbf{c}}$. Tenemos que comprobar que $\mathbf{z} \oplus\mathbf{z}' \in S_{\mathbf{c}}$:
 
@@ -177,7 +177,7 @@ Por último vamos a terminar de estudiar el algoritmo de Simon y como vamos a ob
     
      \item \textbf{Elemento neutro}: Veamos que $\mathbf{0}$ es elemento neutro, ya se probó en $S_{\mathbf{c}} \neq \varnothing$ que $\mathbf{0} \in S_{\mathbf{c}}$, $ \forall \:\mathbf{c} \in \{0,1\}^{n}$. Dada $\mathbf{z} \in S_{\mathbf{c}}$, $\mathbf{z} \oplus \mathbf{0} = \mathbf{z} = \mathbf{0} \oplus \mathbf{z}$, se verifica $\forall \:\mathbf{z} \in \{0,1\}^{n}$.
 
-     \item \textbf{Elemento inverso}: Queremos ver que si $\mathbf{z} \in S$ existe $\mathbf{z}^{-1} \in S$ tal que $\mathbf{z}\oplus\mathbf{z}^{-1}=\mathbf{0}$. Por las propiedades de la suma bit a bit, sabemos que $\mathbf{z}$ es su propio inverso, es decir $\mathbf{z}^{-1}=\mathbf{z}$, debido a que para cada posición de la cadena ambos son $0$ o $1$ y la suma del bit, siempre es $0$. Por lo que, si $\mathbf{z} \in S \Rightarrow \mathbf{z}^{-1} = \mathbf{z} \in S$ tal que $\mathbf{z}\oplus\mathbf{z}^{-1}=\mathbf{z}\oplus\mathbf{z}=\mathbf{0}$.
+     \item \textbf{Elemento inverso}: Queremos ver que si $\mathbf{z} \in S_{\mathbf{c}}$ existe $\mathbf{z}^{-1} \in S_{\mathbf{c}}$ tal que $\mathbf{z}\oplus\mathbf{z}^{-1}=\mathbf{0}$. Por las propiedades de la suma bit a bit, sabemos que $\mathbf{z}$ es su propio inverso, es decir $\mathbf{z}^{-1}=\mathbf{z}$, debido a que para cada posición de la cadena ambos son $0$ o $1$ y la suma del bit, siempre es $0$. Por lo que, si $\mathbf{z} \in S_{\mathbf{c}} \Rightarrow \mathbf{z}^{-1} = \mathbf{z} \in S_{\mathbf{c}}$ tal que $\mathbf{z}\oplus\mathbf{z}^{-1}=\mathbf{z}\oplus\mathbf{z}=\mathbf{0}$.
 
      \item \textbf{Asociatividad}: Sean $\mathbf{z}_{1}, \mathbf{z}_{2}, \mathbf{z}_{3} \in S_{\mathbf{c}}$, $(\mathbf{z}_{1}\oplus \mathbf{z}_{2}) \oplus \mathbf{z}_{3} = \mathbf{z}_{1} \oplus( \mathbf{z}_{2} \oplus \mathbf{z}_{3})$ al ser $\oplus$ asociativa entonces se cumple la igualdad anterior.
  \end{itemize}
@@ -203,7 +203,9 @@ Esto se puede realizar de esta manera directa debido a que $\oplus$ es un operad
 
 \textbf{Implementación}: simulamos el \hyperref[Fig:CircuitoSimon1]{algoritmo original} sobre $\mathbf{c}$ y $M\mathbf{c}$, invirtiendo una de las listas de cadenas obtenidas para comparar resultados. Estos pueden ser representados directamente en forma de listas, tal y como está en el documento o con la representación en histograma tras hacer la modificación.\newline
 
-Todas estas simulaciones, así como el código para ambas reglas se pueden encontrar en el \href{https://github.com/rodelanu/TFG/tree/main}{repositorio común}, específicamente en el archivo sobre las reglas del algoritmo de Simon\footnote{\url{https://github.com/rodelanu/TFG/blob/main/3_Simon_Rules.ipynb}}.
+Todas estas simulaciones, así como el código para ambas reglas se pueden encontrar en el \href{https://github.com/rodelanu/TFG/tree/main}{repositorio común}, específicamente en el archivo sobre las reglas del algoritmo de Simon\footnote{\url{https://github.com/rodelanu/TFG/blob/main/3_Simon_Rules.ipynb}}.\newline
+
+Para finalizar, habría que destacar que, tras realizar las pruebas implementadas, los resultado obtenidos han sido los esperados en todas las reglas propuestas en este texto.
 
 \begin{figure}[H]
     \centering

@@ -3,9 +3,9 @@
 \chapter{Algoritmos cuánticos}
 \label{Cap3:Algoritmos}
 
-El siguiente paso en este camino hacia la unión entre la computación cuántica y el \textit{testing} metamórfico es la creación de algoritmos o programas cuánticos que nos ayuden a resolver problemas propuestos o avanzar. \newline
+El siguiente paso en este camino hacia la unión entre la computación cuántica y el \textit{testing} metamórfico es la creación de algoritmos o programas cuánticos que nos ayuden a resolver problemas propuestos. \newline
 
-Todo el desarrollo de estos algoritmos se pueden encontrar en los libros principales\cite{B:Nielsen:2002}\cite{B:QuantumScientist:2008}. A continuación, presentaremos todos los algoritmos finales que nos permitan alcanzar nuestros objetivos. Sin embargo, solo vamos a mostrar el proceso completo de creación del algoritmo de Deutsch por su simplicidad. Esto se debe a que, para alcanzar nuestro objetivo, debemos realizar modificaciones y cálculos en nuestros algoritmos hasta encontrar la combinación correcta de puertas que nos permita resolverlo.\newline
+Todo el desarrollo de estos algoritmos se pueden encontrar en los libros principales \cite{B:Nielsen:2002}\cite{B:QuantumScientist:2008}. A continuación, presentaremos todos los algoritmos finales que nos permitan alcanzar nuestros objetivos. Sin embargo, solo vamos a mostrar el proceso completo de creación del algoritmo de Deutsch por su simplicidad. Esto se debe a que, para alcanzar nuestro objetivo, debemos realizar modificaciones y cálculos en nuestros algoritmos hasta encontrar la combinación correcta de puertas que nos permita resolverlo.\newline
 
 Esta sección seguirá prácticamente la misma estructura para cada apartado. Comenzará con una introducción, seguida de la exposición del problema a resolver. Luego presentaremos el algoritmo que resuelve el problema y su creación en el caso de Deutsch, además de las pruebas realizadas. Es importante recordar que toda la programación realizada con estos algoritmos se encuentra en el repositorio de GitHub \url{https://github.com/sinugarc/TFG.git}
 
@@ -15,7 +15,7 @@ Esta sección seguirá prácticamente la misma estructura para cada apartado. Co
 
  \textbf{Problema 1}: Dadas dos cadenas binarias de igual longitud, queremos obtener su suma bit a bit. Esta operación se utilizará posteriormente y se toma $\oplus$ como notación. \newpage
 
- La implementación de este problema es muy simple, bastará con incluir tantos bit ancilla como longitud tenga la cadena para almacenar el resultado. De esta manera nos aseguramos que no se modifiquen los valores originales de entrada. Bastará con utilizar la puerta $CNOT$ para ir modificando los valores ancilla correspondientes, dando lugar en los valores ancilla al resultado de la suma bit a bit de ambas cadenas.\newline
+ La implementación de este problema es muy simple, bastará con incluir tantos qubit ancilla como longitud tenga la cadena para almacenar el resultado. De esta manera nos aseguramos que no se modifiquen los valores originales de entrada. Bastará con utilizar la puerta $CNOT$ para ir modificando los valores ancilla correspondientes, dando lugar en los valores ancilla al resultado de la suma bit a bit de ambas cadenas.\newline
 
  \begin{figure}[H]
     \centering
@@ -37,7 +37,7 @@ Esta sección seguirá prácticamente la misma estructura para cada apartado. Co
     \label{FIG:SumaNat}
  \end{figure}
 
-Aquí se puede apreciar la suma completa, las puertas $X$ antes de las primera barrera codifican las cadenas binarias y luego se sigue el procedimiento explicado, excepto por 2 casos. El primero es que la primera puerta $CCNOT$ no está, esto se debe a que no es necesaria ya que $q_{9}$ se inicializa en 0, y por lo tanto la puerta no realizaría ningún cambio sobre $q_{8}$. El segundo es la inversión en la medición de los qubits, esta decisión se debe a una característica que tiene Qiskit con los qubits, en especial con la base que utiliza. De esta manera nos aseguramos el orden de los bits correctos, como se puede ver en el documento del repositorio. Esta peculiaridad se estudiará más a fondo con el \hyperref[A:DJ]{algoritmo de Deutsch-Jozsa}.\newline
+Aquí se puede apreciar la suma completa, las puertas $X$ antes de las primera barrera codifican las cadenas binarias y luego se sigue el procedimiento explicado, excepto por 2 casos. El primero es que la primera puerta $CCNOT$ no está, esto se debe a que no es necesaria ya que $anc_{3}$ se inicializa en 0, y por lo tanto la puerta no realizaría ningún cambio sobre $anc_{2}$. El segundo es la inversión en la medición de los qubits, esta decisión se debe a una característica que tiene Qiskit con los qubits, en especial con la base que utiliza. De esta manera nos aseguramos el orden de los bits correctos, como se puede ver en el documento del repositorio. Esta peculiaridad se estudiará más a fondo con el \hyperref[A:DJ]{algoritmo de Deutsch-Jozsa}.\newline
 
 \textbf{Simulaciones}: La simulación y código se encuentran en el repositorio\footnote{\url{https://github.com/sinugarc/TFG/blob/main/SumaNat.ipynb}}.
 
@@ -45,7 +45,7 @@ Aquí se puede apreciar la suma completa, las puertas $X$ antes de las primera b
 \section{Deutsch}
 \label{Sec3.2:Deutsch}
 
- El algoritmo de Deutsch\cite{B:QuantumScientist:2008} fue propuesto por David Deutsch en 1985, siendo este uno de los primeros algoritmos propuestos y en sí, el que se podría entender como uno de los problema más simples. Sea $f:\{0,1\}\rightarrow\{0,1\}$, diremos que $f$ es \textbf{balanceada} si $f(0)\neq f(1)$ y diremos que es \textbf{constante} si $f(0)=f(1)$. \newline
+ El algoritmo de Deutsch \cite{B:QuantumScientist:2008} fue propuesto por David Deutsch en 1985, siendo este uno de los primeros algoritmos propuestos y en sí, el que se podría entender como uno de los problemas más simples. Sea $f:\{0,1\}\rightarrow\{0,1\}$, diremos que $f$ es \textbf{balanceada} si $f(0)\neq f(1)$ y diremos que es \textbf{constante} si $f(0)=f(1)$. \newline
 
  \textbf{Problema}: Dada una función $f:\{0,1\}\rightarrow\{0,1\}$ balanceada o constante, la cual no podemos observar su definición. Queremos determinar si esta función es constante o balanceada.\newline
 
@@ -157,10 +157,10 @@ De aquí podemos observar, que sin importar donde hagamos la medición, el resul
 Ahora iremos directamente a $|\varphi_{2}\rangle$ :
 
 \begin{equation}
-    |\varphi_{2}\rangle=|x\rangle \left[ \dfrac{|0\otimes f(x)\rangle - |1\otimes f(x)\rangle}{\sqrt{2}} \right] = \begin{cases} |x\rangle \:  \left[ \dfrac{|0\rangle-|1\rangle}{\sqrt{2}}\right] \;\; si \: f(x) = 0 \\ \\ |x\rangle \: \left[ \dfrac{|0\rangle-|1\rangle}{\sqrt{2}} \right] \;\; si \: f(x) = 1 \end{cases}
-\end{equation}\newline
+    |\varphi_{2}\rangle=|x\rangle \left[ \dfrac{|0\oplus f(x)\rangle - |1\oplus f(x)\rangle}{\sqrt{2}} \right] = \begin{cases} |x\rangle \:  \left[ \dfrac{|0\rangle-|1\rangle}{\sqrt{2}}\right] \;\; si \: f(x) = 0 \\ \\ -|x\rangle \: \left[ \dfrac{|0\rangle-|1\rangle}{\sqrt{2}} \right] \;\; si \: f(x) = 1 \end{cases}
+\end{equation}
 
-Esto lo podemo resumir como:
+Esto lo podemos resumir como:
 
 \begin{equation}
     |\varphi_{2}\rangle = (-1)^{f(x)} \;|x\rangle \; \left[ \dfrac{|0\rangle-|1\rangle}{\sqrt{2}}\right]
@@ -193,11 +193,11 @@ Analizamos ahora todos los estados $|\varphi_{i}\rangle$:
     
     Hemos obtenido este resultado substituyendo $|x\rangle$ en el la ecuación 3.3. Pero veamos que ocurre separando $(-1)^{f(0)}\:|0\rangle + (-1)^{f(1)}\:|1\rangle$ según nuestras posibilidades:
     \begin{itemize}
-        \item $f$ es constante: $\dfrac{(-1)^{f(0)}\:|0\rangle + (-1)^{f(1)}\:|1\rangle}{\sqrt{2}} = (\pm 1)\left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right]$
+        \item $f$ es constante: $\dfrac{(-1)^{f(0)}\:|0\rangle + (-1)^{f(1)}\:|1\rangle}{\sqrt{2}} = (\pm 1)\left[ \dfrac{|0\rangle + |1\rangle}{\sqrt{2}}\right]$
 
         \vspace{5pt}
         
-        \item $f$ es balanceada: $\dfrac{(-1)^{f(0)}\:|0\rangle + (-1)^{f(1)}\:|1\rangle}{\sqrt{2}} = (\pm 1)\left[ \dfrac{|0\rangle + |1\rangle}{\sqrt{2}}\right]$
+        \item $f$ es balanceada: $\dfrac{(-1)^{f(0)}\:|0\rangle + (-1)^{f(1)}\:|1\rangle}{\sqrt{2}} = (\pm 1)\left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right]$
 
     \end{itemize}
 
@@ -219,7 +219,7 @@ Por lo que hemos conseguido nuestro objetivo. Tras una única evaluación de $f$
 
 \section{Deutsch-Jozsa}
 \label{Sec3.3:Deutsch-Jozsa}
- El algoritmo de Deutsch-Jozsa\cite{B:QuantumScientist:2008} es una generalización del algoritmo de Deutsch del apartado anterior, pero ahora trabajamos con $f:\{0,1\}^{n} \rightarrow\{0,1\}$. El domino se puede entender como los números escrito en binario de 0 a $2^{n}-1$. En este caso vamos a redefinir los conceptos anteriores:
+ El algoritmo de Deutsch-Jozsa \cite{B:QuantumScientist:2008} es una generalización del algoritmo de Deutsch del apartado anterior, pero ahora trabajamos con $f:\{0,1\}^{n} \rightarrow\{0,1\}$. El domino se puede entender como los números escrito en binario de 0 a $2^{n}-1$. En este caso vamos a redefinir los conceptos anteriores:
 
  \begin{itemize}
      \item Diremos que $f$ es \textbf{constante} si todo el domino va a 0 ó a 1.
@@ -255,7 +255,7 @@ Por lo que hemos conseguido nuestro objetivo. Tras una única evaluación de $f$
 
  Antes de analizar los estados en cada $|\varphi_{i}\rangle$, vamos a estudiar que ocurre cuando tenemos la puerta $H^{\otimes n}$ y como se comporta sobre los diferentes estados, así como la notación que utilizamos, ya que esta será necesaria en el análisis de los $|\varphi_{i}\rangle$. \newline
 
- El estudio sobre las características de $H^{\otimes n}$ se pueden estudiar en profundidad en \textit{Quantum computing for computer scientists}\cite{B:QuantumScientist:2008}, aquí resumiremos los resultados principales que nos van a permitir profundizar en los circuitos cuánticos, ya que la aplicación de esta puerta es muy común.\newline
+ El estudio sobre las características de $H^{\otimes n}$ se pueden estudiar en profundidad en \textit{Quantum computing for computer scientists} \cite{B:QuantumScientist:2008}, aquí resumiremos los resultados principales que nos van a permitir profundizar en los circuitos cuánticos, ya que la aplicación de esta puerta es muy común.\newline
 
  Antes de meternos en $H^{\otimes n}$, vamos a definir un producto interno:
 
@@ -298,7 +298,7 @@ Por lo que hemos conseguido nuestro objetivo. Tras una única evaluación de $f$
      H^{\otimes n}|\mathbf{y}\rangle=H^{\otimes n}[-,\mathbf{y}]=\dfrac{1}{\sqrt{2^{n}}}\sum_{\mathbf{x} \in \{0,1\}^{n}} (-1)^{\langle\mathbf{x},\mathbf{y}\rangle}|\mathbf{x}\rangle
  \end{equation}
  
- Ahora ya si que vamos a observar los estados que se producen en los distintos momentos del circuito:
+ Ahora ya sí que vamos a observar los estados que se producen en los distintos momentos del circuito:
 
  \begin{itemize}
      \item $\mathbf{|\varphi_{0}\rangle} = |\mathbf{0},1\rangle$
@@ -313,7 +313,7 @@ Por lo que hemos conseguido nuestro objetivo. Tras una única evaluación de $f$
 
     \vspace{5pt}
 
-    \item Ahora tenemos que superponer la superposición, pero en este caso se aplica sobre otros estados $|\mathbf{z}\rangle$:
+    \item Ahora realizamos la superposición, $H^{\otimes n}$, sobre una superposición de estados $|\mathbf{x}\rangle$ distintos. Así finalizamos:
 
     \begin{equation}\label{Eq:phi3:DJ}
         \begin{split}\mathbf{|\varphi_{3}\rangle} &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}\sum_{\mathbf{z} \in \{0,1\}^{n}}(-1)^{\langle\mathbf{z},\mathbf{x}\rangle}|\mathbf{z}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right] \\ &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}\sum_{\mathbf{z} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}(-1)^{\langle\mathbf{z},\mathbf{x}\rangle}|\mathbf{z}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right] \\ &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}\sum_{\mathbf{z} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})\oplus\langle\mathbf{z},\mathbf{x}\rangle}|\mathbf{z}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right]
@@ -329,10 +329,10 @@ Por lo que hemos conseguido nuestro objetivo. Tras una única evaluación de $f$
 
  \vspace{10pt}
 
- Veamos cual sería el estado del primer qubit dependiendo de de nuestras posibilidades:\newline
+ Veamos cual sería el estado del primer qubit dependiendo de nuestras posibilidades:\newline
 
  \begin{itemize}
-     \item $f$ es constante:  $\dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}|\mathbf{0}\rangle}{2^{n}}=\dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}|\mathbf{0}\rangle}{2^{n}}=\dfrac{(\pm1)2^{n}|\mathbf{0}\rangle}{2^{n}}=(\pm1)|\mathbf{0}\rangle$
+     \item $f$ es constante:  $\dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}|\mathbf{0}\rangle}{2^{n}}=\dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(\pm1)|\mathbf{0}\rangle}{2^{n}}=\dfrac{(\pm1)2^{n}|\mathbf{0}\rangle}{2^{n}}=(\pm1)|\mathbf{0}\rangle$
 
      \item $f$ es balanceada: 
      $\dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}|\mathbf{0}\rangle}{2^{n}}=\dfrac{0|\mathbf{0}\rangle}{2^{n}}=0|\mathbf{0}\rangle$
@@ -346,21 +346,21 @@ Por lo que hemos conseguido nuestro objetivo. Tras una única evaluación de $f$
 
 \textbf{Oráculo}: El oráculo que utilizamos para este algoritmo puede venir de dos sitios distintos. Podemos programarlo con ayuda de qiskit\footnote{\url{https://learn.qiskit.org/course/ch-algorithms/deutsch-jozsa-algorithm}}, ya que nos explica como crear el oráculo de DJ, sea la función balanceada o constante. O bien, una vez definida la función crear la matriz que representa al operador.\newline
  
-\textbf{Simulaciones}: En el repositorio\footnote{\url{https://github.com/sinugarc/TFG/blob/main/Deustch_Jozsa.ipynb}} podemos encontrar este algoritmo programado con ayuda de \textit{Qiskit}. Una de las peculiaridades que encontramos es la forma en la que \textit{Qiskit} nos presenta los qubits, más bien hay una permutación en la base respecto a la generalmente utilizamos al formalizar matrices. Esto puede ser un problema cuando las puertas las creamos como un operador a partir de la matriz que las determina. El ejemplo de esta situación esta programado, así como pruebas del algoritmo de DJ con la misma matriz. \newline
+\textbf{Simulaciones}: En el repositorio\footnote{\url{https://github.com/sinugarc/TFG/blob/main/Deustch_Jozsa.ipynb}} podemos encontrar este algoritmo programado con ayuda de \textit{Qiskit}. Una de las peculiaridades que encontramos es la forma en la que \textit{Qiskit} nos presenta los qubits, más bien hay una permutación en la base respecto a la generalmente utilizamos al formalizar matrices. Esto puede ser un problema cuando las puertas las creamos como un operador a partir de la matriz que las determina. El ejemplo de esta situación está programado, así como pruebas del algoritmo de DJ con la misma matriz. \newline
 
-Si bien es cierto que todos aquellos algoritmos que tiene programado el oráculo con el procedimiento de Qiskit de forma balanceada su resultado es el ket $|\mathbf{1}\rangle$, esto no tiene porque ser cierto. Si recordamos el análisis final del algoritmo, si obtenemos $|\textbf{0}\rangle$ entonces $f$ es constante y si no, $f$ es balanceada. Por lo que si miramos el algoritmo programado con un operador matricial, podemos observar como el resultado no es ni $|\textbf{0}\rangle$, ni $|\textbf{1}\rangle$, si no que obtenemos $|01\rangle$.
+Si bien es cierto que todas las ejecuciones del algoritmo que tiene programado un oráculo balanceado, siguiendo el procedimiento de Qiskit, obtienen como resultado el ket $|\mathbf{1}\rangle$, esto no tiene por qué ser cierto en general. Si recordamos el análisis final del algoritmo, si obtenemos $|\textbf{0}\rangle$ entonces $f$ es constante y si no, $f$ es balanceada. Es decir, deberíamos de ser capaces de obtener un resultado distinto de $|\textbf{0}\rangle$ y $|\textbf{1}\rangle$. Esto lo podemos observar en el algoritmo programado en el repositorio con un operador matricial. El resultado obtenido no es ni $|\textbf{0}\rangle$, ni $|\textbf{1}\rangle$, sino que resulta ser $|01\rangle$.
 
 
 \section{Bernstein-Vazirani}
 \label{Sec3.4:BV}
 
-El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umesh Vazirani\cite{AR:BV:1997}. Se puede entender que este algoritmo es una generalización más del algoritmo de Deutsch-Jozsa\footnote{\url{https://learn.qiskit.org/course/ch-algorithms/bernstein-vazirani-algorithm}}.\newline
+El algoritmo de Bernstein-Vazirani, fue presentado por Ethan Bernstein y Umesh Vazirani \cite{AR:BV:1997}. Se puede entender que este algoritmo es una generalización más del algoritmo de Deutsch-Jozsa\footnote{\url{https://learn.qiskit.org/course/ch-algorithms/bernstein-vazirani-algorithm}}.\newline
 
 \textbf{Problema}: Sean  $f:\{0,1\}^{n} \rightarrow \{0,1\}$  y  $\mathbf{s}=s_{0}s_{1}...s_{n-1} \in \{0,1\}^{n}$, sabemos por hipótesis que  $f(\mathbf{x})=\mathbf{s}\cdot \mathbf{x}\:\; \text{mod} \; 2 = s_{0}x_{0} \oplus s_{1}x_{1} \oplus ... \oplus s_{n-1}x_{n-1}$. Queremos obtener la cadena $\mathbf{s}$.\newline
 
 \textbf{Solución clásica}: Ejecutamos la función $f$ $n$ veces una con cada elemento de la base canónica. Esto nos permitirá obtener los $n$ elementos de $\mathbf{s}$.\newpage
 
-\textbf{Algoritmo de Bernstein-Vazirani}:
+\textbf{Algoritmo de Bernstein-Vazirani}, análogo a Deutsch-Jozsa
 
  \vspace{10pt}
 
@@ -369,7 +369,7 @@ El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umes
 
  \vspace{40pt}
 
- De forma matricial: $(H^{\otimes n} \otimes I)\: U_{f}\:(I\otimes Z)\:(H^{\otimes n} \otimes H) |\mathbf{0},0\rangle$ \newline
+ De forma matricial: $(H^{\otimes n} \otimes I)\: U_{f}\:(I\otimes Z)\:(H^{\otimes n} \otimes H) |\mathbf{0},0\rangle = (H^{\otimes n} \otimes I)\: U_{f}\:(H^{\otimes n} \otimes H) |\mathbf{0},1\rangle$ \newline
 
 
  Veamos ahora los estados alcanzados, similares al circuito anterior:
@@ -393,7 +393,7 @@ El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umes
     \item Ahora tenemos que superponer la superposición, aplicada sobre otros estados $|\mathbf{z}\rangle$:
 
     \begin{equation}\label{eq:BV:phi3}
-        \begin{split}\mathbf{|\varphi_{3}\rangle} &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}\sum_{\mathbf{z} \in \{0,1\}^{n}}(-1)^{\langle\mathbf{z},\mathbf{x}\rangle}|\mathbf{z}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{2^{n}}\right] \\ &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}\sum_{\mathbf{z} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}(-1)^{\langle\mathbf{z},\mathbf{x}\rangle}|\mathbf{z}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{2^{n}}\right] \\ &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}\sum_{\mathbf{z} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})\oplus\langle\mathbf{z},\mathbf{x}\rangle}|\mathbf{z}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{2^{n}}\right] \\  &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}\sum_{\mathbf{z} \in \{0,1\}^{n}}(-1)^{\langle\mathbf{s},\mathbf{x}\rangle\oplus\langle\mathbf{z},\mathbf{x}\rangle}|\mathbf{z}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{2^{n}}\right] \\ &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}\sum_{\mathbf{z} \in \{0,1\}^{n}}(-1)^{\langle\mathbf{s}\oplus \mathbf{z},\mathbf{x}\rangle}|\mathbf{z}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{2^{n}}\right] \\
+        \begin{split}\mathbf{|\varphi_{3}\rangle} &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}\sum_{\mathbf{z} \in \{0,1\}^{n}}(-1)^{\langle\mathbf{z},\mathbf{x}\rangle}|\mathbf{z}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right] \\ &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}\sum_{\mathbf{z} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})}(-1)^{\langle\mathbf{z},\mathbf{x}\rangle}|\mathbf{z}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right] \\ &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}\sum_{\mathbf{z} \in \{0,1\}^{n}}(-1)^{f(\mathbf{x})\oplus\langle\mathbf{z},\mathbf{x}\rangle}|\mathbf{z}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right] \\  &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}\sum_{\mathbf{z} \in \{0,1\}^{n}}(-1)^{\langle\mathbf{s},\mathbf{x}\rangle\oplus\langle\mathbf{z},\mathbf{x}\rangle}|\mathbf{z}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right] \\ &= \left[ \dfrac{\sum_{\mathbf{x} \in \{0,1\}^{n}}\sum_{\mathbf{z} \in \{0,1\}^{n}}(-1)^{\langle\mathbf{s}\oplus \mathbf{z},\mathbf{x}\rangle}|\mathbf{z}\rangle}{2^{n}}\right] \left[ \dfrac{|0\rangle - |1\rangle}{\sqrt{2}}\right] \\
         \end{split}
     \end{equation}
  \end{itemize}
@@ -412,7 +412,7 @@ El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umes
 
  \vspace{10pt}
 
- \textbf{Oráculo}: Antes de presentar las simulaciones realizadas, vamos a estudiar como a partir de una cadena $\mathbf{s}$ podemos construir un oráculo funcione como $f_{s}$. Según el valor en la cadena se ejecuta una puerta y otra. Primero invertiremos los valores de $\mathbf{s}$ y a continuación, si el valor es 0, entonces pondremos una puerta identidad en la linea del qubit de esa posición y si el valor es 1, pondremos una puerta CNOT entre el qubit de la posición y el qubit ancilla, donde el qubit de control es el de la posición del valor. Los generará la función \textit{$bv\_fgenerator(qc,n0,s)$}, veamos un par de ejemplos ahora:
+ \textbf{Oráculo}: Antes de presentar las simulaciones realizadas, vamos a estudiar como a partir de una cadena $\mathbf{s}$ podemos construir un oráculo funcione como $f_{s}$. Según el valor en la cadena se ejecuta una puerta y otra. Primero invertiremos los valores de $\mathbf{s}$ y a continuación, si el valor es 0, entonces pondremos una puerta identidad, aunque no es necesaria, en la linea del qubit de esa posición y si el valor es 1, pondremos una puerta CNOT entre el qubit de la posición y el qubit ancilla, donde el qubit de control es el de la posición del valor. Los generará la función \textit{$bv\_fgenerator(qc,n0,s)$}, veamos un par de ejemplos ahora:
  
  \begin{figure}[H]
     \centering
@@ -439,7 +439,7 @@ El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umes
 \newpage
 \section{Simon}
 \label{Sec3.5:Simon}
- El algoritmo de Simon, o de periodicidad de Simon, va a ser el primero que no va a usar únicamente computación cuántica, si no que la combina con computación clásica al final del mismo. Veremos cual es el problema y la parte cuántica de la solución, para así ver como procedemos posteriormente hasta encontrar la solución buscada. \newline
+ El algoritmo de Simon, o de periodicidad de Simon, va a ser el primero que no va a usar únicamente computación cuántica, sino que la combina con computación clásica al final del mismo. Veremos cual es el problema y la parte cuántica de la solución, para así ver como procedemos posteriormente hasta encontrar la solución buscada. \newline
 
  Sea $f:\{0,1\}^{n} \rightarrow\{0,1\}^{n}$, la cual no conocemos su definición, pero si sabemos es periódica en el sentido de que existe una cadena binaria $\mathbf{c}=c_{0}c_{1}...c_{n-1}$ tal que $\forall \mathbf{x},\mathbf{y} \in \{0,1\}^{n}$ entonces, $f(\mathbf{x})=f(\mathbf{y})$ si y solo si $\mathbf{x}=\mathbf{y}\oplus\mathbf{c}$ , donde $\oplus$ es la suma binaria bit a bit. Llamaremos $\mathbf{c}$ al \textbf{periodo} de $f$. \newline
 
@@ -505,7 +505,7 @@ El algoritmo de Bernstein-Vazirani, fué presentado por Ethan Bernstein and Umes
 
  \vspace{8pt}
 
- Se puede ver la mejora respecto a la solución clásica, ya que al ser todas las cadenas equiprobables, obtendremos $n$ cadenas distintas en menos ejecuciones que $2^{n-1}+1$, para $n$ suficientemente grande. Se puede ver un ejemplo concreto del desarrollo completo del algoritmo con $f:\{0,1\}^{3} \rightarrow\{0,1\}^{3}$ en \textit{Quantum computing for computer scientists, 190}\cite{B:QuantumScientist:2008}.
+ Se puede ver la mejora respecto a la solución clásica, ya que al ser todas las cadenas equiprobables, obtendremos $n$ cadenas distintas en menos ejecuciones que $2^{n-1}+1$, para $n$ suficientemente grande. Se puede ver un ejemplo concreto del desarrollo completo del algoritmo con $f:\{0,1\}^{3} \rightarrow\{0,1\}^{3}$ en \textit{Quantum computing for computer scientists, 190} \cite{B:QuantumScientist:2008}.
 
  \vspace{8pt}
 
