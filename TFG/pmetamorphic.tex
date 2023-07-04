@@ -88,14 +88,13 @@ Ya nos podemos centrar en nuestra regla I. Para programar este test, vamos a eje
 
 \textbf{Regla II}: Sean $\mathbf{s}$ y $\mathbf{s}'$ cadenas binarias de longitud $n$. Entonces $P(\mathbf{s})\oplus P(\mathbf{s}')=\mathbf{s} \oplus \mathbf{s}'$.\newline
 
- Se puede entender que esta es la generalización de la \hyperref[R:BV:1]{regla I}, si bien es cierto podría incluso generalizarse para 2 cadenas que no tengan que tener la misma longitud o incluso se podría interpretar como $P(f_{\mathbf{s}
-}\oplus f_{\mathbf{s}'})=P(f_{\mathbf{s}})\oplus P(f_{\mathbf{s}'})$, relacionando así dos \textit{output} del \textit{source input} con uno del \textit{follow-up output}.\newline
+ Se puede entender que esta es la generalización de la \hyperref[R:BV:1]{regla I}, si bien es cierto podría incluso generalizarse para 2 cadenas que no tengan que tener la misma longitud o incluso se podría interpretar como $P(\mathbf{s} \oplus \mathbf{s}')=P(\mathbf{s})\oplus P(\mathbf{s}')$, relacionando así dos \textit{output} del \textit{source input} con uno del \textit{follow-up output}.\newline
 
  Las reglas anteriores han sido obtenidas de forma directa por la naturaleza del problema, donde si el resultado es la cadena con la que hemos generado el oráculo, entonces la suma binaria se debe conservar tanto en el \textit{source input} como en el \textit{output}.\newline
 
  El circuito utilizado se muestra en la Figura \ref{Fig:CircuitoBVReglaII}. Es el circuito creado para las cadenas $\mathbf{s}=011$ y $\mathbf{s}1=001$, las cuales se generan de manera aleatoria una vez determinada una longitud $n$ que se pasa como parámetro a la función.\newline
 
- \textbf{Regla III}\label{RIII:BV}: Sean $\mathbf{s}$ y $\mathbf{s}'$ cadenas binarias de longitud $n$. Si entendemos la composición como la concatenación de sus oráculos, entonces $P(f(\mathbf{s}) \circ f(\mathbf{s}'))= P(f_{\mathbf{s}}) \oplus P(f_{\mathbf{s}'})$.\newline
+ \textbf{Regla III}\label{RIII:BV}: Sean $\mathbf{s}$ y $\mathbf{s}'$ cadenas binarias de longitud $n$. Si entendemos la composición como la concatenación de sus oráculos, entonces $P(\mathbf{s} \circ \mathbf{s}')= P(\mathbf{s}) \oplus P(\mathbf{s}') \left[= P(\mathbf{s} \oplus \mathbf{s}')\right]$.\newline
 
  La primera vez que se pensó en esta regla fue directamente desde las ecuaciones del algoritmo, en particular, la ecuación \ref{eq:BV:phi2}. Tras aplicar la primera $f$, en este caso $f_{\mathbf{s}}$, obtendríamos:
 
@@ -130,7 +129,7 @@ Veamos como quedaría el circuito con la concatenación, que incluye este estado
 
  Para la implementación de esta regla, hemos querido reducir la complejidad de las comparaciones y así evitar un uso excesivo de qubits. Hay que recordar que las matrices que usan los simuladores crecen de manera exponencial, ya que la base de $n$ qubits tiene $2^{n}$ elementos. Además en IBM, el máximo sistema cuántico de acceso libre tiene sólo 7 qubits, por lo que quizás para esta regla no tuviéramos problemas, pero para la regla I y II, seguramente no podríamos ejecutarlos.\newline
 
- Por lo que implementamos $P(f(\mathbf{s}) \circ f(\mathbf{s}'))$, ya que la suma por separado sería análoga a las reglas anteriores. De esta manera el circuito que utilizaremos a la hora de realizar MT será, \newline
+ Por lo que implementamos $P(\mathbf{s} \circ \mathbf{s}')$, ya que la suma por separado sería análoga a las reglas anteriores. De esta manera el circuito que utilizaremos a la hora de realizar MT será, \newline
 
  \begin{figure}[H]
     \centering
