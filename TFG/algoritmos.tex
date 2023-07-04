@@ -39,7 +39,7 @@ Esta sección seguirá prácticamente la misma estructura para cada apartado. Co
 
 Aquí se puede apreciar la suma completa, las puertas $X$ antes de las primera barrera codifican las cadenas binarias y luego se sigue el procedimiento explicado, excepto por 2 casos. El primero es que la primera puerta $CCNOT$ no está, esto se debe a que no es necesaria ya que $anc_{3}$ se inicializa en 0, y por lo tanto la puerta no realizaría ningún cambio sobre $anc_{2}$. El segundo es la inversión en la medición de los qubits, esta decisión se debe a una característica que tiene Qiskit con los qubits, en especial con la base que utiliza. De esta manera nos aseguramos el orden de los bits correctos, como se puede ver en el documento del repositorio. Esta peculiaridad se estudiará más a fondo con el \hyperref[A:DJ]{algoritmo de Deutsch-Jozsa}.\newline
 
-\textbf{Simulaciones}: La simulación y código se encuentran en el repositorio\footnote{\url{https://github.com/sinugarc/TFG/blob/main/SumaNat.ipynb}}.
+\textbf{Simulaciones}: La simulación y código se encuentran en el repositorio \footnote{\url{https://github.com/sinugarc/TFG/blob/main/SumaNat.ipynb}}.
 
 
 \section{Deutsch}
@@ -215,7 +215,7 @@ Por lo que hemos conseguido nuestro objetivo. Tras una única evaluación de $f$
 
 \vspace{5pt}
 
-\textbf{Simulaciones}: Las simulaciones y código se encuentran en el repositorio\footnote{\url{https://github.com/sinugarc/TFG/blob/main/Deutsch.ipynb}}.
+\textbf{Simulaciones}: Las simulaciones y código se encuentran en el repositorio \footnote{\url{https://github.com/sinugarc/TFG/blob/main/Deutsch.ipynb}}.
 
 \section{Deutsch-Jozsa}
 \label{Sec3.3:Deutsch-Jozsa}
@@ -344,9 +344,9 @@ Por lo que hemos conseguido nuestro objetivo. Tras una única evaluación de $f$
 
  \textbf{Observación}: Hay que tener en cuenta, que si la función no es ni balanceada ni constante, este algoritmo no soluciona el problema y el resultado no es concluyente. Esto se debe a que cualquier valor que nos devuelva el algoritmo tiene un interpretación, $|\textbf{0}\rangle$ si $f$ constante y si no, $f$ es balanceada. Es decir, si $f$ no es ni constante ni balanceada, el resultado sea el que sea va a ser erróneo. Y esto explica porque es una de nuestras hipótesis. \newline
 
-\textbf{Oráculo}: El oráculo que utilizamos para este algoritmo puede venir de dos sitios distintos. Podemos programarlo con ayuda de qiskit\footnote{\url{https://learn.qiskit.org/course/ch-algorithms/deutsch-jozsa-algorithm}}, ya que nos explica como crear el oráculo de DJ, sea la función balanceada o constante. O bien, una vez definida la función crear la matriz que representa al operador.\newline
+\textbf{Oráculo}: El oráculo que utilizamos para este algoritmo puede venir de dos sitios distintos. Podemos programarlo con ayuda de qiskit \footnote{\url{https://learn.qiskit.org/course/ch-algorithms/deutsch-jozsa-algorithm}}, ya que nos explica como crear el oráculo de DJ, sea la función balanceada o constante. O bien, una vez definida la función crear la matriz que representa al operador.\newline
  
-\textbf{Simulaciones}: En el repositorio\footnote{\url{https://github.com/sinugarc/TFG/blob/main/Deustch_Jozsa.ipynb}} podemos encontrar este algoritmo programado con ayuda de \textit{Qiskit}. Una de las peculiaridades que encontramos es la forma en la que \textit{Qiskit} nos presenta los qubits, más bien hay una permutación en la base respecto a la generalmente utilizamos al formalizar matrices. Esto puede ser un problema cuando las puertas las creamos como un operador a partir de la matriz que las determina. El ejemplo de esta situación está programado, así como pruebas del algoritmo de DJ con la misma matriz. \newline
+\textbf{Simulaciones}: En el repositorio \footnote{\url{https://github.com/sinugarc/TFG/blob/main/Deustch_Jozsa.ipynb}} podemos encontrar este algoritmo programado con ayuda de \textit{Qiskit}. Una de las peculiaridades que encontramos es la forma en la que \textit{Qiskit} nos presenta los qubits, más bien hay una permutación en la base respecto a la generalmente utilizamos al formalizar matrices. Esto puede ser un problema cuando las puertas las creamos como un operador a partir de la matriz que las determina. El ejemplo de esta situación está programado, así como pruebas del algoritmo de DJ con la misma matriz. \newline
 
 Si bien es cierto que todas las ejecuciones del algoritmo que tiene programado un oráculo balanceado, siguiendo el procedimiento de Qiskit, obtienen como resultado el ket $|\mathbf{1}\rangle$, esto no tiene por qué ser cierto en general. Si recordamos el análisis final del algoritmo, si obtenemos $|\textbf{0}\rangle$ entonces $f$ es constante y si no, $f$ es balanceada. Es decir, deberíamos de ser capaces de obtener un resultado distinto de $|\textbf{0}\rangle$ y $|\textbf{1}\rangle$. Esto lo podemos observar en el algoritmo programado en el repositorio con un operador matricial. El resultado obtenido no es ni $|\textbf{0}\rangle$, ni $|\textbf{1}\rangle$, sino que resulta ser $|01\rangle$.
 

@@ -100,7 +100,7 @@ Además, alcanzamos los siguiente resultados sobre el producto tensorial:
     Además, si $A$ y $B$ unitarias, entonces $A\otimes B$ es unitaria.
 
     \vspace{5pt}
-    \item \textbf{Dimensión}: $dim(\mathscr{H} \otimes \mathscr{H}')=dim(\mathscr{H})\cdot dim(\mathscr{H}')$
+    \item \textbf{Dimensión}: $\dim(\mathscr{H} \otimes \mathscr{H}')=\dim(\mathscr{H})\cdot \dim(\mathscr{H}')$
 \end{itemize}
 
 Estos dos últimos apartados nos muestran la complejidad que tendremos a la hora de realizar cálculos, ya que la dimensión de las matrices va a crecer de manera exponencial.
@@ -206,18 +206,24 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
  
  Por lo que, $a_{0}a_{0}'=a_{1}a_{1}'=1$ y $a_{0}a_{1}'=a_{1}a_{0}'=0$. Pero este sistema de ecuaciones no tiene solución, es decir, $\sqrt{2}\:|\varphi\rangle$ no se puede expresar como producto tensorial y en particular, el $Bell\:state$, $|\varphi\rangle$, tampoco.\newline
  
- Ahora queremos realizar una medición con base $\{|0\rangle,|1\rangle\}$, pero sabemos que sólo podemos obtener los resultados $|00\rangle$ o $|11\rangle$. Es decir, cuando realice la medición sobre el primer qubit ya sabremos el valor del segundo sin haberlo medido \footnote{\url{https://jcc.dcc.fceia.unr.edu.ar/2006/slides/2006-diazcaro-samborskiforlese.pdf}}. Podemos encontrar otros ejemplos y preguntas muy interesantes sobre \textit{entanglement} en la \href{https://quantum-computing.ibm.com/composer/docs/iqx/guide/entanglement}{página de IBM}, donde estudia distintas posibilidades con la puerta CNOT, que presentaremos a continuación, y estados interesantes como \textit{Bell state}, \textit{GHZ states} and \textit{W states}.\newline
+ Ahora queremos realizar una medición con base $\{|0\rangle,|1\rangle\}$, pero sabemos que sólo podemos obtener los resultados $|00\rangle$ o $|11\rangle$. Es decir, cuando realice la medición sobre el primer qubit ya sabremos el valor del segundo sin haberlo medido \footnote{\url{https://jcc.dcc.fceia.unr.edu.ar/2006/slides/2006-diazcaro-samborskiforlese.pdf}}. Podemos encontrar otros ejemplos y preguntas muy interesantes sobre \textit{entanglement} en la página de IBM \footnote{\url{{https://quantum-computing.ibm.com/composer/docs/iqx/guide/entanglement}}}, donde estudia distintas posibilidades con la puerta CNOT, que presentaremos a continuación, y estados interesantes como \textit{Bell state}, \textit{GHZ states} and \textit{W states}.
 
- Otro resultado interesante es el Teorema de no Clonación, el cual establece que no es posible copiar el estado desconocido de un qubit a otro qubit. Esto se puede entender, debido a que si observáramos el qubit, estaríamos realizando una medición y el estado colapsaría.\newline
+ \vspace{8pt}
 
- \textbf{Teorema 2.1 (No clonación)} \cite{B:Nielsen:2002}: Sean $\mathcal{H}$ un espacio de Hilbert en $\mathbb{C}$ y $|\psi\rangle \in \mathcal{H}$. Entonces, $\nexists U$ unitario sobre $\mathcal{H}\otimes\mathcal{H}$ tal que $U|\varphi\rangle|\psi\rangle=|\varphi\rangle|\varphi\rangle\:\:\forall\:|\varphi\rangle\in\mathcal{H}$.\footnote{\url{https://es.wikipedia.org/wiki/Teorema_de_no_clonaci\%C3\%B3n}}
+ Otro resultado interesante es el Teorema de no Clonación, el cual establece que no es posible copiar el estado desconocido de un qubit a otro qubit. Esto se puede entender, debido a que si observáramos el qubit, estaríamos realizando una medición y el estado colapsaría.
+
+ \vspace{8pt}
+
+ \textbf{Teorema 2.1 (No clonación)} \cite{B:Nielsen:2002}: Sean $\mathcal{H}$ un espacio de Hilbert en $\mathbb{C}$ y $|\psi\rangle \in \mathcal{H}$. Entonces, $\nexists U$ unitario sobre $\mathcal{H}\otimes\mathcal{H}$ tal que $U|\varphi\rangle|\psi\rangle=|\varphi\rangle|\varphi\rangle\:\:\forall\:|\varphi\rangle\in\mathcal{H}$ \footnote{\url{https://es.wikipedia.org/wiki/Teorema_de_no_clonaci\%C3\%B3n}}.
 
 
 \subsection{Puertas y circuitos cuánticos}
 
- Partiendo del tercer postulado, en particular el \hyperref[Postulado3.2]{apartado 2}, podemos observar que existe una correspondencia entre el Hamiltoniano $H$, por ser hermitiano, y un operador unitario $U$. Estos operadores unitarios serán nuestras \textbf{puertas cuánticas} que utilizaremos junto a los qubits. Este postulado viene de la evolución \textbf{determinista} desde un puesto de vista dinámico, donde no se realiza ninguna observación sobre el sistema.  Uno de los puntos importantes de que estos operadores sean unitarios es que conservan la norma, lo cual garantiza que no se rompa la condición de normalización en la definición de qubit. \newline
+ Partiendo del tercer postulado, en particular el \hyperref[Postulado3.2]{apartado 2}, podemos observar que existe una correspondencia entre el Hamiltoniano $H$, por ser hermitiano, y un operador unitario $U$. Estos operadores unitarios serán nuestras \textbf{puertas cuánticas} que utilizaremos junto a los qubits. Este postulado viene de la evolución \textbf{determinista} desde un puesto de vista dinámico, donde no se realiza ninguna observación sobre el sistema.  Uno de los puntos importantes de que estos operadores sean unitarios es que conservan la norma, lo cual garantiza que no se rompa la condición de normalización en la definición de qubit. 
+
+ \vspace{8pt}
  
- En programación cuántica, es posible crear operadores unitarios directamente utilizando matrices que cumplan las condiciones necesarias. Aunque, se suelen utilizar puertas cuánticas específicas que están diseñadas para utilizarse en ordenadores cuánticos reales \cite{Note:Martin}. A continuación, veremos algunas de las puertas cuánticas más útiles para un qubit: \cite{B:Nielsen:2002} \footnote{\url{https://en.wikipedia.org/wiki/Quantum_logic_gate}}
+ En programación cuántica, es posible crear operadores unitarios directamente utilizando matrices que cumplan las condiciones necesarias. Aunque, se suelen utilizar puertas cuánticas específicas que están diseñadas para utilizarse en ordenadores cuánticos reales \cite{Note:Martin}. A continuación, veremos algunas de las puertas cuánticas más útiles para un qubit \cite{B:Nielsen:2002} \footnote{\url{https://en.wikipedia.org/wiki/Quantum_logic_gate}}:
 
  \begin{itemize}
     \item \textbf{Puertas de Pauli}: Estas puertas son la más básicas y nos van a permitir, a excepción de la identidad, realizar rotaciones de $\pi$ radianes dentro de las esfera de Bloch, cada una sobre el eje que indica su propio nombre. Las matrices que determinan estas puertas generan una base del espacio de matrices hermitianas 2x2.
@@ -279,7 +285,7 @@ Todos estos postulados van a ser clave en los distintos aspectos de la computaci
 Observemos ahora las puertas más importantes para más de un qubit, en particular nos vamos a fijar en 2 y 3 qubits, para 2 utilizaremos la base $\{|00\rangle,\:|01\rangle,\:|10\rangle,\:|11\rangle\}$ y la análoga para 3 qubits.
 
  \begin{itemize}
-     \item \textbf{CNOT}, también conocida como \textit{puerta de control Pauli-X}. Es un caso particular de las puertas de control sobre cualquier operador. En este caso, sobre la puerta X. \newline 
+     \item \textbf{CNOT}, también conocida como \textbf{puerta de control Pauli-X}. Es un caso particular de las puertas de control sobre cualquier operador. En este caso, sobre la puerta X. \newline 
      Este operador viene determinado por la matriz, 
      
      \begin{equation*}
@@ -311,7 +317,7 @@ Observemos ahora las puertas más importantes para más de un qubit, en particul
      Esta puerta, al igual que CNOT, podría generalizarse para un operador unitario U.
  \end{itemize}
 
- Existe un concepto que se utiliza a menudo que es el de \textbf{conjunto de puertas universales}\footnote{\url{https://en.wikipedia.org/wiki/Quantum_logic_gate\#Universal_quantum_gates}}, que se define como el conjunto de puertas al que toda operación unitaria se puede reducir. Aunque, esto teóricamente es imposible debido a que el número de puertas que se pueden construir es no numerable, y cualquier conjunto finito que definamos sí lo es. Para solucionar este problema, nos apoyamos en el teorema de \textit{Solovay–Kitaev} \footnote{\url{https://en.wikipedia.org/wiki/Solovay\%E2\%80\%93Kitaev_theorem}}, que garantiza que esta reducción se puede hacer de forma eficiente, es decir, aproximándola con la precisión necesaria. Los ejemplos más conocidos son:
+ Existe un concepto que se utiliza a menudo que es el de \textbf{conjunto de puertas universales} \footnote{\url{https://en.wikipedia.org/wiki/Quantum_logic_gate\#Universal_quantum_gates}}, que se define como el conjunto de puertas al que toda operación unitaria se puede reducir. Aunque, esto teóricamente es imposible debido a que el número de puertas que se pueden construir es no numerable, y cualquier conjunto finito que definamos sí lo es. Para solucionar este problema, nos apoyamos en el teorema de \textit{Solovay–Kitaev} \footnote{\url{https://en.wikipedia.org/wiki/Solovay\%E2\%80\%93Kitaev_theorem}}, que garantiza que esta reducción se puede hacer de forma eficiente, es decir, aproximándola con la precisión necesaria. Los ejemplos más conocidos son:
 
  \begin{itemize}
      \item $\{R_{\hat{x}},R_{\hat{y}},R_{\hat{z}},P,CNOT\}$
@@ -369,7 +375,7 @@ Observemos ahora las puertas más importantes para más de un qubit, en particul
  \end{itemize}
  
 \subsection{Simulaciones y ruido} 
- Una vez que ya hemos visto las puertas que podemos usar en un circuito cuántico, así como un ejemplo del mismo, veamos una introducción a las distintas opciones para la ejecución. \textit{Qiskit} traduce a bajo nivel a \textit{qasm}, que es lo que se va a ejecutar al final. Para ello tenemos las dos opciones siguientes\footnote{\url{https://qiskit.org/documentation/qc_intro.html}}: 
+ Una vez que ya hemos visto las puertas que podemos usar en un circuito cuántico, así como un ejemplo del mismo, veamos una introducción a las distintas opciones para la ejecución. \textit{Qiskit} traduce a bajo nivel a \textit{qasm}, que es lo que se va a ejecutar al final. Para ello tenemos las dos opciones siguientes \footnote{\url{https://qiskit.org/documentation/qc_intro.html}}: 
  
  \begin{itemize}
      \item \textbf{Simulación}, en nuestro caso con los simuladores de IBM. Esta posibilidad nos va a ofrecer una simulación teórica de lo que ocurre en nuestro circuito. Será ejecutado a través de un simulador de IBM y nos va a permitir obtener resultados con seguridad y sin ningún problema asociado de errores o ruido. Hay que entender que las simulaciones van a tener una limitación debido a la dimensión de las matrices con las que estamos tratando, ya que el coste es exponencial.
@@ -388,7 +394,7 @@ Observemos ahora las puertas más importantes para más de un qubit, en particul
  Veamos un ejemplo para entender la diferencia de resultados de utilizar un opción u otra. Para ello vamos a usar los resultados del circuito presentado en la figura \ref{Fig:CircuitoBV} del algoritmo de Bernstein-Vazirani que se presentará en el siguiente capítulo. Este algoritmo nos debería dar un resultado único, pero veamos qué ocurre. \newline
 
 
-Se puede observar en la figura \ref{FIG:ComparacionRealSim} la diferencia entre la simulación teórica (a) y la ejecución con el sistema ibmq\_lima (b). Nuestra simulación nos ha dado únicamente el resultado querido, pero al ejecutarlo en un sistema cuántico nos ha dado una variedad de resultados, aunque no todos los posibles. Si bien es cierto que el más probable, con suficiente diferencia, es idéntico al obtenido con la simulación. Cabe destacar de la figura \ref{sFig:Comp_b} que los de mayor probabilidad, una vez eliminada la solución, son aquellos en los cuales solo varía 1 dígito y por el contrario, el complementario binario no ha aparecido como resultado en ninguna de las ejecuciones realizadas.
+Se puede observar en la Figura \ref{FIG:ComparacionRealSim} la diferencia entre la simulación teórica (a) y la ejecución con el sistema ibmq\_lima (b). Nuestra simulación nos ha dado únicamente el resultado querido, pero al ejecutarlo en un sistema cuántico nos ha dado una variedad de resultados, aunque no todos los posibles. Si bien es cierto que el más probable, con suficiente diferencia, es idéntico al obtenido con la simulación. Cabe destacar de la Figura \ref{sFig:Comp_b} que los de mayor probabilidad, una vez eliminada la solución, son aquellos en los cuales solo varía 1 dígito y por el contrario, el complementario binario no ha aparecido como resultado en ninguna de las ejecuciones realizadas.
 
   \begin{figure}[H]
     \centering
@@ -418,7 +424,7 @@ Se puede observar en la figura \ref{FIG:ComparacionRealSim} la diferencia entre 
     \label{FIG:ComparacionRealSim}
  \end{figure}
 
-Para acabar con esta sección, como curiosidad y por completitud, hemos mencionado antes que \textit{Qiskit} traduce a \textit{qasm} a la hora de ejecutar. La función utilizada en \textit{Qiskit} para ensamblar el programa es \textit{assemble} que devuelve un objeto de clase \textit{QasmQobj} \footnote{\url{https://qiskit.org/documentation/stubs/qiskit.compiler.assemble.html}}. El código que utilizaría \textit{Qiskit} para la ejecución del circuito presentado anteriormente lo podemos encontrar en el trabajo generado en el sistema cuántico de IBM\footnote{\url{https://quantum-computing.ibm.com/}}. Además, vamos a poder observar en la Figura \ref{FIG:IBMCircBV} el circuito transformado acorde a las puertas de las que dispone el sistema cuántico elegido. Este circuito es el análogo a la Figura \ref{Fig:CircuitoBV} con resultados en la Figura \ref{sFig:Comp_b}.\newline
+Para acabar con esta sección, como curiosidad y por completitud, hemos mencionado antes que \textit{Qiskit} traduce a \textit{qasm} a la hora de ejecutar. La función utilizada en \textit{Qiskit} para ensamblar el programa es \textit{assemble} que devuelve un objeto de clase \textit{QasmQobj} \footnote{\url{https://qiskit.org/documentation/stubs/qiskit.compiler.assemble.html}}. El código que utilizaría \textit{Qiskit} para la ejecución del circuito presentado anteriormente lo podemos encontrar en el trabajo generado en el sistema cuántico de IBM \footnote{\url{https://quantum-computing.ibm.com/}}. Además, vamos a poder observar en la Figura \ref{FIG:IBMCircBV} el circuito transformado acorde a las puertas de las que dispone el sistema cuántico elegido. Este circuito es el análogo a la Figura \ref{Fig:CircuitoBV} con resultados en la Figura \ref{sFig:Comp_b}.\newline
 
 \begin{figure}[H]
     \centering
@@ -431,10 +437,10 @@ Para acabar con esta sección, como curiosidad y por completitud, hemos menciona
 \section{Propiedades Metamórficas / \textit{Testing} metamórfico}
 \label{Sec2.4:Metamorfico}
 
-Informalmente entendemos como propiedad metamórfica, en adelante MR del inglés \textit{metamorphic rule}, aquella que podemos derivar de forma lógica de una definición o especificación. Empecemos con un ejemplo para ponernos en situación, nos vamos a fijar en la función seno, $f(x)=sin(x)$.\newline
+Informalmente entendemos como propiedad metamórfica, en adelante MR del inglés \textit{metamorphic rule}, aquella que podemos derivar de forma lógica de una definición o especificación. Empecemos con un ejemplo para ponernos en situación, nos vamos a fijar en la función seno, $f(x)=\sin(x)$.\newline
 
 
-La definición que aprendemos cuando se empieza a ver trigonometría, es que el seno es la proporción entre el cateto opuesto y la hipotenusa en un triángulo rectángulo. Teniendo esta imagen la cabeza es muy fácil darse cuenta que $sin(x)=sin(x + 2\pi)=sin(\pi-x)$. Estas son dos propiedades metamórficas de la función seno. \newline
+La definición que aprendemos cuando se empieza a ver trigonometría, es que el seno es la proporción entre el cateto opuesto y la hipotenusa en un triángulo rectángulo. Teniendo esta imagen la cabeza es muy fácil darse cuenta que $\sin(x)=\sin(x + 2\pi)=\sin(\pi-x)$. Estas son dos propiedades metamórficas de la función seno. \newline
 
 Veamos ahora que es lo que consideramos formalmente una MR y como llegamos a los pasos de \textit{testing} metamórfico, en adelante MT del inglés \textit{metamorphic testing} \cite{AR:MTmain:2008}:\newline
 
